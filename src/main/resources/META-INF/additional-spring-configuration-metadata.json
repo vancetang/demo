@@ -1,0 +1,9 @@
+{
+    "properties": [
+        {
+            "name": "env",
+            "type": "java.lang.String",
+            "description": "執行環境"
+        }
+    ]
+}

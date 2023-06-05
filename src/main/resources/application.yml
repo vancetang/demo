@@ -1,0 +1,7 @@
+env: dev111vance
+spring:
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        locale: zh_CN
+        time-zone: GMT+8
+        default-property-inclusion: NON_NULL
