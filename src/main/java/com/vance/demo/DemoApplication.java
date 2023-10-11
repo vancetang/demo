@@ -6,6 +6,11 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Application主程式
+ * 
+ * @author Vance
+ */
 @Slf4j
 @SpringBootApplication
 @ServletComponentScan

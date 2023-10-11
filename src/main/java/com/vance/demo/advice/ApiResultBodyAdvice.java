@@ -15,7 +15,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import com.vance.demo.pojo.ApiResult;
 
 /**
- * 增加註解說明
+ * 針對API回應訊息，重新包裝
+ * 
+ * @author Vance
  */
 @RestControllerAdvice
 public class ApiResultBodyAdvice implements ResponseBodyAdvice<Object> {

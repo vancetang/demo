@@ -7,6 +7,8 @@ import com.vance.demo.enums.ResultCodeEnum;
 
 /**
  * API共用回應物件
+ * 
+ * @author Vance
  */
 public class ApiResult {
     /** URL path */

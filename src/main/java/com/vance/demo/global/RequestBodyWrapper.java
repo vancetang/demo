@@ -17,6 +17,11 @@ import org.springframework.util.StreamUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * Request重新包裝
+ * 
+ * @author Vance
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class RequestBodyWrapper extends HttpServletRequestWrapper {

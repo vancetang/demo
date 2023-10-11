@@ -19,6 +19,11 @@ import com.vance.demo.pojo.ApiResult;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 測試用controller
+ * 
+ * @author Vance
+ */
 @Slf4j
 @RestController
 @RequestMapping(path = "/api")
@@ -45,7 +50,7 @@ public class TestController {
 
     @PostMapping("/test3")
     public Map<String, Object> test3() {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(10);
         result.put("vance-name", "test");
         return result;
     }

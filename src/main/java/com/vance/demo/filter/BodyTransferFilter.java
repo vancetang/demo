@@ -14,6 +14,11 @@ import com.vance.demo.global.RequestBodyWrapper;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Filter將request重新包裝
+ * 
+ * @author Vance
+ */
 @Slf4j
 public class BodyTransferFilter implements Filter {
     @Override
