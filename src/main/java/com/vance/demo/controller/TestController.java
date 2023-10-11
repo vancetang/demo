@@ -1,6 +1,5 @@
 package com.vance.demo.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.Maps;
 import com.vance.demo.model.User;
 import com.vance.demo.pojo.ApiResult;
 
@@ -50,7 +50,7 @@ public class TestController {
 
     @PostMapping("/test3")
     public Map<String, Object> test3() {
-        Map<String, Object> result = new HashMap<>(10);
+        Map<String, Object> result = Maps.newHashMapWithExpectedSize(10);
         result.put("vance-name", "test");
         return result;
     }
