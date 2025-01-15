@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class TestControllerTest {
     @Test
     void testTest() {
-        int a = 2;
+        int a = 3;
         Assertions.assertNotEquals(1, a);
     }
 }
