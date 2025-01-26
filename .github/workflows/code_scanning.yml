@@ -2,11 +2,11 @@ name: "Code Scanning"
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [master, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [master, develop]
     paths-ignore:
-      - '**/*.md'
+      - "**/*.md"
 
 jobs:
   codeql-build:
@@ -25,7 +25,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: javascript
+          languages: java
           config: |
             paths-ignore:
               - '**/test'
