@@ -1,4 +1,4 @@
-name: Sync Master into Develop 12
+name: Sync Master into Develop
 
 on:
   pull_request:
