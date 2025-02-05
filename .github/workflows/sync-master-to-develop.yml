@@ -2,6 +2,8 @@ name: Sync Master into Develop
 
 on:
   pull_request:
+    types:
+      - closed
     branches:
       - master
 
