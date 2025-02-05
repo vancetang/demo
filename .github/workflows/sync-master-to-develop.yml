@@ -1,4 +1,4 @@
-name: Merge Master into Develop
+name: Sync Master into Develop
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         with:
           ref: develop
 
-      - name: Merge Master into Develop
+      - name: Sync Master into Develop
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
