@@ -22,7 +22,7 @@ jobs:
         with:
           ref: develop
 
-      - name: 檢查是否為合併
+      - name: 同步 master 到 develop
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
