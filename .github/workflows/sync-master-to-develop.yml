@@ -1,9 +1,7 @@
 name: Sync Master into Develop
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - master
 
@@ -13,7 +11,6 @@ permissions:
 
 jobs:
   merge_job:
-    if: github.event.pull_request.merged == true # 確保是合併的拉取請求
     runs-on: ubuntu-latest
 
     steps:
