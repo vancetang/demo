@@ -1,27 +1,25 @@
-name: PR Auto Merge
+name: Sync master to develop
 
 on:
   push:
     branches:
-      - master
+      - master # 當 master 分支有 push 事件時觸發
 
 jobs:
-  merge:
+  sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: develop
 
-      - name: Set up Git
+      - name: Configure Git
         run: |
-          git config --global user.name "GitHub Action[bot]"
-          git config --global user.email "actions[bot]@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
-      - name: Merge master into develop
+      - name: Sync with develop
         run: |
+          git fetch origin
           git checkout develop
-          git pull origin master
-          git push
+          git merge origin/master --no-edit
+          git push origin develop
