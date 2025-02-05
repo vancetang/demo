@@ -1,4 +1,4 @@
-name: Sync Master into Develop
+name: Sync Master into Develop(同步)
 
 on:
   push:
