@@ -51,7 +51,7 @@ public class TestController {
     @PostMapping("/test3")
     public Map<String, Object> test3() {
         Map<String, Object> result = Maps.newHashMapWithExpectedSize(10);
-        result.put("vance-name", "test");
+        result.put("vance-name", "test1");
         return result;
     }
 
