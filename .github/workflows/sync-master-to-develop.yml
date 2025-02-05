@@ -1,4 +1,4 @@
-name: Sync Master into Develop-test
+name: Sync Master into Develop
 
 on:
   push:
