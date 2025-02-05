@@ -23,4 +23,5 @@ jobs:
       - name: Merge master into develop
         run: |
           git checkout develop
-          git merge master
+          git pull origin master
+          git push
