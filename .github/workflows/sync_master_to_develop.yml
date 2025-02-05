@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master # 當 master 分支有 push 事件時觸發
-    paths-ignore:
-      - ".github/**" # 忽略 GitHub Action 設定檔的變更
 
 permissions:
   contents: write
