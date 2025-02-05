@@ -20,10 +20,10 @@ jobs:
         with:
           fetch-depth: 0 # 拉取完整歷史紀錄
 
-      - name: Configure Git
+      - name: Set up Git user
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Sync with develop
         run: |
