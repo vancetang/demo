@@ -35,9 +35,9 @@ public class TestController {
     @GetMapping("/test")
     public ApiResult test(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        log.info("{}", Objects.isNull(session));
+        log.info("Session is null: {}", Objects.isNull(session));
         if (Objects.nonNull(session)) {
-            log.info("{}", session.getId());
+            log.info("Session ID: {}", session.getId());
         }
         return ApiResult.success().data("say", "hello world").data("env", env);
     }
