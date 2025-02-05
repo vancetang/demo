@@ -6,6 +6,10 @@ on:
     branches:
       - master # 監聽合併到 master 的 PR
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   sync_job:
     if: github.event.pull_request.merged == true # 確保 PR 被合併
