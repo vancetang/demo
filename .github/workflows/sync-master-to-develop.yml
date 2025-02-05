@@ -19,11 +19,11 @@ jobs:
       - name: Checkout Develop Branch
         uses: actions/checkout@v4
         with:
-          ref: develop # 檢出 develop 分支
+          ref: develop # checkout develop 分支
 
       - name: Merge Master into Develop
         run: |
           git config --global user.name  "GitHub Action"
           git config --global user.email "action@github.com"
-          git pull --rebase origin master  # 從 master 獲取最新變更
-          git push origin develop  # 將變更推送到 develop 分支
+          git pull --rebase origin master
+          git push origin develop
