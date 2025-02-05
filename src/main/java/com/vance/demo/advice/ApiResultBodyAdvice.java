@@ -27,7 +27,7 @@ public class ApiResultBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType mediaType,
             Class<? extends HttpMessageConverter<?>> converterType, ServerHttpRequest request,
             ServerHttpResponse response) {
-        if (Objects.nonNull(body)) {
+        if (body instanceof ApiResult) {
             ApiResult result = (ApiResult) body;
             return result.setPath(request.getURI().getPath());
         }
@@ -38,9 +38,6 @@ public class ApiResultBodyAdvice implements ResponseBodyAdvice<Object> {
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         // RestController 且回傳型態為 ApiResult
         Method method = returnType.getMethod();
-        if (Objects.nonNull(method) && Objects.equals(method.getReturnType(), ApiResult.class)) {
-            return true;
-        }
-        return false;
+        return Objects.nonNull(method) && Objects.equals(method.getReturnType(), ApiResult.class);
     }
 }
