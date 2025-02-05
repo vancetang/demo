@@ -25,7 +25,6 @@ jobs:
 
       - name: Sync with develop
         run: |
-          git fetch origin
           git checkout develop
           git merge origin/master --no-edit || "Merge conflict, needs manual resolution."
           git push origin develop || true
