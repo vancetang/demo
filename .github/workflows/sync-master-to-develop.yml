@@ -1,7 +1,7 @@
-name: Sync Master into Develop(同步)
+name: Sync Master into Develop
 
 on:
-  push:
+  pull_request:
     branches:
       - master
 
@@ -10,7 +10,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  merge:
+  merge_job:
+    if: github.event.pull_request.merged == true # 確保是合併的拉取請求
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +21,6 @@ jobs:
           ref: develop
 
       - name: 檢查是否為合併
-        if: github.event.head_commit.message == 'Merge pull request'
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
