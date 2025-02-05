@@ -1,4 +1,4 @@
-name: PR Update develop
+name: Merge Master into Develop
 
 on:
   push:
@@ -11,13 +11,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      - name: Update develop
+      - name: Merge Master into Develop
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git fetch origin
           git checkout develop
           git pull origin master
           git push origin develop
