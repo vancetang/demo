@@ -1,0 +1,51 @@
+name: Auto Sync Branchs & Notify
+
+on:
+  push:
+    branches:
+      - master # 當 master 分支有更新時觸發
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  sync-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 確保可以取得完整的 Git 紀錄，避免 Merge 問題
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Auto Merge Master into Branches
+        env:
+          BRANCHES: "develop" # 需同步的分支清單
+        run: |
+          for branch in $BRANCHES; do
+            echo "Merging master into $branch"
+            git checkout $branch
+            git merge origin/master --no-edit || {
+              echo "Merge conflict detected in $branch"
+              echo "Branch $branch has conflicts with master." >> conflicts.txt
+              git merge --abort
+            }
+            git push origin $branch
+          done
+
+      - name: Send Notification if Conflicts Detected
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+        if: failure() # 只有當 Merge 發生衝突時才執行
+        run: |
+          if [ -f conflicts.txt ]; then
+            echo "Sending conflict notifications..."
+            gh issue create --title "Merge Conflict Detected" --body "$(cat conflicts.txt)" --assignee $OWNER
+          fi
