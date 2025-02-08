@@ -19,17 +19,11 @@ jobs:
       - name: 取得 Tag 所屬的分支
         id: branch
         run: |
-          git fetch --all  # 確保拿到最新的遠端資訊
-
-          # 取出符合條件的分支
-          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master|develop)' | head -n 1)
+          # 取得所有分支
+          git fetch --all 
+          # 取得 Tag 所屬的分支
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo 'origin/.*' | sed 's/origin\///' | head -n 1)
 
           echo "Tag Commit: ${{ github.sha }}"
           echo "對應的分支: $BRANCH_NAME"
-
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_OUTPUT
-
-      - name: Set Test
-        run: |
-          echo "VV=>${{ steps.branch.outputs.BRANCH_NAME }}"
-          echo "VV=>$BRANCH_NAME"
