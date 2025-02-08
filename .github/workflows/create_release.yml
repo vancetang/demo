@@ -13,12 +13,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Get branch name
+        id: branch
+        run: |
+          $BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master)')
+          echo "本次BRANCH=$BRANCH_NAME"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: skip if not master
+        if: steps.branch.outputs.BRANCH_NAME == ''
+        run: |
+          echo "Not on master branch, exiting"
+          exit 0
+
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && steps.branch.outputs.BRANCH_NAME != ''
         with:
           generate_release_notes: true # true 產生 release notes
           prerelease: false # false 正式發佈版本 (Stable Release
