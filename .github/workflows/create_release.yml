@@ -22,15 +22,9 @@ jobs:
           BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master)' | head -n 1)
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
-      - name: skip if not master
-        if: steps.branch.outputs.BRANCH_NAME == ''
-        run: |
-          echo "Not on master branch, exiting"
-          exit 1
-
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && steps.branch.outputs.BRANCH_NAME != ''
         with:
           generate_release_notes: true # true 產生 release notes
           prerelease: false # false 正式發佈版本 (Stable Release
