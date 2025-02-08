@@ -19,7 +19,8 @@ jobs:
       - name: Get branch name
         id: branch
         run: |
-          git branch -r --contains ${{ github.sha }}
+          BRANCH_NM=$(git branch -r --contains ${{ github.sha }})
+          echo "${BRANCH_NM}"
 
       - name: Set Test
         run: |
