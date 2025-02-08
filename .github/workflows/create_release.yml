@@ -19,14 +19,14 @@ jobs:
       - name: 依條件設定分支名稱
         id: branch
         env:
-          BRANCH_PATTERN: "develop"
+          ALLOWED_BRANCHES: "master"
         run: |
           # 取得所有分支
           git fetch --all 
           # 依條件取得分支名稱
-          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(${{env.BRANCH_PATTERN}})' | head -n 1)
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(${{env.ALLOWED_BRANCHES}})' | head -n 1)
           echo "Tag Commit: ${{ github.sha }}"
-          echo "允分支名稱: ${{env.BRANCH_PATTERN}}"
+          echo "允分支名稱: ${{env.ALLOWED_BRANCHES}}"
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Release
