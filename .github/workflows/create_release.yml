@@ -19,7 +19,7 @@ jobs:
       - name: Get branch name
         id: branch
         run: |
-          git branch -r --contains ${{ github.sha }} | grep -Eo '(master|develop)'
+          git branch -r --contains ${{ github.sha }}
 
       - name: Set Test
         run: |
