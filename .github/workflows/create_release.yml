@@ -19,7 +19,7 @@ jobs:
       - name: Get branch name
         id: branch
         run: |
-          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master|develop)' | head -n 1)
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master|develop)')
           echo "VV=>$BRANCH_NAME"
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
