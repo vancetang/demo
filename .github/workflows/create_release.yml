@@ -26,7 +26,7 @@ jobs:
         if: steps.branch.outputs.BRANCH_NAME == ''
         run: |
           echo "Not on master branch, exiting"
-          exit 0
+          exit 1
 
       - name: Release
         uses: softprops/action-gh-release@v2
