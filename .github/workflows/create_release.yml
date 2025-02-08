@@ -17,19 +17,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 取得 Tag 所屬的分支
+        id: branch
         run: |
           git fetch --all  # 確保拿到最新的遠端資訊
-          TAG_COMMIT=$(git rev-list -n 1 ${{ github.ref_name }})
-
-          # 先查看這個 commit 包含在哪些遠端分支
-          echo "檢查包含該 Tag Commit ($TAG_COMMIT) 的分支:"
-          git branch -r --contains $TAG_COMMIT
 
           # 取出符合條件的分支
-          BRANCH_NAME=$(git branch -r --contains $TAG_COMMIT | grep -Eo 'origin/.*' | sed 's/origin\///' | head -n 1)
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master|develop)' | head -n 1)
 
-          echo "Tag Commit: $TAG_COMMIT"
+          echo "Tag Commit: ${{ github.sha }}"
           echo "對應的分支: $BRANCH_NAME"
+
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Set Test
         run: |
