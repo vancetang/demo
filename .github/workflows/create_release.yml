@@ -19,7 +19,7 @@ jobs:
       - name: Get branch name
         id: branch
         run: |
-          $BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master)')
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master)' | head -n 1)
           echo "本次BRANCH=$BRANCH_NAME"
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
