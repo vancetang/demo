@@ -27,6 +27,8 @@ jobs:
           BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(${{env.ALLOWED_BRANCHES}})' | head -n 1)
           echo "Tag Commit: ${{ github.sha }}"
           echo "允分支名稱: ${{env.ALLOWED_BRANCHES}}"
+          echo "======================================="
+          git branch -r --contains ${{ github.sha }}
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Release
