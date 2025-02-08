@@ -16,11 +16,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get branch name
+      - name: 依條件設定分支名稱
         id: branch
+        env:
+          ALLOWED_BRANCHES: "master"
         run: |
-          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(master)' | head -n 1)
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          # 取得所有分支
+          git fetch --all 
+          # 依條件取得分支名稱
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -Eo '(${{env.ALLOWED_BRANCHES}})' | head -n 1)
+          echo "Tag Commit: ${{ github.sha }}"
+          echo "允分支名稱: ${{env.ALLOWED_BRANCHES}}"
+          echo "======================================="
+          git branch -r --contains ${{ github.sha }}
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Release
         uses: softprops/action-gh-release@v2
