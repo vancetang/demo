@@ -31,21 +31,27 @@ jobs:
           for branch in $BRANCHES; do
             echo "Merging master into $branch"
             git checkout $branch
-            git merge origin/master --no-edit || {
-              echo "Merge conflict detected in $branch"
-              echo "Branch $branch has conflicts with master." >> conflicts.txt
+            if git merge origin/master --no-edit; then
+              echo "✅ $branch is up-to-date with master"
+              git push origin $branch
+            else
+              echo "❌ Merge conflict detected in $branch"
+              echo "- Branch $branch has conflicts with master." >> conflicts.txt
               git merge --abort
-            }
-            git push origin $branch
+            fi
           done
 
       - name: Send Notification if Conflicts Detected
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: ${{ github.repository_owner }}
-        if: failure() # 只有當 Merge 發生衝突時才執行
+        if: always() # 確保即使 merge 成功，仍然會執行這步驟
         run: |
           if [ -f conflicts.txt ]; then
-            echo "Sending conflict notifications..."
-            gh issue create --title "Merge Conflict Detected" --body "$(cat conflicts.txt)" --assignee $OWNER
+            echo "📢 Sending conflict notifications..."
+            gh issue create --title "Merge Conflict Detected" \
+                            --body "$(cat conflicts.txt)" \
+                            --assignee $OWNER || echo "⚠️ Failed to create GitHub Issue"
+          else
+            echo "✅ No merge conflicts detected."
           fi
