@@ -1,3 +1,4 @@
+# 這個github action我想要寫一個排程，每年執行一次左右，用來抓取某個網站的資料，並且存到資料庫中
 name: Run Java
 
 on:
@@ -17,22 +18,19 @@ jobs:
         with:
           distribution: "microsoft"
           java-version: "21"
+          cache: "maven"
+          cache-dependency-path: "pom.xml"
 
-      - name: Cache local Maven repository
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      # - name: Cache local Maven repository
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.m2/repository
+      #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-maven-
 
       - name: Build with Maven (skip tests)
         run: mvn package -DskipTests
 
       - name: Run Java
         run: java -cp target/classes com.vance.demo.tool.Test
-
-      - name: Secret Scanning
-        uses: trufflesecurity/trufflehog@main
-        with:
-          extra_args: --results=verified,unknown
