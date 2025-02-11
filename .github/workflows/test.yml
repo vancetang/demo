@@ -14,4 +14,8 @@ jobs:
         with:
           distribution: "microsoft"
           java-version: "21"
-      - run: java com.vance.demo.Test.java
+          cache: "maven"
+      - name: Build with Maven
+        run: mvn clean package
+      - name: Run Java
+        run: java com.vance.demo.tool.Test
