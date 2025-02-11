@@ -3,15 +3,14 @@ package com.vance.demo.filter;
 import java.io.IOException;
 import java.util.Objects;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
 import com.vance.demo.global.RequestBodyWrapper;
 
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -26,9 +25,9 @@ public class BodyTransferFilter implements Filter {
             throws IOException, ServletException {
         RequestBodyWrapper requestBodyWrapper = null;
         try {
+            log.info("這裡....");
             HttpServletRequest req = (HttpServletRequest) request;
             requestBodyWrapper = new RequestBodyWrapper(req);
-
         } catch (Exception e) {
             log.warn("requestBodyWrapper Error:", e);
         }

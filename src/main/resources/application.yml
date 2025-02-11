@@ -1,7 +1,15 @@
 env: dev111vance
 spring:
-    jackson:
-        date-format: yyyy-MM-dd HH:mm:ss
-        locale: zh_CN
-        time-zone: GMT+8
-        default-property-inclusion: NON_NULL
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    locale: zh_CN
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL
+# Swagger UI: http://localhost:8080/swagger-ui.html
+# API Docs (JSON): http://localhost:8080/v3/api-docs
+springdoc:
+  swagger-ui:
+    url: /v3/api-docs
+    path: /swagger-ui.html
+  api-docs:
+    enabled: true
