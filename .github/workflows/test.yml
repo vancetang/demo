@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # 確保可以取得完整的 Git 紀錄，避免 Merge 問題
 
       - uses: actions/setup-java@v4
         with:
