@@ -15,21 +15,17 @@ jobs:
         with:
           distribution: "microsoft"
           java-version: "21"
-          cache: "maven"
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Build with Maven
-        run: mvn clean package
-
-      - name: Get generated jar filename
-        id: jar-filename
-        run: |
-          JAR_FILE=$(ls target/*.jar | head -n 1)
-          echo "Jar file: $JAR_FILE"
-          echo "::set-output name=jar-file::$JAR_FILE"
-
-      - name: Print jar filename
-        run: |
-          echo "Generated jar filename: ${{ steps.jar-filename.outputs.jar-file }}"
+        run: mvn package
 
       - name: Run Java
-        run: java -cp ./target/${{ steps.jar-filename.outputs.jar-file }} com.vance.demo.tool.Test
+        run: java -cp target/classes com.vance.demo.tool.Test
