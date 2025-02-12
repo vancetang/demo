@@ -29,8 +29,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cache_ids=$(gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < (now - ${{ steps.set-days.outputs.seconds }})) | .id')
-          echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
+          gh cache list --limit 100 --json id,createdAt 
+          echo "----------------------------------------"
+          gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < (now - ${{ steps.set-days.outputs.seconds }})) | .id'
+
+      # cache_ids=$(gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < (now - ${{ steps.set-days.outputs.seconds }})) | .id')
+      # echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
 
       - name: Show Cache IDs
         run: echo "${{ steps.list-caches.outputs.cache_ids }}"
