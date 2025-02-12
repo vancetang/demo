@@ -29,7 +29,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cache_ids=$(gh cache list --limit 100 --json id,createdAt --jq 'sort_by(.createdAt) | reverse | .[] | select((now - ( .createdAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }}) | .id')
+          cache_ids=$(gh cache list --limit 100 --json id,lastAccessedAt --jq 'sort_by(.lastAccessedAt) | .[] | select((now - ( .lastAccessedAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }}) | .id')
           echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
 
       - name: 刪除逾期 Caches
