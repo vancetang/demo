@@ -32,6 +32,7 @@ jobs:
           cache_ids=$(gh cache list --limit 100 --json id,lastAccessedAt --jq '
                         sort_by(.lastAccessedAt) 
                         | .[] 
+                        | select(.createdAt != null and .lastAccessedAt != null)
                         | select(
                             (.lastAccessedAt | fromdate) - (.createdAt | fromdate) > ${{ steps.set-days.outputs.seconds }}
                                 )
