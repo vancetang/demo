@@ -13,21 +13,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: vance test
+      - name: 設定逾期天數
         env:
           DAYS: 30
         run: |
           seconds=$((60*60*24*DAYS))
-          echo "seconds=$seconds"
+          echo "$DAYS天($seconds秒)"
+          echo "seconds=$seconds" >> $GITHUB_OUTPUT
 
-      # - name: List caches
-      #   id: list-caches
-      #   env:
-      #     DAYS: 30
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     $seconds=$((60*60*24$DAYS))
-      #     gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < now - $seconds) | .id'
+      - name: List caches
+        id: list-caches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh status
 
       # - name: Delete old caches
       #   if: steps.list-caches.outputs.cache-ids != ''
@@ -40,3 +39,6 @@ jobs:
       #     echo "✅ 刪除完成 -----------"
       #   env:
       #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < now - $seconds) | .id'
+
