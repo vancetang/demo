@@ -31,8 +31,8 @@ jobs:
         run: |
           gh cache list --limit 100 --json id,createdAt 
           echo "----------------------------------------"
-          gh cache list --limit 100 --json id,createdAt --jq '.[] | select((now | fromdateiso8601) - (.createdAt | fromdateiso8601) > ${{ steps.set-days.outputs.seconds }}) | .id'
-
+          gh cache list --limit 100 --json id,createdAt --jq '.[] | select((mktime(now | strptime("%Y-%m-%dT%H:%M:%S%z")) - mktime(.createdAt | strptime("%Y-%m-%dT%H:%M:%S%z"))) > 60) | .id'
+      #gh cache list --limit 100 --json id,createdAt --jq '.[] | select((now | fromdateiso8601) - (.createdAt | fromdateiso8601) > ${{ steps.set-days.outputs.seconds }}) | .id'
       # cache_ids=$(gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < (now - ${{ steps.set-days.outputs.seconds }})) | .id')
       # echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
 
