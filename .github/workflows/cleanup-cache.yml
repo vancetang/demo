@@ -32,7 +32,7 @@ jobs:
           cache_ids=$(gh cache list --limit 100 --json id,createdAt,lastAccessedAt --jq '
                         sort_by(.lastAccessedAt) 
                         | .[] 
-                        | (now - ( .lastAccessedAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }})
+                        | (now - ( .lastAccessedAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }}
                         | .id')
           echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
 
