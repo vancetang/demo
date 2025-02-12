@@ -18,11 +18,9 @@ jobs:
         env:
           DAYS: 30
         run: |
-          seconds=60
+          seconds=60   #seconds=$((60*60*24*DAYS))
           echo "$DAYS天($seconds秒)"
           echo "seconds=$seconds" >> $GITHUB_OUTPUT
-
-      # seconds=$((60*60*24*DAYS))
 
       - name: List Caches
         id: list-caches
@@ -32,19 +30,14 @@ jobs:
           cache_ids=$(gh cache list --limit 100 --json id,createdAt --jq 'sort_by(.createdAt) | reverse | .[] | select((now - ( .createdAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }}) | .id')
           echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
 
-      - name: Show Cache IDs
-        run: echo "${{ steps.list-caches.outputs.cache_ids }}"
-
-      # - name: Delete old caches
-      #   if: steps.list-caches.outputs.cache-ids != ''
-      #   run: |
-      #     echo "📢 開始刪除 -----------"
-      #     for cache_id in ${{ steps.list-caches.outputs.cache-ids }}
-      #     do
-      #       gh cache delete $cache_id
-      #     done
-      #     echo "✅ 刪除完成 -----------"
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-# gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < now - $seconds) | .id'
-
+      - name: Delete old caches
+        if: steps.list-caches.outputs.cache_ids != ''
+        run: |
+          echo "📢 開始刪除 -----------"
+          for cache_id in ${{ steps.list-caches.outputs.cache_ids }}
+          do
+            gh cache delete $cache_id
+          done
+          echo "✅ 刪除完成 -----------"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
