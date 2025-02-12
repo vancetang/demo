@@ -1,0 +1,35 @@
+name: Cleanup Old Caches
+
+on:
+  schedule:
+    - cron: "0 0 1 * *" # 每月1號運行
+  workflow_dispatch: # 可以手動執行此 action
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: List caches
+        id: list-caches
+        env:
+          DAYS: 30
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          seconds=$((60*60*24*DAYS))
+          gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < now - $seconds) | .id'
+
+      - name: Delete old caches
+        if: steps.list-caches.outputs.cache-ids != ''
+        run: |
+          echo "📢 開始刪除 -----------"
+          for cache_id in ${{ steps.list-caches.outputs.cache-ids }}
+          do
+            gh cache delete $cache_id
+          done
+          echo "✅ 刪除完成 -----------"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
