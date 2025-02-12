@@ -8,7 +8,7 @@ on:
 permissions: write-all
 
 jobs:
-  cleanup:
+  cleanup-cashes:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +18,9 @@ jobs:
       - name: 設定逾期天數
         id: set-days
         env:
-          DAYS: 30
+          DAYS: 7
         run: |
-          seconds=60 #seconds=$((60*60*24*DAYS))
+          seconds=$((60*60*24*DAYS))
           echo "🖊️ $DAYS天($seconds秒)"
           echo "seconds=$seconds" >> $GITHUB_OUTPUT
 
@@ -35,7 +35,6 @@ jobs:
       - name: 刪除逾期 Caches
         if: steps.list-caches.outputs.cache_ids != ''
         run: |
-          echo "🚮 刪除逾期 Caches..."
           cnt=0
           for cache_id in ${{ steps.list-caches.outputs.cache_ids }}
           do
