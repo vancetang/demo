@@ -29,6 +29,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          gh cache list --limit 100 --json id,.createdAt,lastAccessedAt --jq 'sort_by(.lastAccessedAt) | .[] | {id, createdAt, lastAccessedAt}'
           cache_ids=$(gh cache list --limit 100 --json id,lastAccessedAt --jq '
                         sort_by(.lastAccessedAt) 
                         | .[] 
