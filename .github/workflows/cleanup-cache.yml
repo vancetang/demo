@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 設定未使用逾期天數
+      - name: 設定逾期天數
         id: set-days
         env:
           DAYS: 7
@@ -29,18 +29,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh cache list --limit 100 --json id,createdAt,lastAccessedAt --jq 'sort_by(.lastAccessedAt) | .[] | {id, createdAt, lastAccessedAt}'
-          cache_ids=$(gh cache list --limit 100 --json id,lastAccessedAt --jq '
+          cache_ids=$(gh cache list --limit 100 --json id,createdAt,lastAccessedAt --jq '
                         sort_by(.lastAccessedAt) 
                         | .[] 
-                        | select(.createdAt != null and .lastAccessedAt != null)
-                        | select(
-                            (.lastAccessedAt | fromdate) - (.createdAt | fromdate) > ${{ steps.set-days.outputs.seconds }}
-                                )
+                        | (now - ( .lastAccessedAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }})
                         | .id')
           echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
-
-      # (now - ( .lastAccessedAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }})
 
       - name: 刪除逾期 Caches
         if: steps.list-caches.outputs.cache_ids != ''
