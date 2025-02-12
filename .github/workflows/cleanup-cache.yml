@@ -5,31 +5,42 @@ on:
     - cron: "0 0 1 * *" # 每月1號運行
   workflow_dispatch: # 可以手動執行此 action
 
+permissions: write-all
+
 jobs:
-  cleanup:
+  cleanup-cashes:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: List caches
-        id: list-caches
+      - name: 設定逾期天數
+        id: set-days
         env:
-          DAYS: 30
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DAYS: 7
         run: |
           seconds=$((60*60*24*DAYS))
-          gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < now - $seconds) | .id'
+          echo "🖊️ $DAYS天($seconds秒)"
+          echo "seconds=$seconds" >> $GITHUB_OUTPUT
 
-      - name: Delete old caches
-        if: steps.list-caches.outputs.cache-ids != ''
+      - name: 取得逾期 Caches ID
+        id: list-caches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "📢 開始刪除 -----------"
-          for cache_id in ${{ steps.list-caches.outputs.cache-ids }}
+          cache_ids=$(gh cache list --limit 100 --json id,lastAccessedAt --jq 'sort_by(.lastAccessedAt) | .[] | select((now - ( .lastAccessedAt | sub("\\..*Z$"; "Z") | fromdate )) > ${{ steps.set-days.outputs.seconds }}) | .id')
+          echo "cache_ids=$cache_ids" >> $GITHUB_OUTPUT
+
+      - name: 刪除逾期 Caches
+        if: steps.list-caches.outputs.cache_ids != ''
+        run: |
+          cnt=0
+          for cache_id in ${{ steps.list-caches.outputs.cache_ids }}
           do
             gh cache delete $cache_id
+            cnt=$((cnt+1))
           done
-          echo "✅ 刪除完成 -----------"
+          echo "✅ 刪除完成，共 $cnt 筆 Caches"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
