@@ -19,7 +19,7 @@ jobs:
           DAYS: 30
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          seconds=$((60*60*24*$DAYS))
+          $seconds=$((60*60*24$DAYS))
           gh cache list --limit 100 --json id,createdAt --jq '.[] | select(.createdAt < now - $seconds) | .id'
 
       - name: Delete old caches
