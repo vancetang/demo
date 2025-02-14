@@ -22,4 +22,7 @@ jobs:
         run: mvn clean package -DskipTests
 
       - name: Run Java
-        run: java -cp target/classes com.vance.demo.tool.Test
+        run: |
+          pwd
+          ls -l
+          java -cp target/classes com.vance.demo.tool.Test
