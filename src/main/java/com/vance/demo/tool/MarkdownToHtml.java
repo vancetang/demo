@@ -11,6 +11,11 @@ import com.vladsch.flexmark.util.data.MutableDataSet;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Markdown to HTML
+ * 
+ * @author Vance
+ */
 @Slf4j
 public class MarkdownToHtml {
     public static void main(String[] args) {
