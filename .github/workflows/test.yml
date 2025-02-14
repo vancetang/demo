@@ -19,7 +19,7 @@ jobs:
           cache: "maven"
 
       - name: Build with Maven (skip tests)
-        run: mvn clean compile
+        run: mvn clean compile dependency:copy-dependencies
 
       - name: Run Java
         run: java -cp target/classes com.vance.demo.tool.MarkdownToHtml
