@@ -22,4 +22,4 @@ jobs:
         run: mvn clean compile dependency:copy-dependencies
 
       - name: Run Java
-        run: java -cp "target/classes:target/dependency" com.vance.demo.tool.MarkdownToHtml
+        run: java -cp "target/classes:target/dependency/*" com.vance.demo.tool.MarkdownToHtml
