@@ -19,7 +19,7 @@ jobs:
           cache: "maven"
 
       - name: Build with Maven (skip tests)
-        run: mvn clean package -DskipTests
+        run: mvn clean compile
 
       - name: Run Java
         run: java -cp target/classes com.vance.demo.tool.Test
