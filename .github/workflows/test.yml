@@ -18,6 +18,8 @@ jobs:
           java-version: "21"
           cache: "maven"
 
+      # chatgpt建議，如果有mvnw檔案，可以直接使用mvnw，不用安裝maven
+      # unix環境下要先給mvnw檔案執行權限
       - name: Grant execute permission to mvnw
         run: chmod +x mvnw
 

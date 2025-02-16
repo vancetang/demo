@@ -1,3 +1,7 @@
+# 此workflow需要設定Azure OpenAI的API Key，並且設定相關參數
+# https://github.com/Azure/co-op-translator/blob/main/getting_started/set-up-resources/set-up-azure-openai.md
+# https://github.com/Azure/co-op-translator/blob/main/getting_started/create-env-file.md
+
 name: Translate Project
 
 on:
