@@ -1,5 +1,8 @@
 env: dev111vance
 spring:
+  # 無用到資料庫，所以關閉 DataSourceAutoConfiguration
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     locale: zh_CN
