@@ -20,7 +20,7 @@ jobs:
         env:
           DAYS: 7
         run: |
-          seconds=$((60*60*24*DAYS))
+          seconds=$(( $DAYS * 24 * 60 * 60 ))
           echo "🖊️ $DAYS天($seconds秒)"
           echo "seconds=$seconds" >> $GITHUB_OUTPUT
 
