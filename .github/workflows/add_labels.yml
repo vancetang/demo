@@ -38,6 +38,7 @@ jobs:
               echo ${LABEL} | base64 --decode | jq -r ${1}
             }
             LABEL_NAME=$(_jq '.name')
+            LABEL_NAME=$(echo "$LABEL_NAME" | jq -r @uri)
             LABEL_COLOR=$(_jq '.color')
             LABEL_DESCRIPTION=$(_jq '.description')
 
