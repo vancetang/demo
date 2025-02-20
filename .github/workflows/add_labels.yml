@@ -42,6 +42,7 @@ jobs:
             echo ${LABEL} | base64 --decode
             
             LABEL_NAME=$(_jq '.name')
+            LABEL_NAME=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LABEL_NAME'))")
             LABEL_COLOR=$(_jq '.color')
             LABEL_DESCRIPTION=$(_jq '.description')
 
