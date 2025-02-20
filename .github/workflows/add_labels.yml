@@ -41,6 +41,7 @@ jobs:
             LABEL_COLOR=$(_jq '.color')
             LABEL_DESCRIPTION=$(_jq '.description')
 
+            echo "🔍 Checking label ${LABEL_NAME}[${LABEL_COLOR}][${LABEL_DESCRIPTION}]"
             # 檢查標籤是否存在
             response=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "Accept: application/vnd.github.v3+json" \
