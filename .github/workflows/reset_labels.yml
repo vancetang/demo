@@ -1,8 +1,9 @@
 name: Reset Labels
 
 on:
-  issues:
-    types: [opened, edited]
+  workflow_dispatch:
+
+permissions: write-all
 
 jobs:
   reset-labels:
