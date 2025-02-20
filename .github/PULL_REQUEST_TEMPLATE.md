@@ -6,10 +6,10 @@
 
 ## 變更的類型
 
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] This change requires a documentation update
+- [ ] 錯誤修復 Bug fix （非破壞性變更，修正issue）
+- [ ] 新功能 New feature (非破壞性變更，新增功能)
+- [ ] 破壞性變更 Breaking change (修正或功能變更，可能導致現有功能無法正常運作)
+- [ ] 更新文檔 documentation update
 
 ## 影響的頁面
 
