@@ -1,7 +1,8 @@
 name: 📚 文檔更新請求
 description: 提交一個文檔更新請求
 title: "[DOCUMENTATION] 標題"
-labels: ["type: documentation"]
+labels:
+  - documentation
 body:
   - type: textarea
     attributes:

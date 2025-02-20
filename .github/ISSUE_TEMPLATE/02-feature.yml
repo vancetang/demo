@@ -1,7 +1,8 @@
 name: 🚀 功能請求
 description: 提交一個新功能請求
 title: "[FEATURE] 標題"
-labels: ["type: feature"]
+labels:
+  - feature
 body:
   - type: input
     attributes:
