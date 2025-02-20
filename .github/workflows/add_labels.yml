@@ -10,7 +10,8 @@ jobs:
       - name: 使用 GitHub API 新增 Labels
         run: |
           LABELS=(
-            '{"name": "feature", "color": "d73a4a", "description": "New Feature Request"}'
+            '{"name": "feature", "color": "dac387", "description": "New Feature Request"}'
+            '{"name": "testing", "color": "f9d0c4", "description": "Used to mark features that need testing or are currently being tested"}'
           )
 
           for LABEL in "${LABELS[@]}"; do
