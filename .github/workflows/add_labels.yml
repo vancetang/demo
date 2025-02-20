@@ -37,16 +37,14 @@ jobs:
             _jq() {
               echo ${LABEL} | base64 --decode | jq -r "${1}"
             }
-            echo "VANCE==============="
-            echo ${LABEL}
-            echo ${LABEL} | base64 --decode
             
             LABEL_NAME=$(_jq '.name')
-            LABEL_NAME=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LABEL_NAME'))")
             LABEL_COLOR=$(_jq '.color')
             LABEL_DESCRIPTION=$(_jq '.description')
-
-            echo "🔍 Checking label ${LABEL_NAME}[${LABEL_COLOR}][${LABEL_DESCRIPTION}]"
+            # 將標籤名稱編碼為 URL 安全的格式
+            LABEL_NAME=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LABEL_NAME'))")
+            
+            echo "🔍 Checking label - [${LABEL_NAME}][${LABEL_COLOR}][${LABEL_DESCRIPTION}]"
             # 檢查標籤是否存在
             response=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "Accept: application/vnd.github.v3+json" \
