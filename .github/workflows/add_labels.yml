@@ -15,9 +15,9 @@ jobs:
         run: |
           LABELS=(
             '{"name": "feature", "color": "dac387", "description": "New Feature Request"}'
-            '{"name": "testing", "color": "f9d0c4", "description": "Used to mark features that need testing or are currently being tested"}'
+            '{"name": "testing", "color": "f9d0c4", "description": "Marks features for testing"}'
             '{"name": "wip", "color": "f4a261", "description": "Work in Progress"}'
-            '{"name": "enhancement", "color": "a2eeef", "description": "Feature request or improvement suggestion to enhance the functionality"}'
+            '{"name": "enhancement", "color": "a2eeef", "description": "Feature or improvement to enhance functionality"}'
           )
 
           echo "======= Adding or updating labels to ${{ github.repository }} ======="
@@ -33,7 +33,7 @@ jobs:
               https://api.github.com/repos/${{ github.repository }}/labels/$LABEL_NAME)
 
             if [ "$response" -eq 200 ]; then
-              echo "Label '$LABEL_NAME' exists, updating..."
+              echo "🔄 Label '$LABEL_NAME' exists, updating..."
               # 更新標籤
               curl -X PATCH \
                 -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
@@ -41,7 +41,7 @@ jobs:
                 -d '{"color": "'"$LABEL_COLOR"'", "description": "'"$LABEL_DESCRIPTION"'"}' \
                 https://api.github.com/repos/${{ github.repository }}/labels/$LABEL_NAME
             elif [ "$response" -eq 404 ]; then
-              echo "Label '$LABEL_NAME' does not exist, creating..."
+              echo "🛠️ Label '$LABEL_NAME' does not exist, creating..."
               # 創建標籤
               curl -X POST \
                 -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
