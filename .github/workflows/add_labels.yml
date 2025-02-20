@@ -25,7 +25,7 @@ jobs:
             '{"name": "question", "color": "d876e3", "description": "Further information is requested"}'
             '{"name": "testing", "color": "f9d0c4", "description": "Marks features for testing"}'
             '{"name": "wip", "color": "f4a261", "description": "Work in Progress"}'
-            '{"name": "wontfix", "color": "ffffff", "description": "This will not be worked on"}
+            '{"name": "wontfix", "color": "ffffff", "description": "This will not be worked on"}'
           )
 
           echo "======= Adding or updating labels to ${{ github.repository }} ======="
