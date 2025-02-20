@@ -15,14 +15,14 @@ jobs:
         run: |
           LABELS=$(cat << 'EOF'
             [
-              {"name": "bug", "color": "d73a4a", "description": "Something isn\'t working"},
+              {"name": "bug", "color": "d73a4a", "description": "Something isn't working"},
               {"name": "documentation", "color": "0075ca", "description": "Improvements or additions to documentation"},
               {"name": "duplicate", "color": "cfd3d7", "description": "This issue or pull request already exists"},
               {"name": "enhancement", "color": "a2eeef", "description": "Feature or improvement to enhance functionality"},
               {"name": "feature", "color": "dac387", "description": "New Feature Request"},
               {"name": "good first issue", "color": "7057ff", "description": "Good for newcomers"},
               {"name": "help wanted", "color": "008672", "description": "Extra attention is needed"},
-              {"name": "invalid", "color": "e4e669", "description": "This doesn\'t seem right"},
+              {"name": "invalid", "color": "e4e669", "description": "This doesn't seem right"},
               {"name": "question", "color": "d876e3", "description": "Further information is requested"},
               {"name": "testing", "color": "f9d0c4", "description": "Marks features for testing"},
               {"name": "wip", "color": "f4a261", "description": "Work in Progress"},
@@ -33,7 +33,7 @@ jobs:
 
           echo "======= Adding or updating labels to ${{ github.repository }} ======="
 
-          for LABEL in $(echo "$LABELS" | jq -r '.[]); do
+          for LABEL in $(echo "$LABELS" | jq -r '.[]'); do
             _jq() {
               echo ${LABEL} | jq -r "${1}"
             }
