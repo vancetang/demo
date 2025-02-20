@@ -1,4 +1,4 @@
-name: CodeQL Analysis
+name: CodeQL Scanning
 
 on:
   workflow_dispatch: # 可以手動執行此 action
