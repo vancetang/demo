@@ -1,4 +1,4 @@
-name: 新增預設 Labels
+name: 新增或更新 Labels
 
 on:
   workflow_dispatch: # 允許手動觸發
@@ -11,21 +11,62 @@ jobs:
   add-labels:
     runs-on: ubuntu-latest
     steps:
-      - name: 使用 GitHub API 新增 Labels
+      - name: 使用 GitHub API 新增或更新 Labels
         run: |
-          LABELS=(
-            '{"name": "feature", "color": "dac387", "description": "New Feature Request"}'
-            '{"name": "testing", "color": "f9d0c4", "description": "Used to mark features that need testing or are currently being tested"}'
-            '{"name": "wip", "color": "f4a261", "description": "Work in Progress"}'
-            '{"name": "enhancement", "color": "a2eeef", "description": "Feature request or improvement suggestion to enhance the functionality"}'
+          LABELS=$(cat << 'EOF'
+            [
+              {"name": "bug", "color": "d73a4a", "description": "Something isn't working"},
+              {"name": "documentation", "color": "0075ca", "description": "Improvements or additions to documentation"},
+              {"name": "duplicate", "color": "cfd3d7", "description": "This issue or pull request already exists"},
+              {"name": "enhancement", "color": "a2eeef", "description": "Feature or improvement to enhance functionality"},
+              {"name": "feature", "color": "dac387", "description": "New Feature Request"},
+              {"name": "good first issue", "color": "7057ff", "description": "Good for newcomers"},
+              {"name": "help wanted", "color": "008672", "description": "Extra attention is needed"},
+              {"name": "invalid", "color": "e4e669", "description": "This doesn't seem right"},
+              {"name": "question", "color": "d876e3", "description": "Further information is requested"},
+              {"name": "testing", "color": "f9d0c4", "description": "Marks features for testing"},
+              {"name": "wip", "color": "f4a261", "description": "Work in Progress"},
+              {"name": "wontfix", "color": "ffffff", "description": "This will not be worked on"}
+            ]
+          EOF
           )
 
-          echo "======= Adding labels to ${{ github.repository }} ======="
+          echo "======= Adding or updating labels to ${{ github.repository }} ======="
 
-          for LABEL in "${LABELS[@]}"; do
-            curl -X PATCH \
+          for LABEL in $(echo "$LABELS" | jq -r '.[] | @base64'); do
+            _jq() {
+              echo ${LABEL} | base64 --decode | jq -r "${1}"
+            }
+            
+            LABEL_NAME=$(_jq '.name')
+            LABEL_COLOR=$(_jq '.color')
+            LABEL_DESCRIPTION=$(_jq '.description')
+            # 將標籤名稱編碼為 URL 安全的格式
+            LABEL_NAME=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LABEL_NAME'))")
+            
+            echo "🔍 Checking label - [${LABEL_NAME}][${LABEL_COLOR}][${LABEL_DESCRIPTION}]"
+            # 檢查標籤是否存在
+            response=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "Accept: application/vnd.github.v3+json" \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-              https://api.github.com/repos/${{ github.repository }}/labels \
-              -d "$LABEL"
+              https://api.github.com/repos/${{ github.repository }}/labels/$LABEL_NAME)
+
+            if [ "$response" -eq 200 ]; then
+              echo "🔄 Label '$LABEL_NAME' exists, updating..."
+              # 更新標籤
+              curl -X PATCH \
+                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -d '{"color": "'"$LABEL_COLOR"'", "description": "'"$LABEL_DESCRIPTION"'"}' \
+                https://api.github.com/repos/${{ github.repository }}/labels/$LABEL_NAME
+            elif [ "$response" -eq 404 ]; then
+              echo "🛠️ Label '$LABEL_NAME' does not exist, creating..."
+              # 創建標籤
+              curl -X POST \
+                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -d "$LABEL" \
+                https://api.github.com/repos/${{ github.repository }}/labels
+            else
+              echo "🛑 Error: Unexpected response $response for label '$LABEL_NAME'"
+            fi
           done
