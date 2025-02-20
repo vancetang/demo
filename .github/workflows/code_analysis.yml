@@ -28,7 +28,7 @@ jobs:
           cache: "maven"
 
       - name: Build with Maven
-        run: ./mvnw clean compile dependency:copy-dependencies
+        run: ./mvnw clean install
 
       # 執行 CodeQL 分析
       - name: Perform CodeQL Analysis
