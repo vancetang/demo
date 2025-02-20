@@ -17,9 +17,10 @@ body:
       render: markdown
     validations:
       required: true
-  - type: input
+  - type: textarea
     attributes:
       label: 📷 畫面截圖（如適用）
       description: 如果是視覺上的文檔問題，請附上相關的截圖。
+      render: markdown
     validations:
       required: false
