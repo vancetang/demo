@@ -33,9 +33,9 @@ jobs:
 
           echo "======= Adding or updating labels to ${{ github.repository }} ======="
 
-          for LABEL in $(echo "$LABELS" | jq -r '.[] | @base64'); do
+          for LABEL in $(echo "$LABELS" | jq -r '.[]); do
             _jq() {
-              echo ${LABEL} | base64 --decode | jq -r "${1}"
+              echo ${LABEL} | jq -r "${1}"
             }
             
             LABEL_NAME=$(_jq '.name')
