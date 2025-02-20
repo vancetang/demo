@@ -1,7 +1,8 @@
 name: ❓ 問題詢問
 description: 提交一個問題詢問
 title: "[QUESTION] 標題"
-labels: ["type: question"]
+labels:
+  - question
 body:
   - type: input
     attributes:

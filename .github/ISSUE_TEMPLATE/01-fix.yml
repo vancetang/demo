@@ -1,7 +1,8 @@
 name: 🐛 Bug 回報
 description: 提交一個錯誤 / 問題
 title: "[BUG] 標題"
-labels: ["type: bug(fix)"]
+labels:
+  - bug
 body:
   - type: checkboxes
     attributes:

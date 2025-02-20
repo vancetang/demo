@@ -1,7 +1,8 @@
 name: 🔧 增強功能請求
 description: 提交一個增強功能請求
 title: "[ENHANCEMENT] 標題"
-labels: ["type: enhancement"]
+labels:
+  - enhancement
 body:
   - type: input
     attributes:
