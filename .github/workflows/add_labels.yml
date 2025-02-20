@@ -16,6 +16,7 @@ jobs:
           LABELS=(
             '{"name": "feature", "color": "dac387", "description": "New Feature Request"}'
             '{"name": "testing", "color": "f9d0c4", "description": "Used to mark features that need testing or are currently being tested"}'
+            '{"name": "wip", "color": "f4a261", "description": "Work in Progress"}'
           )
 
           for LABEL in "${LABELS[@]}"; do
