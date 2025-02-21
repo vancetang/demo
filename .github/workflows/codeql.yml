@@ -71,18 +71,6 @@ jobs:
           # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
           # queries: security-extended,security-and-quality
 
-      - name: List and capture trap files
-        id: trap-files
-        run: |
-          echo "Listing trap files:"
-          TRAP_FILES=$(find ./codeql-database -type f -name "*.trap" | tr '\n' ' ')
-          if [ -z "$TRAP_FILES" ]; then
-            echo "No trap files found"
-          else
-            echo "Found trap files: $TRAP_FILES"
-            echo "trap-files=$TRAP_FILES" >> $GITHUB_OUTPUT
-          fi
-
       # If the analyze step fails for one of the languages you are analyzing with
       # "We were unable to automatically build your code", modify the matrix above
       # to set the build mode to "manual" for that language. Then modify this step
@@ -103,7 +91,3 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{matrix.language}}"
-
-      - name: Use trap file names
-        run: |
-          echo "Trap files captured: ${{ steps.trap-files.outputs.trap-files }}"
