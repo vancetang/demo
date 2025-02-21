@@ -1,13 +1,13 @@
 name: Notify All Collaborators on PR
 on:
-  #  pull_request:
-  #    types: [closed] # 當 PR 被關閉（合併或關閉）時觸發
-
-  workflow_dispatch: # 可以手動執行此 action
+  pull_request:
+    types: [closed] # 當 PR 被關閉（合併或關閉）時觸發
+  # workflow_dispatch: # 可以手動執行此 action
 
 jobs:
   notify:
     runs-on: ubuntu-latest
+    if: ${{ false }} # 永遠不執行
     permissions:
       pull-requests: write # 授予寫入 PR 評論的權限
     steps:
