@@ -18,11 +18,9 @@ def send_message(chat_id, text):
     return response.json()
 
 
-# 測試接收訊息
-url = f"{BASE_URL}/getUpdates"
-response = requests.get(url)
-# print(response.json())
-
-# 測試發送訊息
-result = send_message(CHAT_ID, "嗨，這是用程式發送的訊息！")
-print(result)
+if __name__ == "__main__":
+    if not TOKEN or not CHAT_ID:
+        print("錯誤：TELEGRAM_TOKEN 或 TELEGRAM_CHAT_ID 未設定")
+    else:
+        result = send_message(CHAT_ID, "嗨，這是從 bot.py 發送的測試訊息！")
+        print(result)
