@@ -26,7 +26,7 @@ public class MarkdownToHtml {
                         StrikethroughExtension.create()));
         Parser parser = Parser.builder(options).build();
         HtmlRenderer renderer = HtmlRenderer.builder(options).build();
-        String source = "Hello **world**, _this_ is a *test*.";
+        String source = "Hello **world**, _this_ is a *test*. # 1111";
         Node document = parser.parse(source);
         String output = renderer.render(document);
         log.info(output);
