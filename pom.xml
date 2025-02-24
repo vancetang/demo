@@ -23,6 +23,8 @@
 		<springdoc.openapi.version>2.8.4</springdoc.openapi.version>
 		<commons.io.version>2.18.0</commons.io.version>
 		<commons.codec.version>1.18.0</commons.codec.version>
+		<commons.collections4.version>4.4</commons.collections4.version>
+		<commons.csv.version>1.13.0</commons.csv.version>
 		<hutool.version>5.8.22</hutool.version>
 		<guava.version>32.1.2-jre</guava.version>
 		<flexmark.version>0.64.8</flexmark.version>
@@ -94,6 +96,18 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>${commons.codec.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${commons.collections4.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>${commons.csv.version}</version>
 		</dependency>
 
 		<!-- ========== 常用Third-Party Library ========== -->

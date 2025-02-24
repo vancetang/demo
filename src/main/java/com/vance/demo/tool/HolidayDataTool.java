@@ -1,19 +1,18 @@
 package com.vance.demo.tool;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.Collections;
-import java.util.List;
+import java.util.Date;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.comparator.DefaultFileComparator;
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.io.input.BOMInputStream;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 
-import com.vance.demo.util.Util;
+import com.vance.demo.constant.Constants;
+import com.vance.demo.util.DateUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,16 +31,6 @@ public class HolidayDataTool {
     private final String FILE_URL = "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid="
             + DATASET_RID;
 
-    /** 存檔目錄 */
-    private final String FILE_DIR = StringUtils
-            .join(new String[] { SystemUtils.getUserDir().getAbsolutePath(), "src\\main\\resources\\data\\北市" }, "\\");
-
-    /** 檔名前綴檔名 */
-    private final String FILE_PREFIX_NAME = "北市政府行政機關辦公日曆表";
-
-    /** 檔案編碼 */
-    private final String FILE_ENCODING = "UTF8";
-
     /**
      * CSV欄位名稱
      */
@@ -57,6 +46,11 @@ public class HolidayDataTool {
         String 說明 = "description";
     }
 
+    /**
+     * 主程式
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         log.info("=========== 解析北市政府行政機關辦公日曆開始 ===========");
         try {
@@ -67,44 +61,82 @@ public class HolidayDataTool {
         log.info("=========== 解析北市政府行政機關辦公日曆結束 ===========");
     }
 
+    /**
+     * 執行
+     */
     public void execute() {
-        // TODO 待完成
+        log.info("● 資料來源:{}", FILE_URL);
+        log.info("---------------------------------------------------");
+        try (InputStream inputStream = download(FILE_URL);
+                BOMInputStream bomIn = BOMInputStream.builder()
+                        .setInputStream(inputStream)
+                        .setInclude(false)
+                        .get();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(bomIn, Constants.charset.UTF8))) {
+
+            CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
+                    .setHeader() // 設置自動解析表頭
+                    .setTrim(true) // 啟用去除空白
+                    .setSkipHeaderRecord(true) // 跳過表頭行
+                    .get();
+
+            CSVParser parser = csvFormat.parse(reader);
+            parser.getRecords().forEach(record -> {
+                Date date = DateUtil.parseDate(record.get(CsvCol.日期));
+                String isHoliday = record.get(CsvCol.是否放假);
+                String holidayName = record.get(CsvCol.名稱);
+                String type = record.get(CsvCol.類別);
+                String desc = record.get(CsvCol.說明);
+                String text = null;
+                if (StringUtils.equals("是", isHoliday)) {
+                    if (StringUtils.equalsAny(type, "星期六、星期日", "星期日")) {
+                        text = "周休";
+                    } else if (DateUtil.isWeekoff(date)) {
+                        text = "周休";
+                        String tmp = StringUtils.firstNonBlank(holidayName, type);
+                        if (StringUtils.isNotBlank(tmp)) {
+                            text = StringUtils.join(text, " (", tmp, ")");
+                        }
+                    } else {
+                        text = StringUtils.firstNonBlank(holidayName, type);
+                    }
+                } else {
+                    if (StringUtils.equalsAny(type, "補行上班日")) {
+                        text = "補班日";
+                    } else {
+                        text = "只紀念不放假";
+                        if (StringUtils.isNotBlank(holidayName)) {
+                            text = StringUtils.join(text, "(", holidayName, ")");
+                        }
+                    }
+                }
+                if (StringUtils.isNotBlank(desc)) {
+                    text = StringUtils.join(text, "[", desc, "]");
+                }
+                log.info("{}({}) ={};{}", DateUtil.formatDate(date, "yyyy-MM-dd"),
+                        DateUtil.toWeek(date),
+                        isHoliday, text);
+            });
+        } catch (Exception e) {
+            throw new RuntimeException("解析 CSV 失敗", e);
+        }
     }
 
     /**
-     * 下載檔案
+     * 從 URL 獲取 InputStream
      * 
-     * @param fileUrl  檔案網址路徑
-     * @param destFile 目標檔案路徑
-     * @throws Exception
+     * @param fileUrl 檔案網址路徑
+     * @return InputStream
      */
-    private void download(String fileUrl, File destFile) throws Exception {
-        // Download the file
-        FileUtils.copyURLToFile(new URI(fileUrl).toURL(), destFile);
-        log.info("檔案下載成功:{}", destFile.getAbsolutePath());
-    }
-
-    /**
-     * 依檔案名稱排列取得最新一筆
-     * 
-     * @param prefix 前綴字(DATASET_OID)
-     * @return
-     */
-    private File getFileOrderNameDesc(String prefix) {
-        IOFileFilter filter = null;
-        if (StringUtils.isNotBlank(prefix)) {
-            filter = FileFilterUtils.prefixFileFilter(prefix);
-        } else {
-            filter = FileFilterUtils.fileFileFilter();
+    private InputStream download(String fileUrl) {
+        try {
+            InputStream inputStream = new URI(fileUrl).toURL().openStream();
+            log.info("成功獲取資料流:{}", fileUrl);
+            return inputStream;
+        } catch (Exception e) {
+            log.error("獲取資料流失敗:{}", e.getMessage());
+            throw new RuntimeException("無法下載檔案", e);
         }
-        List<File> files = (List<File>) FileUtils.listFiles(FileUtils.getFile(FILE_DIR), filter,
-                DirectoryFileFilter.DIRECTORY);
-        // 依檔名排序(DEFAULT_COMPARATOR);依名稱反向排序(DEFAULT_REVERSE)
-        Collections.sort(files, DefaultFileComparator.DEFAULT_REVERSE);
-        for (File file : Util.emptyIfNull(files)) {
-            // 僅會有一筆資料
-            return file;
-        }
-        return null;
     }
 }
