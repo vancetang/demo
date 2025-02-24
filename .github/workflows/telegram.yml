@@ -6,6 +6,7 @@ on:
       message:
         description: "欲發送的訊息" # 輸入欄位的描述
         required: true # 是否為必要欄位
+        default: "這是從 GitHub Actions 發送的測試訊息！" # 預設值（可選）
 
 jobs:
   test-bot:
