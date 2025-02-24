@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
-import com.vance.demo.constant.Constants;
+import com.vance.demo.constants.Constant;
 
 /**
  * 工具類別
@@ -60,11 +60,11 @@ public class Util {
             char[] chars = string.toCharArray();
             int begin = 0;
             while (begin < chars.length
-                    && (chars[begin] <= Constants.CHAR_SPACE || chars[begin] == Constants.CHAR_FULL_SPACE)) {
+                    && (chars[begin] <= Constant.CHAR_SPACE || chars[begin] == Constant.CHAR_FULL_SPACE)) {
                 ++begin;
             }
             int end = chars.length - 1;
-            while (end > begin && (chars[end] <= Constants.CHAR_SPACE || chars[end] == Constants.CHAR_FULL_SPACE)) {
+            while (end > begin && (chars[end] <= Constant.CHAR_SPACE || chars[end] == Constant.CHAR_FULL_SPACE)) {
                 --end;
             }
             if (begin == 0 && end == chars.length - 1) {

@@ -1,4 +1,4 @@
-package com.vance.demo.constant;
+package com.vance.demo.constants;
 
 /**
  * 通用常量
@@ -6,12 +6,12 @@ package com.vance.demo.constant;
  * @author Vance
  * @since 2020/3/20
  */
-public final class Constants {
+public final class Constant {
 
     /**
      * 防止實例化
      */
-    private Constants() {
+    private Constant() {
         throw new AssertionError("Utility class cannot be instantiated");
     }
 

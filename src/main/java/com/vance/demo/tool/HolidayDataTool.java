@@ -14,7 +14,7 @@ import org.apache.commons.io.input.BOMInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import com.vance.demo.constant.Constants;
+import com.vance.demo.constants.Constant;
 import com.vance.demo.util.DateUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -75,7 +75,7 @@ public class HolidayDataTool {
                         .setInclude(false)
                         .get();
                 BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(bomIn, Constants.CharSet.UTF8));
+                        new InputStreamReader(bomIn, Constant.CharSet.UTF8));
                 CSVParser parser = createCsvParser(reader)) {
             for (CSVRecord record : parser) {
                 processRecord(record);
