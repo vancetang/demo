@@ -85,18 +85,29 @@ public class HolidayDataTool {
                         .setInclude(false)
                         .get();
                 BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(bomIn, Constants.charset.UTF8));
-                CSVParser parser = CSVFormat.DEFAULT.builder()
-                        .setHeader() // 設置自動解析表頭
-                        .setTrim(true) // 啟用去除空白
-                        .setSkipHeaderRecord(true) // 跳過表頭行
-                        .get().parse(reader);) {
+                        new InputStreamReader(bomIn, Constants.CharSet.UTF8));
+                CSVParser parser = createCsvParser(reader)) {
             for (CSVRecord record : parser) {
                 processRecord(record);
             }
         } catch (Exception e) {
             throw new RuntimeException("解析 CSV 失敗", e);
         }
+    }
+
+    /**
+     * 建立 CSV 解析器
+     * 
+     * @param reader BufferedReader
+     * @return CSVParser
+     * @throws Exception
+     */
+    private CSVParser createCsvParser(BufferedReader reader) throws Exception {
+        return CSVFormat.DEFAULT.builder()
+                .setHeader() // 設置自動解析表頭
+                .setTrim(true) // 啟用去除空白
+                .setSkipHeaderRecord(true) // 跳過表頭行
+                .get().parse(reader);
     }
 
     /**

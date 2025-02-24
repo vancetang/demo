@@ -10,7 +10,7 @@ public interface Constants {
     char CHAR_SPACE = ' ';
     char CHAR_FULL_SPACE = '　';
 
-    interface charset {
+    interface CharSet {
         String UTF8 = "UTF-8";
         String BIG5 = "BIG5";
     }
