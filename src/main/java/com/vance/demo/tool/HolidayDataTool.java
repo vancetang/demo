@@ -134,25 +134,34 @@ public class HolidayDataTool {
      * @param desc        假期描述
      */
     private String determineHolidayText(String isHoliday, String type, String holidayName, Date date, String desc) {
+        String text = "";
         if (StringUtils.equals("是", isHoliday)) {
             if (StringUtils.equalsAny(type, "星期六、星期日", "星期日")) {
-                return "周休";
-            }
-            if (DateUtil.isWeekoff(date)) {
+                // 單純周休
+                text = "周休";
+            } else if (DateUtil.isWeekoff(date)) {
+                // 周休又遇到特殊日(不一定為國定假日)
                 String tmp = StringUtils.firstNonBlank(holidayName, type);
-                return StringUtils.isBlank(tmp) ? "周休" : "周休 (" + tmp + ")";
+                if (StringUtils.isNotBlank(tmp)) {
+                    text = "周休 (" + tmp + ")";
+                }
+            } else {
+                // 特殊休假日(補假或國定假日)
+                text = StringUtils.firstNonBlank(holidayName, type);
             }
-            return StringUtils.firstNonBlank(holidayName, type);
-        }
-        if (StringUtils.equalsAny(type, "補行上班日")) {
-            return "補班日";
-        }
-        String text = "只紀念不放假";
-        if (StringUtils.isNotBlank(holidayName)) {
-            text += " (" + holidayName + ")";
+        } else {
+            // 補行上班日 or 只紀念不放假
+            if (StringUtils.equalsAny(type, "補行上班日")) {
+                text = "補班日";
+            } else {
+                text = "只紀念不放假";
+                if (StringUtils.isNotBlank(holidayName)) {
+                    text += " (" + holidayName + ")";
+                }
+            }
         }
         if (StringUtils.isNotBlank(desc)) {
-            text += " [" + desc + "]";
+            text = StringUtils.join(text, "[", desc, "]");
         }
         return text;
     }
