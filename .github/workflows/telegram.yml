@@ -2,6 +2,11 @@ name: Test Telegram Bot
 
 on:
   workflow_dispatch: # 可以手動執行此 action
+    inputs:
+      message:
+        description: "欲發送的訊息" # 輸入欄位的描述
+        required: true # 是否為必要欄位
+        default: "這是從 GitHub Actions 發送的測試訊息！" # 預設值（可選）
 
 jobs:
   test-bot:
@@ -15,6 +20,13 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
+          MESSAGE="${{ github.event.inputs.message }}"
+          # 移除前後空白後檢查是否為空
+          MESSAGE=$(echo "${MESSAGE}" | xargs)
+          if [ -z "${MESSAGE}" ]; then
+            echo "錯誤：訊息不能為空白！"
+            exit 1
+          fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d "chat_id=${TELEGRAM_CHAT_ID}" \
-            -d "text=嗨，這是從 GitHub Actions 發送的測試訊息！"
+            -d "text=${MESSAGE}"
