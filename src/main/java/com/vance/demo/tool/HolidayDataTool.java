@@ -37,22 +37,12 @@ public class HolidayDataTool {
     /**
      * CSV 欄位名稱常量
      */
-    private enum CsvCol {
-        DATE("Date"),
-        NAME("name"),
-        IS_HOLIDAY("isHoliday"),
-        HOLIDAY_CATEGORY("holidayCategory"),
-        DESCRIPTION("description");
-
-        private final String value;
-
-        CsvCol(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
+    private static final class CsvCol {
+        public static final String DATE = "Date";
+        public static final String NAME = "name";
+        public static final String IS_HOLIDAY = "isHoliday";
+        public static final String HOLIDAY_CATEGORY = "holidayCategory";
+        public static final String DESCRIPTION = "description";
     }
 
     /**
@@ -117,11 +107,11 @@ public class HolidayDataTool {
      */
     private void processRecord(CSVRecord record) {
         try {
-            Date date = DateUtil.parseDate(record.get(CsvCol.DATE.getValue()));
-            String isHoliday = record.get(CsvCol.IS_HOLIDAY.getValue());
-            String holidayName = record.get(CsvCol.NAME.getValue());
-            String type = record.get(CsvCol.HOLIDAY_CATEGORY.getValue());
-            String desc = record.get(CsvCol.DESCRIPTION.getValue());
+            Date date = DateUtil.parseDate(record.get(CsvCol.DATE));
+            String isHoliday = record.get(CsvCol.IS_HOLIDAY);
+            String holidayName = record.get(CsvCol.NAME);
+            String type = record.get(CsvCol.HOLIDAY_CATEGORY);
+            String desc = record.get(CsvCol.DESCRIPTION);
 
             String text = determineHolidayText(isHoliday, type, holidayName, date, desc);
             log.info("{}({}) = {}; {}", DateUtil.formatDate(date, "yyyy-MM-dd"),
