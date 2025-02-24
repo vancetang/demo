@@ -161,7 +161,7 @@ public class HolidayDataTool {
             }
         }
         if (StringUtils.isNotBlank(desc)) {
-            text = StringUtils.join(text, "[", desc, "]");
+            text += "[" + desc + "]";
         }
         return text;
     }
