@@ -21,10 +21,10 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           MESSAGE="${{ github.event.inputs.message }}"
-          # 移除前後空白後檢查是否為空
-          MESSAGE=$(echo "${MESSAGE}" | xargs)
-          if [ -z "${MESSAGE}" ]; then
-            echo "錯誤：訊息不能為空白！"
+          # 使用 sed 移除所有空白字符並檢查是否為空
+          TRIMMED_MESSAGE=$(echo "$MESSAGE" | sed 's/[[:space:]]//g')
+          if [ -z "$TRIMMED_MESSAGE" ]; then
+            echo "錯誤：訊息不能為空白或僅包含空格！"
             exit 1
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
