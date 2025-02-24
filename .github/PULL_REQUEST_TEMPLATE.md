@@ -2,7 +2,8 @@
 
 **將這支 PR 所做的事情，取代這段文字，描述越詳細越好。**
 
-## 🔗 相關 Issue
+## 🔗 相關 Issue  
+
 closes #(ticket number) / 無
 
 ## 🔄 變更的類型
