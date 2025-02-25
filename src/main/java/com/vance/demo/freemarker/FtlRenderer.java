@@ -2,22 +2,33 @@ package com.vance.demo.freemarker;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.concurrent.TimeUnit;
 
 import com.vance.demo.constant.Constant;
+import com.vance.demo.freemarker.method.ContainsMethod;
+import com.vance.demo.freemarker.method.DateMethod;
+import com.vance.demo.freemarker.method.EscapeXmlMethod;
+import com.vance.demo.freemarker.method.TrimMethod;
+import com.vance.demo.freemarker.method.VanceMethod;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
 
 /**
- * FreeMarker Loader
- * 
+ * FreeMarker 模板渲染工具類，用於加載和處理 FreeMarker 模板。
+ * <p>
+ * 該類是一個靜態工具類，通過靜態方法提供 FreeMarker 模板的渲染功能。初始化時配置了 FreeMarker 的環境（版本、模板路徑、編碼等），
+ * 並註冊了多個自定義方法（例如日期格式化、字符串處理等）。支持將模板與數據對象結合，生成字符串輸出，並可選擇是否移除換行符號。
+ * 若模板加載或處理失敗，會拋出運行時異常。
+ * </p>
+ *
  * @author Vance
  */
 public class FtlRenderer {
 
     /** FreeMarker version */
-    private static final Version FM_VERSION = Configuration.VERSION_2_3_30;
+    private static final Version FM_VERSION = Configuration.VERSION_2_3_34;
 
     /** FTL 檔案根目錄位置 */
     private static final String FTL_ROOT = "/ftl";
@@ -34,7 +45,7 @@ public class FtlRenderer {
         // 預設數值資料:不做任何處理，原欲設為number，會自動加上comma
         CFG.setNumberFormat("computer");
         // 每 60 秒檢查模板更新
-        CFG.setTemplateUpdateDelayMilliseconds(60000);
+        CFG.setTemplateUpdateDelayMilliseconds(TimeUnit.SECONDS.toMillis(60));
         // Date related methods =========================================
         CFG.setSharedVariable("t_date", new DateMethod());
         CFG.setSharedVariable("t_fulldate", new DateMethod("isFull"));
@@ -51,7 +62,10 @@ public class FtlRenderer {
     }
 
     /**
-     * 私有建構子，防止實例化，此類為靜態工具類
+     * 私有構造函數，防止實例化。
+     * <p>
+     * 此類設計為靜態工具類，所有功能通過靜態方法提供，因此禁止外部實例化。
+     * </p>
      */
     private FtlRenderer() {
         // Prevent instantiation

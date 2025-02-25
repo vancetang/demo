@@ -1,4 +1,4 @@
-package com.vance.demo.support;
+package com.vance.demo.util.common;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -6,6 +6,11 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * 數字處理工具
+ * 
+ * @author Vance
+ */
 public class NumberUtil {
 
     private static final String[] units = new String[] { "", "萬", "億", "萬億" };

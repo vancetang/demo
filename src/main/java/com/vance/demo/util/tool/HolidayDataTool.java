@@ -1,4 +1,4 @@
-package com.vance.demo.tool;
+package com.vance.demo.util.tool;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.vance.demo.constant.Constant;
-import com.vance.demo.support.DateUtil;
+import com.vance.demo.util.common.DateUtil;
 
 import lombok.extern.slf4j.Slf4j;
 

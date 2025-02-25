@@ -1,4 +1,4 @@
-package com.vance.demo.support;
+package com.vance.demo.util.common;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -14,6 +14,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 時間處理工具<br/>
+ * <br/>
  * GMT: 格林威治時間，UTC: 世界標準時間<br/>
  * 目前標準為UTC，UCT=GMT+偏移量(忽略不看的話就是UCT=GMT)
  * 

@@ -1,31 +1,22 @@
-package com.vance.demo.test;
+package com.vance.demo.util.common;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Collections;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
-import com.vance.demo.freemarker.FtlRenderer;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 檔案處理工具
+ * 
+ * @author Vance
+ */
 @Slf4j
-public class VanceTest {
-    public static void main(String[] args) {
-        log.info("========== {} 開始 ==========", VanceTest.class.getSimpleName());
-        try {
-            String html = FtlRenderer.getString("copyright.ftl", Collections.singletonMap("me", "vance"));
-            log.info("{}", html);
-        } catch (Exception e) {
-            log.error("{}", ExceptionUtils.getStackTrace(e));
-        }
-        log.info("========== {} 結束 ==========", VanceTest.class.getSimpleName());
-    }
-
+public class FileUtil {
     /**
      * 使用 Guava 來計算檔案的 SHA-256 Hash
      * 

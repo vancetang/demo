@@ -1,4 +1,4 @@
-package com.vance.demo.tool;
+package com.vance.demo.util.tool;
 
 import java.util.Arrays;
 
