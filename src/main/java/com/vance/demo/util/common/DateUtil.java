@@ -1,4 +1,4 @@
-package com.vance.demo.support;
+package com.vance.demo.util.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 日期處理工具
+ * 
+ * @author Vance
+ */
 @Slf4j
 public class DateUtil {
 
@@ -24,7 +29,7 @@ public class DateUtil {
             return null;
         }
         try {
-            value = Util.trim(value).replaceAll("(/|-)", "");
+            value = StringUtil.trim(value).replaceAll("(/|-)", "");
             // 不足5碼回傳null
             if (StringUtils.length(value) < 5) {
                 return null;
@@ -35,7 +40,7 @@ public class DateUtil {
             }
             // 長度為6碼的情況下，先行補0補滿7碼
             else if (value.matches("^\\d{6}$")) {
-                return parseDate(Util.addZeroWithValue(value, 7));
+                return parseDate(StringUtil.addZeroWithValue(value, 7));
             }
             // 民國日期 EX:1040101
             else if (value.matches("^\\d{7}$")) {

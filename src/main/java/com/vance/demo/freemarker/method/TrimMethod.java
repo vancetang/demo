@@ -1,26 +1,27 @@
-package com.vance.demo.freemarker;
+package com.vance.demo.freemarker.method;
 
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.vance.demo.support.Util;
+import com.vance.demo.util.common.StringUtil;
+import com.vance.demo.util.common.Util;
 
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
 
 /**
- * freemarker 去null&前後空白。
+ * FreeMarker 自定義方法，將輸入字符串去除前後空白並處理 null 值。
+ * 
+ * @author Vance
  */
 public class TrimMethod implements TemplateMethodModelEx {
 	/**
-	 * 去null&前後空白
-	 */
-	public TrimMethod() {
-	};
-
-	/**
-	 * @param String 值
+	 * FreeMarker 自定義方法，將輸入字符串去除前後空白並處理 null 值
+	 * 
+	 * @param args 單一參數，預期為字符串
+	 * @return 處理後的字符串，若輸入為 null 或空，則返回空字符串("")
+	 * @throws TemplateModelException 如果參數數量不正確
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -29,7 +30,7 @@ public class TrimMethod implements TemplateMethodModelEx {
 			throw new TemplateModelException("Wrong arguments");
 		}
 		try {
-			String result = Util.trim(args.get(0));
+			String result = StringUtil.trim(args.get(0));
 			if (Util.isFreemarkerEmptyString(result)) {
 				result = StringUtils.EMPTY;
 			}
