@@ -2,14 +2,14 @@ package com.vance.demo.test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Collections;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
+import com.vance.demo.freemarker.FtlRenderer;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,9 +18,8 @@ public class VanceTest {
     public static void main(String[] args) {
         log.info("========== {} 開始 ==========", VanceTest.class.getSimpleName());
         try {
-            File file = FileUtils.getFile(SystemUtils.getUserHome(), "Desktop", "新文件 1.html");
-            log.info("SHA-256 Hash: {}", VanceTest.getFileHashByGuava(file));
-            log.info("SHA-256 Hash: {}", VanceTest.getFileHashByApache(file));
+            String html = FtlRenderer.getString("copyright.ftl", Collections.singletonMap("me", "vance"));
+            log.info("{}", html);
         } catch (Exception e) {
             log.error("{}", ExceptionUtils.getStackTrace(e));
         }
