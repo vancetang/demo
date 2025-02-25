@@ -88,4 +88,15 @@ public class Util {
         sb.append(str);
         return sb.toString();
     }
+
+    /**
+     * 是否符合freemarker exception string格式 (因為當傳入的字串為null會變成
+     * freemarker.core.DefaultToExpression$EmptyStringAndSequenceAndHash)
+     * 
+     * @param value
+     * @return
+     */
+    public static boolean isFreemarkerEmptyString(Object value) {
+        return trim(value).toUpperCase().matches("^FREEMARKER\\.CORE\\.DEFAULTTOEXPRESSION.*$");
+    }
 }
