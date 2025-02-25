@@ -1,19 +1,12 @@
-name: Test Telegram Bot
+name: Send Email Notification
 
 on:
   workflow_dispatch: # 可以手動執行此 action
 
 jobs:
-  test-bot:
+  send-email:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup credentials
-        run: |
-          echo '${{ secrets.GMAIL_SERVICE_ACCOUNT }}' > service-account.json
-
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -22,7 +15,7 @@ jobs:
           secure: true
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: GitHub Action Result
-          body: Job completed successfully!
-          to: vancetang@gmail.com
+          subject: GitHub Action Notification
+          body: Workflow completed successfully!
+          to: vance.tang@gmail.com
           from: GitHub Actions
