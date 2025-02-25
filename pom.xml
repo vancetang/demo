@@ -23,11 +23,13 @@
 		<springdoc.openapi.version>2.8.4</springdoc.openapi.version>
 		<commons.io.version>2.18.0</commons.io.version>
 		<commons.codec.version>1.18.0</commons.codec.version>
+		<commons.text.version>1.13.0</commons.text.version>
 		<commons.collections4.version>4.4</commons.collections4.version>
 		<commons.csv.version>1.13.0</commons.csv.version>
 		<hutool.version>5.8.22</hutool.version>
 		<guava.version>32.1.2-jre</guava.version>
 		<flexmark.version>0.64.8</flexmark.version>
+		<freemarker.version>2.3.34</freemarker.version>
 	</properties>
 	<dependencies>
 		<!-- ================ Spring 主要 ================ -->
@@ -100,6 +102,12 @@
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>${commons.text.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 			<version>${commons.collections4.version}</version>
 		</dependency>
@@ -128,6 +136,12 @@
 			<artifactId>lombok</artifactId>
 			<!-- Lombok 不需打包到 JAR 或 WAR 檔案中(只有編譯時期會需要到) -->
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
 		</dependency>
 
 		<!-- ========== 選用Third-Party Library ========== -->

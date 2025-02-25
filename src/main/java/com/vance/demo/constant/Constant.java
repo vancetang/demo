@@ -1,4 +1,4 @@
-package com.vance.demo.constants;
+package com.vance.demo.constant;
 
 /**
  * 通用常量
