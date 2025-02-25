@@ -2,6 +2,7 @@ package com.vance.demo.freemarker;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.concurrent.TimeUnit;
 
 import com.vance.demo.constant.Constant;
 
@@ -34,7 +35,7 @@ public class FtlRenderer {
         // 預設數值資料:不做任何處理，原欲設為number，會自動加上comma
         CFG.setNumberFormat("computer");
         // 每 60 秒檢查模板更新
-        CFG.setTemplateUpdateDelayMilliseconds(60000);
+        CFG.setTemplateUpdateDelayMilliseconds(TimeUnit.SECONDS.toMillis(60));
         // Date related methods =========================================
         CFG.setSharedVariable("t_date", new DateMethod());
         CFG.setSharedVariable("t_fulldate", new DateMethod("isFull"));
