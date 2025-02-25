@@ -18,7 +18,7 @@ import freemarker.template.Version;
 public class FtlRenderer {
 
     /** FreeMarker version */
-    private static final Version FM_VERSION = Configuration.VERSION_2_3_30;
+    private static final Version FM_VERSION = Configuration.VERSION_2_3_34;
 
     /** FTL 檔案根目錄位置 */
     private static final String FTL_ROOT = "/ftl";
