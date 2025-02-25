@@ -1,4 +1,4 @@
-package com.vance.demo.util.freemarker.method;
+package com.vance.demo.freemarker;
 
 import java.util.List;
 

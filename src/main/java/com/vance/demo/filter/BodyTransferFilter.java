@@ -3,7 +3,7 @@ package com.vance.demo.filter;
 import java.io.IOException;
 import java.util.Objects;
 
-import com.vance.demo.global.RequestBodyWrapper;
+import com.vance.demo.wrapper.RequestBodyWrapper;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;

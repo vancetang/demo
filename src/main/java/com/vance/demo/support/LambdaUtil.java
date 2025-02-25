@@ -1,4 +1,4 @@
-package com.vance.demo.util;
+package com.vance.demo.support;
 
 import java.util.Collection;
 import java.util.List;

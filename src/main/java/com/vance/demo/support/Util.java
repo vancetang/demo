@@ -1,4 +1,4 @@
-package com.vance.demo.util;
+package com.vance.demo.support;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
-import com.vance.demo.constants.Constant;
+import com.vance.demo.constant.Constant;
 
 /**
  * 工具類別

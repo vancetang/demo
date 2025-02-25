@@ -1,10 +1,10 @@
-package com.vance.demo.util.freemarker.method;
+package com.vance.demo.freemarker;
 
 import java.util.Date;
 import java.util.List;
 
-import com.vance.demo.util.DateUtil;
-import com.vance.demo.util.Util;
+import com.vance.demo.support.DateUtil;
+import com.vance.demo.support.Util;
 
 import freemarker.template.SimpleDate;
 import freemarker.template.TemplateMethodModelEx;

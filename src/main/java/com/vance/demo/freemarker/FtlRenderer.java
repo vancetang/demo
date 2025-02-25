@@ -1,14 +1,9 @@
-package com.vance.demo.util.freemarker;
+package com.vance.demo.freemarker;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-import com.vance.demo.constants.Constant;
-import com.vance.demo.util.freemarker.method.ContainsMethod;
-import com.vance.demo.util.freemarker.method.DateMethod;
-import com.vance.demo.util.freemarker.method.EscapeXmlMethod;
-import com.vance.demo.util.freemarker.method.TrimMethod;
-import com.vance.demo.util.freemarker.method.VanceMethod;
+import com.vance.demo.constant.Constant;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

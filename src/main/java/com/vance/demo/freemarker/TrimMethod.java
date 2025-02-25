@@ -1,10 +1,10 @@
-package com.vance.demo.util.freemarker.method;
+package com.vance.demo.freemarker;
 
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.vance.demo.util.Util;
+import com.vance.demo.support.Util;
 
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;

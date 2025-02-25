@@ -1,4 +1,4 @@
-package com.vance.demo.util;
+package com.vance.demo.support;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
