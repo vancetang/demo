@@ -26,6 +26,7 @@
 		<commons.text.version>1.13.0</commons.text.version>
 		<commons.collections4.version>4.4</commons.collections4.version>
 		<commons.csv.version>1.13.0</commons.csv.version>
+		<httpclient5.version>5.4.2</httpclient5.version>
 		<hutool.version>5.8.22</hutool.version>
 		<guava.version>32.1.2-jre</guava.version>
 		<flexmark.version>0.64.8</flexmark.version>
@@ -124,6 +125,12 @@
 					<artifactId>commons-codec</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>${httpclient5.version}</version>
 		</dependency>
 
 		<!-- ========== 常用Third-Party Library ========== -->
