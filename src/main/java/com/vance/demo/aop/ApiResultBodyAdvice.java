@@ -12,7 +12,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.vance.demo.dto.ApiResult;
+import com.vance.demo.data.dto.ApiResult;
 
 /**
  * ApiResult 回應處理

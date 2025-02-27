@@ -1,4 +1,4 @@
-package com.vance.demo.model;
+package com.vance.demo.data.model;
 
 import java.util.Date;
 
