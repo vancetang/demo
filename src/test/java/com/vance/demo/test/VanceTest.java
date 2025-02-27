@@ -9,7 +9,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
-import com.vance.demo.util.common.FtlUtil;
+import com.vance.demo.util.tool.FtlUtil;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.vance.demo.util.common;
+package com.vance.demo.util.tool;
 
 import java.io.IOException;
 import java.io.StringWriter;
