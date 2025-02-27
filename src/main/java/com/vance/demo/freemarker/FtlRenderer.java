@@ -2,6 +2,8 @@ package com.vance.demo.freemarker;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import com.vance.demo.constant.Constant;
@@ -114,19 +116,54 @@ public class FtlRenderer {
     }
 
     /**
-     * 處理模板並返回字串
+     * 處理模板並返回字串。
+     * <p>
+     * 該方法將給定的 FreeMarker 模板檔案與資料物件結合，生成渲染後的字串。
+     * 資料物件可以是 {@link Map}、JavaBean 或 {@code null}。
+     * </p>
      *
      * @param ftlNm FreeMarker 模板檔案名稱 (FTL 文件)
-     * @param data  資料物件，用於模板渲染
-     * @return 處理後的字串
-     * @throws RuntimeException 如果模板加載或處理失敗
+     * @param data  資料物件，用於模板渲染，可以是 {@link Map}、JavaBean 或 {@code null}
+     * @return 渲染後的字串
+     * @throws RuntimeException 如果模板加載或處理失敗，或資料型態無效（不是 {@link Map}、JavaBean 或
+     *                          {@code null}）
      */
     private static String renderTemplate(String ftlNm, Object data) {
+        if (!isValidDataModel(data)) {
+            throw new RuntimeException("資料型態只能是 Map or JavaBean: " + data.getClass().getName());
+        }
         try (StringWriter out = new StringWriter()) {
             getTemplate(ftlNm).process(data, out);
             return out.toString();
         } catch (Exception e) {
             throw new RuntimeException("Template processing failed for: " + ftlNm, e);
         }
+    }
+
+    /**
+     * 檢查給定的物件是否為有效的 FreeMarker 資料模型。
+     * <p>
+     * 該方法驗證資料物件是否可以作為 FreeMarker 的資料模型，包括 {@link Map}、JavaBean 或 {@code null}。
+     * </p>
+     *
+     * @param data 要檢查的資料物件
+     * @return {@code true} 如果物件是 {@link Map}、JavaBean 或 {@code null}，否則返回
+     *         {@code false}
+     */
+    public static boolean isValidDataModel(Object data) {
+        if (Objects.isNull(data)) {
+            return true; // null 值也算有效
+        }
+        // 檢查是否為 Map
+        if (data instanceof Map) {
+            return true;
+        }
+        // 排除基本型別、包裝類別、String 等非 JavaBean 的類型
+        Class<?> clazz = data.getClass();
+        return !clazz.isPrimitive() && // 不是基本型別
+                !(data instanceof String) && // 不是 String
+                !(data instanceof Number) && // 不是 Number（如 Integer, BigDecimal）
+                !(data instanceof Boolean) && // 不是 Boolean
+                !(data instanceof Character); // 不是 Character
     }
 }
