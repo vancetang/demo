@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Maps;
-import com.vance.demo.dto.ApiResult;
+import com.vance.demo.data.dto.ApiResult;
+import com.vance.demo.data.model.User;
 import com.vance.demo.exception.UserNotFoundException;
-import com.vance.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

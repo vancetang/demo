@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.vance.demo.dto.ApiResult;
+import com.vance.demo.data.dto.ApiResult;
 import com.vance.demo.enums.ResultCodeEnum;
 import com.vance.demo.exception.UserNotFoundException;
 

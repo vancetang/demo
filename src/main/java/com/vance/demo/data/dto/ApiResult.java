@@ -1,4 +1,4 @@
-package com.vance.demo.dto;
+package com.vance.demo.data.dto;
 
 import java.util.HashMap;
 import java.util.Map;
