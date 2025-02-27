@@ -48,10 +48,12 @@ public class FtlUtil {
         CFG.setNumberFormat("computer");
         // 每 60 秒檢查模板更新
         CFG.setTemplateUpdateDelayMilliseconds(TimeUnit.SECONDS.toMillis(60));
+
         // Date related methods =========================================
         CFG.setSharedVariable("t_date", new DateMethod());
         CFG.setSharedVariable("t_fulldate", new DateMethod("isFull"));
         CFG.setSharedVariable("t_formatdate", new DateMethod("isFormat"));
+
         // String utility methods =======================================
         // 去空白method
         CFG.setSharedVariable("t_trim", new TrimMethod());
@@ -151,12 +153,8 @@ public class FtlUtil {
      *         {@code false}
      */
     private static boolean isValidDataModel(Object data) {
-        if (Objects.isNull(data)) {
-            return true; // null 值也算有效
-        }
-        // 檢查是否為 Map
-        if (data instanceof Map) {
-            return true;
+        if (Objects.isNull(data) || data instanceof Map) {
+            return true; // null 或 Map 都有效
         }
         // 排除基本型別、包裝類別、String 等非 JavaBean 的類型
         Class<?> clazz = data.getClass();
