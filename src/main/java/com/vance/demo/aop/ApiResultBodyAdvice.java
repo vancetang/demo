@@ -1,4 +1,4 @@
-package com.vance.demo.advice;
+package com.vance.demo.aop;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -15,7 +15,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import com.vance.demo.dto.ApiResult;
 
 /**
- * 針對API回應訊息，重新包裝
+ * ApiResult 回應處理
+ * <p>
+ * 當 Controller 回傳型態為 ApiResult 時，將 path 設置為當前請求的 URI。
+ * </p>
  * 
  * @author Vance
  */
