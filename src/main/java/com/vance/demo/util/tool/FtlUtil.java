@@ -1,7 +1,9 @@
-package com.vance.demo.freemarker;
+package com.vance.demo.util.tool;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import com.vance.demo.constant.Constant;
@@ -16,16 +18,16 @@ import freemarker.template.Template;
 import freemarker.template.Version;
 
 /**
- * FreeMarker 模板渲染工具類，用於加載和處理 FreeMarker 模板。
+ * FreeMarker 模板工具類，提供與 FreeMarker 模板相關的操作。
  * <p>
- * 該類是一個靜態工具類，通過靜態方法提供 FreeMarker 模板的渲染功能。初始化時配置了 FreeMarker 的環境（版本、模板路徑、編碼等），
- * 並註冊了多個自定義方法（例如日期格式化、字符串處理等）。支持將模板與數據對象結合，生成字符串輸出，並可選擇是否移除換行符號。
- * 若模板加載或處理失敗，會拋出運行時異常。
+ * 該類是一個靜態工具類，通過靜態方法提供 FreeMarker 模板的處理功能，例如模板渲染。
+ * 初始化時配置了 FreeMarker 的環境（版本、模板路徑、編碼等），並註冊了多個自定義方法（例如日期格式化、字符串處理等）。
+ * 支持將模板與數據對象結合，生成字符串輸出，並可選擇是否移除換行符號。若模板加載或處理失敗，會拋出運行時異常。
  * </p>
  *
  * @author Vance
  */
-public class FtlRenderer {
+public class FtlUtil {
 
     /** FreeMarker version */
     private static final Version FM_VERSION = Configuration.VERSION_2_3_34;
@@ -40,16 +42,18 @@ public class FtlRenderer {
     private static final Configuration CFG;
     static {
         CFG = new Configuration(FM_VERSION);
-        CFG.setClassForTemplateLoading(FtlRenderer.class, FTL_ROOT);
+        CFG.setClassForTemplateLoading(FtlUtil.class, FTL_ROOT);
         CFG.setDefaultEncoding(FTL_CHARSET);
         // 預設數值資料:不做任何處理，原欲設為number，會自動加上comma
         CFG.setNumberFormat("computer");
         // 每 60 秒檢查模板更新
         CFG.setTemplateUpdateDelayMilliseconds(TimeUnit.SECONDS.toMillis(60));
+
         // Date related methods =========================================
         CFG.setSharedVariable("t_date", new DateMethod());
         CFG.setSharedVariable("t_fulldate", new DateMethod("isFull"));
         CFG.setSharedVariable("t_formatdate", new DateMethod("isFormat"));
+
         // String utility methods =======================================
         // 去空白method
         CFG.setSharedVariable("t_trim", new TrimMethod());
@@ -67,7 +71,7 @@ public class FtlRenderer {
      * 此類設計為靜態工具類，所有功能通過靜態方法提供，因此禁止外部實例化。
      * </p>
      */
-    private FtlRenderer() {
+    private FtlUtil() {
         // Prevent instantiation
     }
 
@@ -114,19 +118,50 @@ public class FtlRenderer {
     }
 
     /**
-     * 處理模板並返回字串
+     * 處理模板並返回字串。
+     * <p>
+     * 該方法將給定的 FreeMarker 模板檔案與資料物件結合，生成渲染後的字串。
+     * 資料物件可以是 {@link Map}、JavaBean 或 {@code null}。
+     * </p>
      *
      * @param ftlNm FreeMarker 模板檔案名稱 (FTL 文件)
-     * @param data  資料物件，用於模板渲染
-     * @return 處理後的字串
-     * @throws RuntimeException 如果模板加載或處理失敗
+     * @param data  資料物件，用於模板渲染，可以是 {@link Map}、JavaBean 或 {@code null}
+     * @return 渲染後的字串
+     * @throws RuntimeException 如果模板加載或處理失敗，或資料型態無效（不是 {@link Map}、JavaBean 或
+     *                          {@code null}）
      */
     private static String renderTemplate(String ftlNm, Object data) {
+        if (!isValidDataModel(data)) {
+            throw new RuntimeException("資料型態只能是 Map or JavaBean: " + data.getClass().getName());
+        }
         try (StringWriter out = new StringWriter()) {
             getTemplate(ftlNm).process(data, out);
             return out.toString();
         } catch (Exception e) {
             throw new RuntimeException("Template processing failed for: " + ftlNm, e);
         }
+    }
+
+    /**
+     * 檢查給定的物件是否為有效的 FreeMarker 資料模型。
+     * <p>
+     * 該方法驗證資料物件是否可以作為 FreeMarker 的資料模型，包括 {@link Map}、JavaBean 或 {@code null}。
+     * </p>
+     *
+     * @param data 要檢查的資料物件
+     * @return {@code true} 如果物件是 {@link Map}、JavaBean 或 {@code null}，否則返回
+     *         {@code false}
+     */
+    private static boolean isValidDataModel(Object data) {
+        if (Objects.isNull(data) || data instanceof Map) {
+            return true; // null 或 Map 都有效
+        }
+        // 排除基本型別、包裝類別、String 等非 JavaBean 的類型
+        Class<?> clazz = data.getClass();
+        return !clazz.isPrimitive() && // 不是基本型別
+                !(data instanceof String) && // 不是 String
+                !(data instanceof Number) && // 不是 Number（如 Integer, BigDecimal）
+                !(data instanceof Boolean) && // 不是 Boolean
+                !(data instanceof Character); // 不是 Character
     }
 }

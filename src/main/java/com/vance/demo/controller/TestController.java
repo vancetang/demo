@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Maps;
 import com.vance.demo.dto.ApiResult;
+import com.vance.demo.exception.UserNotFoundException;
 import com.vance.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,5 +63,10 @@ public class TestController {
     @PostMapping("/test5")
     public String test5() {
         throw new RuntimeException("Vance測試錯誤");
+    }
+
+    @PostMapping("/test6")
+    public String test6() {
+        throw new UserNotFoundException("Vance測試錯誤");
     }
 }
