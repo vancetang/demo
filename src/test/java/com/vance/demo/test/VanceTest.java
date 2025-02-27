@@ -9,7 +9,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
-import com.vance.demo.freemarker.FtlRenderer;
+import com.vance.demo.util.common.FtlUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +18,7 @@ public class VanceTest {
     public static void main(String[] args) {
         log.info("========== {} 開始 ==========", VanceTest.class.getSimpleName());
         try {
-            String html = FtlRenderer.getString("copyright.ftl", Collections.singletonMap("me", "vance"));
+            String html = FtlUtil.getString("copyright.ftl", Collections.singletonMap("me", "vance"));
             log.info("{}", html);
         } catch (Exception e) {
             log.error("{}", ExceptionUtils.getStackTrace(e));

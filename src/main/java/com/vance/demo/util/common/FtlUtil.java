@@ -1,4 +1,4 @@
-package com.vance.demo.freemarker;
+package com.vance.demo.util.common;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -18,16 +18,16 @@ import freemarker.template.Template;
 import freemarker.template.Version;
 
 /**
- * FreeMarker 模板渲染工具類，用於加載和處理 FreeMarker 模板。
+ * FreeMarker 模板工具類，提供與 FreeMarker 模板相關的操作。
  * <p>
- * 該類是一個靜態工具類，通過靜態方法提供 FreeMarker 模板的渲染功能。初始化時配置了 FreeMarker 的環境（版本、模板路徑、編碼等），
- * 並註冊了多個自定義方法（例如日期格式化、字符串處理等）。支持將模板與數據對象結合，生成字符串輸出，並可選擇是否移除換行符號。
- * 若模板加載或處理失敗，會拋出運行時異常。
+ * 該類是一個靜態工具類，通過靜態方法提供 FreeMarker 模板的處理功能，例如模板渲染。
+ * 初始化時配置了 FreeMarker 的環境（版本、模板路徑、編碼等），並註冊了多個自定義方法（例如日期格式化、字符串處理等）。
+ * 支持將模板與數據對象結合，生成字符串輸出，並可選擇是否移除換行符號。若模板加載或處理失敗，會拋出運行時異常。
  * </p>
  *
  * @author Vance
  */
-public class FtlRenderer {
+public class FtlUtil {
 
     /** FreeMarker version */
     private static final Version FM_VERSION = Configuration.VERSION_2_3_34;
@@ -42,7 +42,7 @@ public class FtlRenderer {
     private static final Configuration CFG;
     static {
         CFG = new Configuration(FM_VERSION);
-        CFG.setClassForTemplateLoading(FtlRenderer.class, FTL_ROOT);
+        CFG.setClassForTemplateLoading(FtlUtil.class, FTL_ROOT);
         CFG.setDefaultEncoding(FTL_CHARSET);
         // 預設數值資料:不做任何處理，原欲設為number，會自動加上comma
         CFG.setNumberFormat("computer");
@@ -69,7 +69,7 @@ public class FtlRenderer {
      * 此類設計為靜態工具類，所有功能通過靜態方法提供，因此禁止外部實例化。
      * </p>
      */
-    private FtlRenderer() {
+    private FtlUtil() {
         // Prevent instantiation
     }
 
@@ -150,7 +150,7 @@ public class FtlRenderer {
      * @return {@code true} 如果物件是 {@link Map}、JavaBean 或 {@code null}，否則返回
      *         {@code false}
      */
-    public static boolean isValidDataModel(Object data) {
+    private static boolean isValidDataModel(Object data) {
         if (Objects.isNull(data)) {
             return true; // null 值也算有效
         }
