@@ -1,4 +1,4 @@
-package com.vance.demo.aop;
+package com.vance.demo.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
