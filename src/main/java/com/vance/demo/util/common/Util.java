@@ -3,7 +3,9 @@ package com.vance.demo.util.common;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.net.ssl.SSLContext;
 
@@ -17,6 +19,7 @@ import org.apache.hc.client5.http.ssl.DefaultClientTlsStrategy;
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
 import org.apache.hc.core5.ssl.SSLContexts;
 import org.apache.hc.core5.ssl.TrustStrategy;
+import org.springframework.data.util.CastUtils;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -132,5 +135,42 @@ public class Util {
         // 用以下會沒效果，故使用上方的方式新增
         // restTemplate.setMessageConverters(Collections.singletonList(converter));
         return restTemplate;
+    }
+
+    /**
+     * 安全地從映射中獲取指定鍵對應的 Map 值。
+     * 
+     * @param map 源映射
+     * @param key 要檢索的鍵
+     * @return 如果找到匹配的鍵且值為 Map 類型，則返回該 Map；
+     *         否則使用 CastUtils 進行強制轉型（通常會返回 null 或拋出異常）
+     */
+    public static Map<String, Object> safeGetMap(Map<String, Object> map, String key) {
+        return CastUtils.cast(safeGet(map, key, Map.class));
+    }
+
+    /**
+     * 安全地從映射中獲取指定鍵對應的 List 值。
+     * 
+     * @param map 源映射
+     * @param key 要檢索的鍵
+     * @return 如果找到匹配的鍵且值為 List 類型，則返回該 List；
+     *         否則使用 CastUtils 進行強制轉型（通常會返回 null 或拋出異常）
+     */
+    public static List<Map<String, Object>> safeGetList(Map<String, Object> map, String key) {
+        return CastUtils.cast(safeGet(map, key, List.class));
+    }
+
+    /**
+     * 安全地從映射中獲取指定鍵的值，並將其轉換為指定類型。
+     * 
+     * @param <T>  期望返回的值的類型
+     * @param map  源映射
+     * @param key  要檢索的鍵
+     * @param type 期望返回值的類別
+     * @return 如果找到匹配的鍵且類型正確，則返回對應的值；否則返回 null
+     */
+    public static <T> T safeGet(Map<String, Object> map, String key, Class<T> type) {
+        return Optional.ofNullable(map.get(key)).filter(type::isInstance).map(type::cast).orElse(null);
     }
 }
