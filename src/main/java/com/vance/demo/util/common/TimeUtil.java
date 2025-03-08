@@ -34,14 +34,14 @@ public class TimeUtil {
 		try {
 			// long time = System.currentTimeMillis();
 			long time = 1050826;
-			String utc = toUTC(time);
+			String utc = toUtc(time);
 			// Asia/Taipei
-			String iso = toUTC(time, ZoneId.of("Japan"));
+			String iso = toUtc(time, ZoneId.of("Japan"));
 			log.info("{}", utc);
 			log.info("{}", iso);
 			log.info("{}", toLong(utc));
 			log.info("{}", toLong(iso));
-			log.info("{}", toUTCTw(time));
+			log.info("{}", toUtcTw(time));
 			log.info("{}", DateUtil.formatDate(new Date(time), "yyyy-MM-dd HH:mm:ss.SSS"));
 			// log.info("{}", toLong("2023-04-13T11:00:11.751"));
 			log.info("------------------------------------");
@@ -74,8 +74,8 @@ public class TimeUtil {
 	 * @param timestamp 時間戳
 	 * @return
 	 */
-	public static String toUTC(long timestamp) {
-		return toUTC(timestamp, ZoneId.of("GMT"));
+	public static String toUtc(long timestamp) {
+		return toUtc(timestamp, ZoneId.of("GMT"));
 	}
 
 	/**
@@ -86,8 +86,8 @@ public class TimeUtil {
 	 * @param timestamp 時間戳
 	 * @return
 	 */
-	public static String toUTCTw(long timestamp) {
-		return toUTC(timestamp, ZoneId.systemDefault());
+	public static String toUtcTw(long timestamp) {
+		return toUtc(timestamp, ZoneId.systemDefault());
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class TimeUtil {
 	 * @param zoneid    目標時區
 	 * @return
 	 */
-	public static String toUTC(long timestamp, ZoneId zoneid) {
+	public static String toUtc(long timestamp, ZoneId zoneid) {
 		LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.of("UTC"));
 		ZonedDateTime utcZone = ZonedDateTime.of(localDateTime, ZoneId.of("UTC")).withZoneSameInstant(zoneid);
 		String str = utcZone.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);

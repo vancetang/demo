@@ -38,7 +38,7 @@ public class FileUtil {
      * @param file
      * @return
      */
-    public static String getFileHashByApache(File file) {
+    public static String getFileHashByCodec(File file) {
         log.info("File Path: {}", file.getAbsolutePath());
         try (FileInputStream fis = new FileInputStream(file)) {
             return DigestUtils.sha256Hex(fis);

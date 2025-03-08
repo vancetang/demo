@@ -40,8 +40,9 @@ public class ContainsMethod implements TemplateMethodModelEx {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object exec(List args) throws TemplateModelException {
-		if (args.size() != 2)
+		if (args.size() != 2) {
 			throw new TemplateModelException("Wrong arguments");
+		}
 		try {
 			String value1 = StringUtil.trim(args.get(0)).toUpperCase();
 			String value2 = StringUtil.trim(args.get(1)).toUpperCase();

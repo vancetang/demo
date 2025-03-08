@@ -154,14 +154,16 @@ public class FtlUtil {
      */
     private static boolean isValidDataModel(Object data) {
         if (Objects.isNull(data) || data instanceof Map) {
-            return true; // null 或 Map 都有效
+            // null 或 Map 都有效
+            return true;
         }
         // 排除基本型別、包裝類別、String 等非 JavaBean 的類型
         Class<?> clazz = data.getClass();
-        return !clazz.isPrimitive() && // 不是基本型別
-                !(data instanceof String) && // 不是 String
-                !(data instanceof Number) && // 不是 Number（如 Integer, BigDecimal）
-                !(data instanceof Boolean) && // 不是 Boolean
-                !(data instanceof Character); // 不是 Character
+        // 不是基本型別、String、Number（如 Integer, BigDecimal）、Boolean、Character
+        return !clazz.isPrimitive() &&
+                !(data instanceof String) &&
+                !(data instanceof Number) &&
+                !(data instanceof Boolean) &&
+                !(data instanceof Character);
     }
 }
