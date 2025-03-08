@@ -55,8 +55,9 @@ public class StringUtil {
      */
     public static String addZeroWithValue(String str, int num) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < num - str.length(); i++)
+        for (int i = 0; i < num - str.length(); i++) {
             sb.append("0");
+        }
         sb.append(str);
         return sb.toString();
     }

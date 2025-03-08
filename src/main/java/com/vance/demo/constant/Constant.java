@@ -15,9 +15,14 @@ public final class Constant {
         throw new AssertionError("Utility class cannot be instantiated");
     }
 
-    // 通用字符常量
-    public static final char CHAR_SPACE = ' '; // 空格
-    public static final char CHAR_FULL_SPACE = '　'; // 全形空格
+    /**
+     * 空格
+     */
+    public static final char CHAR_SPACE = ' ';
+    /**
+     * 全形空格
+     */
+    public static final char CHAR_FULL_SPACE = '　';
 
     /**
      * 字符集

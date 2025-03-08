@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class NumberUtil {
 
-    private static final String[] units = new String[] { "", "萬", "億", "萬億" };
+    private static final String[] UNITS_STRINGS = new String[] { "", "萬", "億", "萬億" };
 
     /**
      * 檢查是不是數字
@@ -69,8 +69,9 @@ public class NumberUtil {
      * @return
      */
     public static Integer parseInt(Object input, boolean returnNull) {
-        if (Objects.isNull(input) && returnNull)
+        if (Objects.isNull(input) && returnNull) {
             return null;
+        }
         return parseBigDecimal(input).intValue();
     }
 
@@ -92,8 +93,9 @@ public class NumberUtil {
      * @return
      */
     public static Double parseDouble(Object input, boolean returnNull) {
-        if (Objects.isNull(input) && returnNull)
+        if (Objects.isNull(input) && returnNull) {
             return null;
+        }
         return parseBigDecimal(input).doubleValue();
     }
 
@@ -117,8 +119,9 @@ public class NumberUtil {
      * @return
      */
     public static Double parseDouble(Object input, int scale, boolean returnNull) {
-        if (Objects.isNull(input) && returnNull)
+        if (Objects.isNull(input) && returnNull) {
             return null;
+        }
         return parseBigDecimal(input).setScale(scale, RoundingMode.HALF_UP).doubleValue();
     }
 
@@ -140,8 +143,9 @@ public class NumberUtil {
      * @return
      */
     public static Long parseLong(Object input, boolean returnNull) {
-        if (Objects.isNull(input) && returnNull)
+        if (Objects.isNull(input) && returnNull) {
             return null;
+        }
         return parseBigDecimal(input).longValue();
     }
 
@@ -165,8 +169,9 @@ public class NumberUtil {
      * @return
      */
     public static BigDecimal parseBigDecimal(Object input, boolean returnNull) {
-        if (Objects.isNull(input) && returnNull)
+        if (Objects.isNull(input) && returnNull) {
             return null;
+        }
         if (input instanceof BigDecimal) {
             return (BigDecimal) input;
         } else if (isNumeric(input)) {
@@ -224,26 +229,30 @@ public class NumberUtil {
         for (int i = k; i > 0; i--) {
             int len = 4;
             // 當i為最左邊的那組時，組長度可能有變化
-            if (i == k && m != 0)
+            if (i == k && m != 0) {
                 len = m;
+            }
             String s = x.substring(p, p + len);
             int le = s.length();
             for (int j = 0; j < le; j++) {
                 int n = Integer.parseInt(s.substring(j, j + 1));
                 if (0 == n) {
                     // 加零的條件：不為最後一位 && 下一位數字大於0 && 以前沒有加過“零”
-                    if (j < le - 1 && Integer.parseInt(s.substring(j + 1, j + 2)) > 0 && !result.endsWith(unms[0]))
+                    if (j < le - 1 && Integer.parseInt(s.substring(j + 1, j + 2)) > 0 && !result.endsWith(unms[0])) {
                         result += unms[0];
+                    }
                 } else {
                     // 處理1013一千零"十三"，1113 一千一百"一十三"
-                    if (!(n == 1 && (result.endsWith(unms[0]) || result.length() == 0) && j == le - 2))
+                    if (!(n == 1 && (result.endsWith(unms[0]) || result.length() == 0) && j == le - 2)) {
                         result += unms[n];
+                    }
                     result += digits[le - j - 1];
                 }
             }
             // 如果這組數字不全是 0，則加上單位：萬，億，萬億
-            if (0 != Integer.parseInt(s))
-                result += units[i - 1];
+            if (0 != Integer.parseInt(s)) {
+                result += UNITS_STRINGS[i - 1];
+            }
             p += len;
         }
         return result;

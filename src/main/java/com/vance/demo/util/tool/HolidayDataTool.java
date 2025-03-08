@@ -94,9 +94,12 @@ public class HolidayDataTool {
      */
     private CSVParser createCsvParser(BufferedReader reader) throws Exception {
         return CSVFormat.DEFAULT.builder()
-                .setHeader() // 設置自動解析表頭
-                .setTrim(true) // 啟用去除空白
-                .setSkipHeaderRecord(true) // 跳過表頭行
+                // 設置自動解析表頭
+                .setHeader()
+                // 啟用去除空白
+                .setTrim(true)
+                // 跳過表頭行
+                .setSkipHeaderRecord(true)
                 .get().parse(reader);
     }
 

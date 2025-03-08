@@ -95,8 +95,9 @@ public class DateMethod implements TemplateMethodModelEx {
 					return DateUtil.formatDate(date, "yyyy-MM-dd HH:mm:ss");
 				case "isFormat":
 					return DateUtil.formatDate(date, StringUtil.trim(args.get(1)));
+				default:
+					return DateUtil.formatDate(date, "yyyy-MM-dd");
 			}
-			return DateUtil.formatDate(date, "yyyy-MM-dd");
 		} catch (Exception e) {
 			// 其他轉換錯誤皆轉成Java錯誤訊息，不然null會造成ftl錯誤
 			return e.getMessage();
