@@ -6,7 +6,7 @@
 
 fixes #<issue_number> 或 N/A
 
-## 💥 這是否會引入不相容的變更? (Breaking Change)
+## 🚨 這是否會引入不相容的變更? (Breaking Change)
 
 當開發人員從 main 分支合併並執行時，是否會產生錯誤？如果不確定，請嘗試在舊環境上測試，以確保系統穩定性。
 
