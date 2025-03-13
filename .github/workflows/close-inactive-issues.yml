@@ -24,6 +24,8 @@ jobs:
           stale-issue-label: "stale"
           stale-pr-label: "stale"
 
+          start-date: "2020-04-18T00:00:00Z" # ISO 8601 or RFC 2822
+
           stale-issue-message: "Bumping this issue because it has been open for 7 days with no activity. Closing automatically in 7 days unless it becomes active again."
           close-issue-message: "Closing due to inactivity."
 
