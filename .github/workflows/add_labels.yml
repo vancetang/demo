@@ -36,7 +36,13 @@ jobs:
 
           for LABEL in $(echo "$LABELS" | jq -r '.[] | @base64'); do
             _jq() {
-              echo ${LABEL} | base64 --decode | jq -r "${1}"
+              if [ -z "${1}" ]; then
+                # 如果 ${1} 為空，直接回傳解碼後的完整 JSON
+                echo ${LABEL} | base64 --decode
+              else
+                # 如果 ${1} 有值，使用 jq 提取指定欄位
+                echo ${LABEL} | base64 --decode | jq -r "${1}"
+              fi
             }
             
             LABEL_NAME=$(_jq '.name')
@@ -61,13 +67,12 @@ jobs:
                 https://api.github.com/repos/${{ github.repository }}/labels/$LABEL_NAME
             elif [ "$response" -eq 404 ]; then
               echo "🛠️ Label '$LABEL_NAME' does not exist, creating..."
-              echo "$LABEL"
               echo "$(_jq)"
               # 創建標籤
               curl -X POST \
                 -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
-                -d "$LABEL" \
+                -d "$(_jq)" \
                 https://api.github.com/repos/${{ github.repository }}/labels
             else
               echo "🛑 Error: Unexpected response $response for label '$LABEL_NAME'"
