@@ -15,16 +15,14 @@ jobs:
     steps:
       - uses: actions/stale@v9
         with:
-          days-before-issue-stale: 1
-          days-before-issue-close: 1
+          days-before-issue-stale: 0
+          days-before-issue-close: 0
 
-          days-before-pr-stale: 1
-          days-before-pr-close: 1
+          days-before-pr-stale: 0
+          days-before-pr-close: 0
 
           stale-issue-label: "stale"
           stale-pr-label: "stale"
-
-          start-date: "2020-04-18T00:00:00Z" # ISO 8601 or RFC 2822
 
           stale-issue-message: "Bumping this issue because it has been open for 7 days with no activity. Closing automatically in 7 days unless it becomes active again."
           close-issue-message: "Closing due to inactivity."
