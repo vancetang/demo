@@ -32,8 +32,8 @@ jobs:
           STALE_DAYS=${{ github.event.inputs.stale-days }}
           CLOSE_DAYS=${{ github.event.inputs.close-days }}
           # 設置環境變數，若輸入值為空則使用預設值
-          echo "stale_days=${STALE_DAYS:-$DEFAULT_DAYS}" >> $GITHUB_ENV
-          echo "close_days=${CLOSE_DAYS:-$DEFAULT_DAYS}" >> $GITHUB_ENV
+          echo "stale_days=${STALE_DAYS:-$DEFAULT_DAYS}" >> $GITHUB_OUTPUT
+          echo "close_days=${CLOSE_DAYS:-$DEFAULT_DAYS}" >> $GITHUB_OUTPUT
           # 除錯用：顯示最終設定的天數
           echo "⏳ Set STALE_DAYS to: ${STALE_DAYS:-$DEFAULT_DAYS}"
           echo "⏳ Set CLOSE_DAYS to: ${CLOSE_DAYS:-$DEFAULT_DAYS}"
