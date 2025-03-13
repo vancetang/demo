@@ -8,11 +8,9 @@ on:
     inputs:
       stale-days:
         description: "Number of days of inactivity before marking as stale (default: 7)"
-        required: true
         type: number
       close-days:
         description: "Number of days after marking as stale before closing (default: 7)"
-        required: true
         type: number
 
 env:
