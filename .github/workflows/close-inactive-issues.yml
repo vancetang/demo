@@ -1,5 +1,5 @@
 # 自動關閉不活躍的問題和拉取請求功能
-name: Close inactive issues
+name: "Close stale issues and PRs"
 
 on:
   schedule:
@@ -13,7 +13,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v5
+      - uses: actions/stale@v9
         with:
           days-before-issue-stale: 1
           days-before-issue-close: 1
