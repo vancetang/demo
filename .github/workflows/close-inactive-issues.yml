@@ -1,4 +1,4 @@
-# 關閉超過指定時間的PR and issues
+# 自動關閉不活躍的問題和拉取請求功能
 name: Close inactive issues
 
 on:
