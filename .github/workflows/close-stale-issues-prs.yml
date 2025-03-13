@@ -1,0 +1,56 @@
+# 自動關閉不活躍的問題和拉取請求功能
+name: "Close stale issues and PRs"
+
+on:
+  schedule:
+    - cron: "5 0 * * *" # 每天 UTC 00:05 執行
+  workflow_dispatch: # 支援手動觸發此 workflow
+    inputs:
+      stale-days:
+        description: "Number of days of inactivity before marking as stale (default: 7)"
+        type: number
+      close-days:
+        description: "Number of days after marking as stale before closing (default: 7)"
+        type: number
+
+env:
+  DEFAULT_DAYS: 7 # 全局預設天數，應用於未提供輸入時
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Set stale and close days
+        id: set-days
+        run: |
+          # 從輸入中獲取 stale-days 和 close-days，若無輸入則使用 DEFAULT_DAYS
+          STALE_DAYS=${{ github.event.inputs.stale-days }}
+          CLOSE_DAYS=${{ github.event.inputs.close-days }}
+          # 設置環境變數，若輸入值為空則使用預設值
+          echo "stale_days=${STALE_DAYS:-$DEFAULT_DAYS}" >> $GITHUB_OUTPUT
+          echo "close_days=${CLOSE_DAYS:-$DEFAULT_DAYS}" >> $GITHUB_OUTPUT
+          # 除錯用：顯示最終設定的天數
+          echo "⏳ Set STALE_DAYS to: ${STALE_DAYS:-$DEFAULT_DAYS}"
+          echo "⏳ Set CLOSE_DAYS to: ${CLOSE_DAYS:-$DEFAULT_DAYS}"
+
+      - uses: actions/stale@v9
+        with:
+          days-before-issue-stale: ${{ steps.set-days.outputs.stale_days }}
+          days-before-issue-close: ${{ steps.set-days.outputs.close_days }}
+
+          days-before-pr-stale: ${{ steps.set-days.outputs.stale_days }}
+          days-before-pr-close: ${{ steps.set-days.outputs.close_days }}
+
+          stale-issue-label: "stale"
+          stale-pr-label: "stale"
+
+          stale-issue-message: "This issue has been inactive for ${{ steps.set-days.outputs.stale_days }} days with no updates. It will be automatically closed in ${{ steps.set-days.outputs.close_days }} days unless activity resumes."
+          close-issue-message: "This is being closed due to prolonged inactivity."
+
+          stale-pr-message: "This pull request has been inactive for ${{ steps.set-days.outputs.stale_days }} days with no updates. It will be automatically closed in ${{ steps.set-days.outputs.close_days }} days unless activity resumes."
+          close-pr-message: "This is being closed due to prolonged inactivity."
+
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
