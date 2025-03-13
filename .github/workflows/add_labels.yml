@@ -61,6 +61,8 @@ jobs:
                 https://api.github.com/repos/${{ github.repository }}/labels/$LABEL_NAME
             elif [ "$response" -eq 404 ]; then
               echo "🛠️ Label '$LABEL_NAME' does not exist, creating..."
+              echo "$LABEL"
+              echo "$(_jq)"
               # 創建標籤
               curl -X POST \
                 -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
