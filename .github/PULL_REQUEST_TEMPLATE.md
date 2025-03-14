@@ -4,7 +4,7 @@
 
 ## 🔗 相關問題 (Related Issue)
 
-fixes #<issue_number> 或 N/A
+close #<issue_number> 或 N/A
 
 ## 🚨 這是否會引入不相容的變更? (Breaking Change)
 
