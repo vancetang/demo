@@ -13,9 +13,11 @@
   - codeql: 靜態程式弱點掃描
   - test: 測試功能用(目前保留直接執行java功能, maven clean package...)
   - translate: 翻譯(因為無openai token所以無法測試)
+  - label-pr 替PR增加label(label要存在不然會發生錯誤)
 - Spring-Boot v3版本
 - 測試保護分支(Master)，一定要PR才可以
 - 測試新增本地端 pre-push 保護 master & 檢查是否有更新
+
 
 ## Star History
 

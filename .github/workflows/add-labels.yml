@@ -27,7 +27,12 @@ jobs:
               {"name": "testing", "color": "f9d0c4", "description": "Marks features for testing"},
               {"name": "wip", "color": "f4a261", "description": "Work in Progress"},
               {"name": "wontfix", "color": "ffffff", "description": "This will not be worked on"},
-              {"name": "stale", "color": "808080", "description": "This issue or PR has been inactive for too long and may need attention or closure"}
+              {"name": "stale", "color": "808080", "description": "This issue or PR has been inactive for too long and may need attention or closure"},
+              {"name": "frontend", "color": "1abc9c", "description": "Related to frontend development or user interface"},
+              {"name": "backend", "color": "2ecc71", "description": "Related to backend logic or infrastructure"},
+              {"name": "configuration", "color": "3498db", "description": "Related to project settings or configuration files"},
+              {"name": "build", "color": "e67e22", "description": "Related to build processes or tools"},
+              {"name": "test-code", "color": "9b59b6", "description": "Related to writing or fixing unit/integration test code"}              
             ]
           EOF
           )

@@ -1,7 +1,7 @@
 package com.vance.demo.constant;
 
 /**
- * 通用常量
+ * Constant class
  * 
  * @author Vance
  * @since 2020/3/20
