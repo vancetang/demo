@@ -50,7 +50,7 @@ public class TestControllerTest {
         // 檢查異常的根本原因是否符合預期
         Throwable cause = exception.getCause();
         assertTrue(expectedCause.isInstance(cause),
-                "預期根本原因是 " + expectedCause.getSimpleName() + "，實際是 " +
+                "預期原因是 " + expectedCause.getSimpleName() + "，實際是 " +
                         cause.getClass().getSimpleName());
     }
 

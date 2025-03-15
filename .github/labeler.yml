@@ -8,11 +8,13 @@ frontend:
 backend:
   - src/main/java/**/* # 所有 Java 源碼修改
   - src/main/resources/application*.{yml,properties} # 配置文件修改
+  - src/main/resources/*.xml
 
 # 配置相關標籤
 configuration:
   - src/main/java/**/config/**/* # 修改了配置類代碼
   - src/main/resources/application*.{yml,properties} # 配置文件修改
+  - src/main/resources/*.xml
 
 # 測試相關標籤
 tests:

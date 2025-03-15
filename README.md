@@ -16,6 +16,7 @@
 - Spring-Boot v3版本
 - 測試保護分支(Master)，一定要PR才可以
 - 測試新增本地端 pre-push 保護 master & 檢查是否有更新
+- label-pr 替PR增加label
 
 ## Star History
 
