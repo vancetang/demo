@@ -1,34 +1,46 @@
 # 前端相關標籤
 frontend:
-  - src/main/resources/static/**/* # 修改了靜態資源（CSS、JS等）
-  - src/main/resources/ftl/**/* # 修改了模板文件（如 freemarker）
-  - src/main/resources/templates/**/* # 修改了模板文件（如 thymeleaf）
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/main/resources/static/**/*
+          - src/main/resources/ftl/**/*
+          - src/main/resources/templates/**/*
 
 # 後端相關標籤
 backend:
-  - src/main/java/**/* # 所有 Java 源碼修改
-  - src/main/resources/application*.{yml,properties} # 配置文件修改
-  - src/main/resources/*.xml
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/main/java/**/*
+          - src/main/resources/application*.{yml,properties}
+          - src/main/resources/*.xml
 
 # 配置相關標籤
 configuration:
-  - src/main/java/**/config/**/* # 修改了配置類代碼
-  - src/main/resources/application*.{yml,properties} # 配置文件修改
-  - src/main/resources/*.xml
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/main/java/**/config/**/*
+          - src/main/resources/application*.{yml,properties}
+          - src/main/resources/*.xml
 
 # 測試相關標籤
-tests:
-  - src/test/**/*
+test-code:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/test/**/*
 
 # 文檔相關標籤
 documentation:
-  - docs/**/*
-  - "**/*.md"
-  - .github/ISSUE_TEMPLATE/**
-  - .github/PULL_REQUEST_TEMPLATE.md
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/**/*
+          - "**/*.md"
+          - .github/ISSUE_TEMPLATE/**
+          - .github/PULL_REQUEST_TEMPLATE.md
 
 # 構建相關標籤
 build:
-  - pom.xml
-  - .github/workflows/**
-  - .github/*.yml
+  - changed-files:
+      - any-glob-to-any-file:
+          - pom.xml
+          - .github/workflows/**
+          - .github/*.yml
