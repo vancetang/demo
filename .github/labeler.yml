@@ -44,3 +44,11 @@ build:
           - pom.xml
           - .github/workflows/**
           - .github/*.yml
+
+# Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
+feature:
+  - head-branch: ["^feature", "feature", "^feat", "feat"]
+
+# Add 'bug' label to any PR where the head branch name starts with `fix` or has a `fix` section in the name
+bug:
+  - head-branch: ["^fix", "fix"]
