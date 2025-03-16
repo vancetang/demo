@@ -4,7 +4,7 @@ on:
   workflow_dispatch: # 可以手動執行此 action
 
 jobs:
-  sonarcloud:
+  shiftleft:
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -36,12 +36,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # 注意：ShiftLeft 會生成報告在 "reports" 目錄中
 
-      # 5. 上傳 SARIF 結果到 GitHub Security 標籤頁
-      - name: Upload ShiftLeft SARIF to Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: reports/scan-report.sarif # ShiftLeft 預設生成的 SARIF 文件
-        continue-on-error: true # 若檔案不存在，繼續執行
+      # 這個步驟我沒有效果?!!!!
+      # # 5. 上傳 SARIF 結果到 GitHub Security 標籤頁
+      # - name: Upload ShiftLeft SARIF to Code Scanning
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     sarif_file: reports/ # ShiftLeft 預設生成的 SARIF 文件
+      #   continue-on-error: true # 若檔案不存在，繼續執行
 
       # 6. 上傳所有報告作為構建產物
       - name: Upload Reports as Artifact
@@ -49,4 +50,3 @@ jobs:
         with:
           name: shiftleft-reports
           path: reports/ # 上傳整個 reports 目錄
-        if: always() # 確保即使前一步失敗也執行
