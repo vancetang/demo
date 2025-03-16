@@ -1,0 +1,52 @@
+name: ShiftLeft Security Scan
+
+on:
+  workflow_dispatch: # 可以手動執行此 action
+
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write # 允許上傳安全事件
+    steps:
+      # 1. 檢查出代碼庫
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. 安裝 Java 環境
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "microsoft"
+          java-version: "21"
+          cache: "maven"
+
+      # 3. 構建項目（ShiftLeft 需要編譯後的代碼進行分析）
+      - name: Build with Maven
+        run: mvn clean install -DskipTests # 編譯 Spring Boot 項目，跳過測試以加快速度
+
+      # 4. 運行 ShiftLeft Scan
+      - name: ShiftLeft Scan
+        uses: ShiftLeftSecurity/scan-action@master
+        env:
+          WORKSPACE: https://github.com/${{ github.repository }}/blob/${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 注意：ShiftLeft 會生成報告在 "reports" 目錄中
+
+      # 5. 上傳 SARIF 結果到 GitHub Security 標籤頁
+      - name: Upload ShiftLeft SARIF to Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/scan-report.sarif # ShiftLeft 預設生成的 SARIF 文件
+        continue-on-error: true # 若檔案不存在，繼續執行
+
+      # 6. 上傳所有報告作為構建產物
+      - name: Upload Reports as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shiftleft-reports
+          path: reports/ # 上傳整個 reports 目錄
+        if: always() # 確保即使前一步失敗也執行
