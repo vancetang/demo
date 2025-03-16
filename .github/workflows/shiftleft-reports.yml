@@ -4,7 +4,7 @@ on:
   workflow_dispatch: # 可以手動執行此 action
 
 jobs:
-  sonarcloud:
+  shiftleft:
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -40,7 +40,7 @@ jobs:
       - name: Upload ShiftLeft SARIF to Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: reports/scan-report.sarif # ShiftLeft 預設生成的 SARIF 文件
+          sarif_file: reports/ # ShiftLeft 預設生成的 SARIF 文件
         continue-on-error: true # 若檔案不存在，繼續執行
 
       # 6. 上傳所有報告作為構建產物
