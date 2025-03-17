@@ -1,0 +1,48 @@
+name: "Dependency-Check"
+
+on:
+  workflow_dispatch: # 可以手動執行此 action
+
+jobs:
+  dependency-check:
+    name: Dependency-Check Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    steps:
+      # 1. 檢查出代碼庫
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 安裝 Java 環境
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "microsoft"
+          java-version: "21"
+          cache: "maven"
+
+      # 3. 構建項目（可選，加快 Dependency-Check 掃描）
+      - name: Build with Maven
+        run: mvn clean install -DskipTests
+
+      # 4. 執行 Dependency-Check
+      - name: Run Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "Dependency-Check"
+          path: "."
+          format: "HTML"
+          out: "reports" # this is the default, no need to specify unless you wish to override it
+          args: >
+            --enableRetired
+        env:
+          JAVA_HOME: /opt/jdk
+
+      # 5. 上傳 Dependency-Check 結果
+      - name: Upload Dependency-Check reports
+        uses: actions/upload-artifact@master
+        with:
+          name: depcheck-report
+          path: ${{github.workspace}}/reports
