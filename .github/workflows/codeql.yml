@@ -130,9 +130,10 @@ jobs:
         with:
           project: "Dependency-Check"
           path: "."
-          format: "sarif html"
+          format: "html"
           out: "reports" # this is the default, no need to specify unless you wish to override it
           args: >
+            --format "sarif"
             --failOnCVSS 7
             --enableRetired
         env:
