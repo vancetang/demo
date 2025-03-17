@@ -135,6 +135,8 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME }} # 從 setup-java 繼承
 
       # 5. 上傳 Dependency-Check 結果
       - name: Upload Dependency-Check reports
