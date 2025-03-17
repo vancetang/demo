@@ -143,8 +143,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: Depcheck report
-          path: reports/
-        continue-on-error: true # 若檔案不存在仍繼續
+          path: ${{github.workspace}}/reports
 
       - name: Upload Dependency-Check SARIF
         uses: github/codeql-action/upload-sarif@v3
