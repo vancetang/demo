@@ -130,7 +130,7 @@ jobs:
         with:
           project: "Dependency-Check"
           path: "."
-          format: "html"
+          format: "ALL"
           out: "reports" # this is the default, no need to specify unless you wish to override it
           args: >
             --failOnCVSS 7
@@ -144,4 +144,10 @@ jobs:
         with:
           name: Depcheck report
           path: reports/
+        continue-on-error: true # 若檔案不存在仍繼續
+
+      - name: Upload Dependency-Check SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: dependency-check-report.sarif
         continue-on-error: true # 若檔案不存在仍繼續
