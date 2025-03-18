@@ -6,8 +6,7 @@ on:
       - master
   workflow_dispatch: # 可以手動執行此 action
 
-permissions:
-  contents: write
+permissions: write-all
 
 jobs:
   build:
