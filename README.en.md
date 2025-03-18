@@ -2,7 +2,7 @@
 
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-v3-brightgreen)![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue)[![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
-這是一個用來測試 Spring Boot 與 GitHub Actions 功能的專案，涵蓋網路上常見的相關功能與實作。
+This is a special project to test Spring Boot and GitHub Actions functions, covering common related functions and implementations on the Internet.
 
 * * *
 
@@ -31,7 +31,7 @@ The following are the GitHub Actions functions implemented in this project:
 -   **`codeql`**: Perform static program weakness scan.
 -   **`test`**: Test function (reserves direct execution of Java and`mvn clean package`）。
 -   **`translate`**:README translation (cannot be tested due to the lack of OpenAI Token).
--   **`label-pr`**：為 PR 自動添加標籤（使用 `actions/labeler@v5`, note that the format has been updated).
+-   **`label-pr`**: Automatically add tags to PR (using`actions/labeler@v5`, note that the format has been updated).
 
 ### Spring Boot related tests
 
