@@ -1,10 +1,6 @@
 name: Translate README
 
 on:
-  push:
-    branches:
-      - develop
-
   workflow_dispatch: # 可以手動執行此 action
 
 permissions:
