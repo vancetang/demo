@@ -2,7 +2,7 @@
 
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-v3-brightgreen)![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue)[![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
-This is a project to test Spring Boot and GitHub Actions functions, covering common related functions and implementations on the Internet.
+This is a special project to test Spring Boot and GitHub Actions functions, covering common related functions and implementations on the Internet.
 
 * * *
 
