@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # ISO Langusge Codes: https://cloud.google.com/translate/docs/languages
-      - name: Adding README - English
+      - name: Adding README - English (Translate)
         uses: vancetang/translate-readme@main
         with:
           input: docs/PULL_REQUEST_TEMPLATE.md
