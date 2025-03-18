@@ -31,7 +31,7 @@ The following are the GitHub Actions functions implemented in this project:
 -   **`codeql`**: Perform static program weakness scan.
 -   **`test`**: Test function (reserves direct execution of Java and`mvn clean package`）。
 -   **`translate`**:README translation (cannot be tested due to the lack of OpenAI Token).
--   **`label-pr`**: Automatically add tags to PR (using`actions/labeler@v5`, note that the format has been updated).
+-   **`label-pr`**: Automatically add tags to PR (using`actions/labeler@v5`，注意格式已更新）。
 
 ### Spring Boot related tests
 
