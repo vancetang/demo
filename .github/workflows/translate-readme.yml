@@ -3,11 +3,13 @@ name: Translate README
 on:
   workflow_dispatch: # 可以手動執行此 action
 
-permissions: write-all
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' # 確保只在 develop 分支運行
     steps:
       - uses: actions/checkout@v4
       # ISO Langusge Codes: https://cloud.google.com/translate/docs/languages
@@ -15,10 +17,6 @@ jobs:
         uses: dephraiim/translate-readme@main
         with:
           LANG: zh-CN
-      - name: Adding README - Chinese Traditional
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: zh-TW
       - name: Adding README - English
         uses: dephraiim/translate-readme@main
         with:

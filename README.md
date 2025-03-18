@@ -1,27 +1,42 @@
-# Spring boot 測試專案
+# Spring Boot 測試專案
 
-主要測試 spring boot, github action...etc 網路上常看到的相關功能  
-- GitHub Action Workflow
-  - add-labels: 新增修改labels
-  - cleanup-cache: 清除action cache(目前會有資料日期轉換問題)
-  - close-stale-issues-prs: 關閉舊的issues/prs
-  - create-release: 依tag產生release
-  - gmail: 寄發gmail
-  - notify-collaborators: 發送github訊息(repo的餐與者)
-  - sync-branchs-and-notify: main同步變更到develop，並且失敗時會通知
-  - telegram: 發送telegram
-  - codeql: 靜態程式弱點掃描
-  - test: 測試功能用(目前保留直接執行java功能, maven clean package...)
-  - translate: 翻譯(因為無openai token所以無法測試)
-  - label-pr 替PR增加label(label要存在不然會發生錯誤)(使用actions/labeler@v5他的格式有更新請注意)
-- Spring-Boot v3版本
-- 測試保護分支(Master)，一定要PR才可以
-- 測試新增本地端 pre-push 保護 master & 檢查是否有更新
-- issues回報增加英文版
-- ~~PR Template測試多國語言版本~~
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-v3-brightgreen) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue) [![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
+這是一個用來測試 Spring Boot 與 GitHub Actions 功能的專案，涵蓋網路上常見的相關功能與實作。
 
-## Star History
+---
 
-[![Star History Chart](https://api.star-history.com/svg?repos=vancetang/demo&type=Date)](https://star-history.com/#vancetang/demo&Date)
+## 🌐 可用語言
+- **[繁體中文 (預設)](README.md)**  
+- **[English](README.en.md)**  
+- **[简体中文](README.zh-CN.md)**  
 
+---
+
+## 🚀 專案功能概覽
+
+### GitHub Actions 工作流程
+以下是本專案中實作的 GitHub Actions 功能：
+- **`add-labels`**：自動新增或修改標籤。
+- **`cleanup-cache`**：清除 Action 快取（目前有日期轉換問題待修復）。
+- **`close-stale-issues-prs`**：關閉過期的 Issues 和 PRs。
+- **`create-release`**：根據 Tag 自動生成 Release。
+- **`gmail`**：發送 Gmail 通知。
+- **`notify-collaborators`**：向倉庫協作者發送 GitHub 通知。
+- **`sync-branches-and-notify`**：將 `main` 分支同步到 `develop`，失敗時發送通知。
+- **`telegram`**：發送 Telegram 訊息。
+- **`codeql`**：執行靜態程式弱點掃描。
+- **`test`**：測試功能（保留直接執行 Java 和 `mvn clean package`）。
+- **`translate`**：README 翻譯（因缺少 OpenAI Token 暫無法測試）。
+- **`label-pr`**：為 PR 自動添加標籤（使用 `actions/labeler@v5`，注意格式已更新）。
+
+### Spring Boot 相關測試
+- 使用 **Spring Boot v3** 版本進行開發與測試。
+- 測試分支保護：`master` 分支需通過 PR 才能合併。
+- 本地端保護：新增 `pre-push` Hook，防止直接推送至 `master` 並檢查更新。
+
+### 其他功能
+- Issues 回報支援英文版本。
+- ~~PR Template 多國語言版本（無法實現）~~。
+
+---
