@@ -1,0 +1,20 @@
+name: VANCE-Translate README
+
+on:
+  workflow_dispatch: # 可以手動執行此 action
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' # 確保只在 develop 分支運行
+    steps:
+      - uses: actions/checkout@v4
+      # ISO Langusge Codes: https://cloud.google.com/translate/docs/languages
+      - name: Adding README - Chinese Simplified
+        uses: vancetang/translate-readme@main
+        with:
+          input: docs/PULL_REQUEST_TEMPLATE.md
+          LANG: en
