@@ -31,6 +31,14 @@ import org.springframework.web.client.RestTemplate;
  * @author Vance
  */
 public class Util {
+
+    /**
+     * 防止被實例化。
+     */
+    private Util() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     /**
      * 當傳入值為null時，回傳一個不可異動的空物件
      *

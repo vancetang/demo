@@ -103,8 +103,7 @@ public class TimeUtil {
 	public static String toUtc(long timestamp, ZoneId zoneid) {
 		LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.of("UTC"));
 		ZonedDateTime utcZone = ZonedDateTime.of(localDateTime, ZoneId.of("UTC")).withZoneSameInstant(zoneid);
-		String str = utcZone.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-		return str;
+		return utcZone.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 	}
 
 	/**

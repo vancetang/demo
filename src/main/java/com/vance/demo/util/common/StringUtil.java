@@ -1,6 +1,7 @@
 package com.vance.demo.util.common;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,6 +13,14 @@ import com.vance.demo.constant.Constant;
  * @author Vance
  */
 public class StringUtil {
+
+    /**
+     * 防止被實例化。
+     */
+    private StringUtil() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     /**
      * 去除前後的空白字元。
      *
@@ -19,13 +28,13 @@ public class StringUtil {
      * @return String
      */
     public static String trim(Object str) {
-        if (str == null) {
+        if (Objects.isNull(str)) {
             return StringUtils.EMPTY;
-        } else if (str instanceof Double) {
-            BigDecimal bd = BigDecimal.valueOf((Double) str);
+        } else if (str instanceof Double d) {
+            BigDecimal bd = BigDecimal.valueOf(d);
             return bd.toPlainString();
-        } else if (str instanceof Long) {
-            BigDecimal bd = BigDecimal.valueOf((Long) str);
+        } else if (str instanceof Long l) {
+            BigDecimal bd = BigDecimal.valueOf(l);
             return bd.toPlainString();
         } else {
             String string = str.toString();
