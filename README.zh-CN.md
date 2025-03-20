@@ -1,6 +1,6 @@
 # Spring Boot 测试专案
 
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-v3-brightgreen)![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue)[![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
+![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen) ![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue) [![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
 这是一个用来测试 Spring Boot 与 GitHub Actions 功能的专案，涵盖网路上常见的相关功能与实作。
 
