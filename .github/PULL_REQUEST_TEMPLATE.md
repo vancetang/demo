@@ -23,6 +23,7 @@ close #<issue_number> 或 N/A
 - [ ] 🚀 **perf**     效能優化（提升執行速度或降低資源消耗）
 - [ ] 🧪 **test**     測試相關（新增或更新測試）
 - [ ] ⚙️ **ci/cd**    CI/CD 相關變更（例如 GitHub Actions、Jenkins）
+- [ ] 🏗️ **build**    建置相關變更（例如修改系統參數或 Maven 配置）
 - [ ] 🧹 **chore**    其他，請具體說明：
 
 ## ✅ 檢查清單 (Checklist)

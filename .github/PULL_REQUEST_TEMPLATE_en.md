@@ -23,6 +23,7 @@ Will this cause errors when developers merge from the main branch and run it? If
 - [ ] 🚀 **perf**     Performance optimization (improves speed or reduces resource usage)
 - [ ] 🧪 **test**     Test-related (adds or updates tests)
 - [ ] ⚙️ **ci/cd**    CI/CD changes (e.g., GitHub Actions, Jenkins)
+- [ ] 🏗️ **build**    Build-related change (e.g., modifying system parameters or Maven configuration)
 - [ ] 🧹 **chore**    Other, please specify:
 
 ## ✅ Checklist
