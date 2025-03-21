@@ -27,6 +27,11 @@ public enum CompletableFutureSimpleThreadPool {
 	INSTANCE;
 
 	/**
+	 * 線程池關閉的超時時間（單位：秒）
+	 */
+	public static final long SHUTDOWN_TIMEOUT_SECONDS = 60;
+
+	/**
 	 * 自定義線程池，用於執行任務
 	 */
 	private final ThreadPoolExecutor singleThreadPool;
@@ -182,9 +187,4 @@ public enum CompletableFutureSimpleThreadPool {
 			Thread.currentThread().interrupt();
 		}
 	}
-
-	/**
-	 * 線程池關閉的超時時間（單位：秒）
-	 */
-	public static final long SHUTDOWN_TIMEOUT_SECONDS = 60;
 }
