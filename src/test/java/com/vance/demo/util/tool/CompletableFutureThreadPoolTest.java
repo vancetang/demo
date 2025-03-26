@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * CompletableFutureSimpleThreadPool 的測試類，用於驗證其多任務並行執行功能。
  */
 @Slf4j
-public class CompletableFutureSimpleThreadPoolTest {
+public class CompletableFutureThreadPoolTest {
 
     /**
      * 測試 executeTasks 方法，驗證多個無返回值任務的並行執行。
@@ -58,7 +58,7 @@ public class CompletableFutureSimpleThreadPoolTest {
         };
 
         // 執行多個任務並等待完成
-        CompletableFutureSimpleThreadPool.executeTasks(run1, run2, run3, run4);
+        CompletableFutureThreadPool.executeTasks(run1, run2, run3, run4);
         log.info("test02 執行完畢");
     }
 
@@ -70,14 +70,14 @@ public class CompletableFutureSimpleThreadPoolTest {
     public void test03() {
         // 創建三個 CompletableFuture 任務
         CompletableFuture<String> future1 = CompletableFuture
-                .supplyAsync(CompletableFutureSimpleThreadPoolTest::getData1);
+                .supplyAsync(CompletableFutureThreadPoolTest::getData1);
         CompletableFuture<String> future2 = CompletableFuture
-                .supplyAsync(CompletableFutureSimpleThreadPoolTest::getData2);
+                .supplyAsync(CompletableFutureThreadPoolTest::getData2);
         CompletableFuture<String> future3 = CompletableFuture
-                .supplyAsync(CompletableFutureSimpleThreadPoolTest::getData3);
+                .supplyAsync(CompletableFutureThreadPoolTest::getData3);
 
         // 並行執行並收集結果
-        List<String> res = CompletableFutureSimpleThreadPool.executeCompletableFutures(future1, future2, future3);
+        List<String> res = CompletableFutureThreadPool.executeCompletableFutures(future1, future2, future3);
         log.info("結果: {}", res);
         log.info("test03 執行完畢");
     }
@@ -89,10 +89,10 @@ public class CompletableFutureSimpleThreadPoolTest {
     @Test
     public void test04() {
         // 並行執行三個 Supplier 任務並收集結果
-        List<String> res = CompletableFutureSimpleThreadPool.executeSuppliers(
-                CompletableFutureSimpleThreadPoolTest::getData1,
-                CompletableFutureSimpleThreadPoolTest::getData2,
-                CompletableFutureSimpleThreadPoolTest::getData3);
+        List<String> res = CompletableFutureThreadPool.executeSuppliers(
+                CompletableFutureThreadPoolTest::getData1,
+                CompletableFutureThreadPoolTest::getData2,
+                CompletableFutureThreadPoolTest::getData3);
         log.info("結果: {}", res);
         log.info("test04 執行完畢");
     }
