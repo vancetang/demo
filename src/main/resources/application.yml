@@ -7,7 +7,14 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     locale: zh_TW
     time-zone: GMT+8
+    # CamelCase 駝峰策略 userId -> userId
+    # PascalCase 帕斯卡策略,字首大寫 userId -> UserId
+    # SnakeCase 下划線策略 userId -> user_id
+    # KebabCase 橫短線策略 userId -> user-id
+    property-naming-strategy: CamelCase
     default-property-inclusion: NON_NULL
+    serialization:
+      write-dates-as-timestamps: true
 # Swagger UI: http://localhost:8080/swagger-ui.html
 # API Docs (JSON): http://localhost:8080/v3/api-docs
 springdoc:
