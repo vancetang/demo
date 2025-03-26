@@ -74,7 +74,6 @@ public enum CompletableFutureThreadPool {
 						task.run();
 					} catch (Exception e) {
 						log.error("[線程池] 任務執行失敗", e);
-						throw e; // 拋出異常以供外部處理
 					}
 				}, INSTANCE.singleThreadPool))
 				.toArray(CompletableFuture[]::new);
@@ -134,7 +133,7 @@ public enum CompletableFutureThreadPool {
 						return task.get();
 					} catch (Exception e) {
 						log.error("[線程池] Supplier 任務執行失敗", e);
-						throw e; // 拋出異常以供外部處理
+						return null; // 返回 null 以供外部處理
 					}
 				}, INSTANCE.singleThreadPool))
 				.collect(Collectors.toList());
