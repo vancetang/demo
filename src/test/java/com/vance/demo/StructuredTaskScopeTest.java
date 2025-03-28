@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Vance
  */
 @Slf4j
-public class StructuredConcurrencyExample {
+public class StructuredTaskScopeTest {
 
     /**
      * 主方法，展示結構式併發的用法。
