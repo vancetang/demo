@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 結構式並行程式設計範例<br/>
- * 本程式展示如何使用 JDK 21 的 {@link StructuredTaskScope} 實現結構式併發，結合虛擬執行緒（Virtual
+ * 本程式展示如何使用 JDK 21 的 StructuredTaskScope 實現結構式併發，結合虛擬執行緒（Virtual
  * Threads）執行多個並行任務。
  * 範例中啟動兩個子任務，分別模擬耗時 2 秒和 1 秒的操作，並在所有任務完成後獲取結果。
  * <p>
