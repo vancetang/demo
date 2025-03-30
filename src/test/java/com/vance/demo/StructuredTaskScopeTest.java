@@ -51,7 +51,6 @@ public class StructuredTaskScopeTest {
             scope.join();
 
             // 獲取並記錄子任務的結果
-            // task1.get() 和 task2.get() 分別返回子任務的執行結果
             log.info("Task 1 result: {}", task1.get());
             log.info("Task 2 result: {}", task2.get());
         } catch (Exception e) {
