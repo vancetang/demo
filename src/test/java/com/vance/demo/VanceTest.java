@@ -72,8 +72,8 @@ public class VanceTest {
     /**
      * 使用 Apache Commons Codec 來計算檔案的 SHA-256 Hash
      * 
-     * @param file
-     * @return
+     * @param file 檔案物件
+     * @return 檔案的 SHA-256 Hash 值
      */
     public static String getFileHashByApache(File file) {
         log.info("File Path: {}", file.getAbsolutePath());
