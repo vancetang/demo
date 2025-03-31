@@ -18,6 +18,12 @@ import com.vance.demo.util.common.Util;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 測試類別
+ * 
+ * @author vance
+ * @since 2025/03/31
+ */
 @Slf4j
 public class VanceTest {
     public static void main(String[] args) {
