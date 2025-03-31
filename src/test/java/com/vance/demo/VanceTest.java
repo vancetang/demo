@@ -29,9 +29,6 @@ public class VanceTest {
     public static void main(String[] args) {
         log.info("========== {} 開始 ==========", VanceTest.class.getSimpleName());
         try {
-            // String html = FtlUtil.getString("copyright.ftl",
-            // Collections.singletonMap("me", "vance"));
-            // log.info("{}", html);
             Map<String, Object> data = new HashMap<>();
             data.put("me", "vance");
             data.put("test1", Collections.singletonMap("me", "vance"));
