@@ -1,8 +1,9 @@
 env: dev111vance
 spring:
-  # 無用到資料庫，所以關閉 DataSourceAutoConfiguration
   autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    exclude:
+      # 無用到資料庫，所以關閉 DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     locale: zh_TW
@@ -24,3 +25,12 @@ springdoc:
     path: /swagger-ui.html
   api-docs:
     enabled: true
+# Spring Boot Actuator 端點
+# http://localhost:8080/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # exclude: "*" # 不暴露任何端點
+        # include: ""  # 不暴露任何端點
+        include: health # 只開放 health 端點
