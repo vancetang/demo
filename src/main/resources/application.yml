@@ -7,11 +7,12 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     locale: zh_TW
     time-zone: GMT+8
-    # CamelCase 駝峰策略 userId -> userId
-    # PascalCase 帕斯卡策略,字首大寫 userId -> UserId
-    # SnakeCase 下划線策略 userId -> user_id
-    # KebabCase 橫短線策略 userId -> user-id
-    property-naming-strategy: CamelCase
+    # LOWER_CAMEL_CASE 駝峰策略 userId -> userId
+    # UPPER_CAMEL_CASE 帕斯卡策略,字首大寫 userId -> UserId
+    # SNAKE_CASE 下划線策略 userId -> user_id
+    # KEBAB_CASE 橫短線策略 userId -> user-id
+    # LOWER_CASE 小寫策略 userId -> userid
+    property-naming-strategy: LOWER_CAMEL_CASE
     default-property-inclusion: NON_NULL
     serialization:
       write-dates-as-timestamps: true
