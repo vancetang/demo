@@ -29,6 +29,14 @@
 - **`test`**：測試功能（保留直接執行 Java 和 `mvn clean package`）。
 - **`translate`**：README 翻譯（因缺少 OpenAI Token 暫無法測試）。
 - **`label-pr`**：為 PR 自動添加標籤（使用 `actions/labeler@v5`，注意格式已更新）。
+- **`dependency-check`**：執行 OWASP Dependency-Check 工具，掃描專案依賴項是否存在已知漏洞，並生成詳細報告。
+- **`lint-pr`**：檢查 Pull Request 的標題是否符合 Conventional Commits v1.0.0 規範。
+- **`shiftleft-reports`**：利用 ShiftLeft Scan 工具，對應用程式及其依賴項進行靜態安全分析，找出潛在漏洞並生成報告。
+- **`translate-readme`**：將 README.md 翻譯成其他語言版本。
+
+
+---
+
 
 ### Spring Boot 相關測試
 - 使用 **Spring Boot v3** 版本進行開發與測試。
