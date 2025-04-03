@@ -1,6 +1,6 @@
 # Spring Boot Test Project
 
-![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen) ![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue) [![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
+[![CodeFactor](https://www.codefactor.io/repository/github/vancetang/demo/badge)](https://www.codefactor.io/repository/github/vancetang/demo)![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen)![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white)![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue)[![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
 This is a special project to test Spring Boot and GitHub Actions functions, covering common related functions and implementations on the Internet.
 
@@ -18,7 +18,7 @@ This is a special project to test Spring Boot and GitHub Actions functions, cove
 
 ### GitHub Actions Workflow
 
-The following are the GitHub Actions functions implemented in this project:
+以下是本專案中實作的 GitHub Actions 功能：
 
 -   **`add-labels`**: Automatically add or modify tags.
 -   **`cleanup-cache`**: Clear Action cache (there are currently issues with date conversion to be fixed).
@@ -32,6 +32,12 @@ The following are the GitHub Actions functions implemented in this project:
 -   **`test`**: Test function (reserves direct execution of Java and`mvn clean package`）。
 -   **`translate`**:README translation (cannot be tested due to the lack of OpenAI Token).
 -   **`label-pr`**: Automatically add tags to PR (using`actions/labeler@v5`, note that the format has been updated).
+-   **`dependency-check`**：執行 OWASP Dependency-Check 工具，掃描專案依賴項是否存在已知漏洞，並生成詳細報告。
+-   **`lint-pr`**：檢查 Pull Request 的標題是否符合 Conventional Commits v1.0.0 規範。
+-   **`shiftleft-reports`**: Use the ShiftLeft Scan tool to perform static security analysis of applications and their dependencies, identify potential vulnerabilities and generate reports.
+-   **`translate-readme`**: Translate README.md to another language version.
+
+* * *
 
 ### Spring Boot related tests
 
