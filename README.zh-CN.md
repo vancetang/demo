@@ -35,7 +35,7 @@
 -   **`dependency-check`**：执行 OWASP Dependency-Check 工具，扫描专案依赖项是否存在已知漏洞，并生成详细报告。
 -   **`lint-pr`**：检查 Pull Request 的标题是否符合 Conventional Commits v1.0.0 规范。
 -   **`shiftleft-reports`**：利用 ShiftLeft Scan 工具，对应用程式及其依赖项进行静态安全分析，找出潜在漏洞并生成报告。
--   **`translate-readme`**：将 README.md 翻译成其他语言版本。
+-   **`translate-readme`**：将 README.md 翻译成其他语言版本（有时翻译可能不完整，存在一些小问题）。
 
 * * *
 

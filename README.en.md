@@ -32,10 +32,10 @@ This is a special project to test Spring Boot and GitHub Actions functions, cove
 -   **`test`**: Test function (reserves direct execution of Java and`mvn clean package`）。
 -   **`translate`**:README translation (cannot be tested due to the lack of OpenAI Token).
 -   **`label-pr`**: Automatically add tags to PR (using`actions/labeler@v5`, note that the format has been updated).
--   **`dependency-check`**：執行 OWASP Dependency-Check 工具，掃描專案依賴項是否存在已知漏洞，並生成詳細報告。
--   **`lint-pr`**：檢查 Pull Request 的標題是否符合 Conventional Commits v1.0.0 規範。
+-   **`dependency-check`**：Run the OWASP Dependency-Check tool to scan project dependencies for known vulnerabilities and generate a detailed report.
+-   **`lint-pr`**：Check if the Pull Request title complies with the Conventional Commits v1.0.0 specification.
 -   **`shiftleft-reports`**: Use the ShiftLeft Scan tool to perform static security analysis of applications and their dependencies, identify potential vulnerabilities and generate reports.
--   **`translate-readme`**: Translate README.md to another language version.
+-   **`translate-readme`**: Translate README.md into other language versions (occasionally, the translation may be incomplete and contain minor issues).
 
 * * *
 
