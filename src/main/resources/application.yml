@@ -1,17 +1,19 @@
 env: dev111vance
 spring:
-  # 無用到資料庫，所以關閉 DataSourceAutoConfiguration
   autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    exclude:
+      # 無用到資料庫，所以關閉 DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     locale: zh_TW
     time-zone: GMT+8
-    # CamelCase 駝峰策略 userId -> userId
-    # PascalCase 帕斯卡策略,字首大寫 userId -> UserId
-    # SnakeCase 下划線策略 userId -> user_id
-    # KebabCase 橫短線策略 userId -> user-id
-    property-naming-strategy: CamelCase
+    # LOWER_CAMEL_CASE 駝峰策略 userId -> userId
+    # UPPER_CAMEL_CASE 帕斯卡策略,字首大寫 userId -> UserId
+    # SNAKE_CASE 下划線策略 userId -> user_id
+    # KEBAB_CASE 橫短線策略 userId -> user-id
+    # LOWER_CASE 小寫策略 userId -> userid
+    property-naming-strategy: LOWER_CAMEL_CASE
     default-property-inclusion: NON_NULL
     serialization:
       write-dates-as-timestamps: true
@@ -23,3 +25,12 @@ springdoc:
     path: /swagger-ui.html
   api-docs:
     enabled: true
+# Spring Boot Actuator 端點
+# http://localhost:8080/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # exclude: "*" # 不暴露任何端點
+        # include: ""  # 不暴露任何端點
+        include: health # 只開放 health 端點
