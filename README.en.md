@@ -36,6 +36,7 @@ This is a special project to test Spring Boot and GitHub Actions functions, cove
 -   **`lint-pr`**：Check if the Pull Request title complies with the Conventional Commits v1.0.0 specification.
 -   **`shiftleft-reports`**: Use the ShiftLeft Scan tool to perform static security analysis of applications and their dependencies, identify potential vulnerabilities and generate reports.
 -   **`translate-readme`**: Translate README.md into other language versions (occasionally, the translation may be incomplete and contain minor issues).
+-   **`release-please`**: A GitHub Action tool that automatically generates version updates and release PRs based on Conventional Commits.
 
 * * *
 
