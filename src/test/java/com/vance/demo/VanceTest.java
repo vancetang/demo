@@ -35,7 +35,7 @@ public class VanceTest {
             data.put("b", "vance-b");
             Map<String, Object> map = new HashMap<>();
             // map.put("data", data);
-            log.info("{}", map);
+            log.info("data==>{}", map);
             Optional.ofNullable(map)
                     .map(m -> Util.safeGetMap(m, "data"))
                     .ifPresent(dtl -> {
