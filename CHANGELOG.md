@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/vancetang/demo/compare/v1.1.0...v1.1.1) (2025-04-04)
+
+
+### Bug Fixes
+
+* 調整日誌輸出格式以增加可讀性 ([31ba9d0](https://github.com/vancetang/demo/commit/31ba9d02dec964a42eae40319ac8fe46dc4f7aca))
+* 調整日誌輸出格式以增加可讀性 ([fd1a1bb](https://github.com/vancetang/demo/commit/fd1a1bb3dae6f0f777c705e73ad3c972fd930efa))
+
 ## [1.1.0](https://github.com/vancetang/demo/compare/v1.0.0...v1.1.0) (2025-04-04)
 
 
