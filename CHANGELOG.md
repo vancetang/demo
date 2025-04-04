@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/vancetang/demo/compare/v1.1.1...v1.2.0) (2025-04-04)
+
+
+### Features
+
+* 更新 release-please.yml 配置以跳過 PR 直接生成 Release 和標籤 ([0bb2a79](https://github.com/vancetang/demo/commit/0bb2a792e6344346e646e17fcd4ea3a37a6ea4ff))
+* 更新 release-please.yml 配置以跳過 PR 直接生成 Release 和標籤 ([85ecc6c](https://github.com/vancetang/demo/commit/85ecc6c36f67e4f0fd30d72eb15b93c0011bc519))
+
+
+### Bug Fixes
+
+* 因為不生效故取消跳過 PR 的配置以便於生成 Release 和標籤 ([1cee5a8](https://github.com/vancetang/demo/commit/1cee5a8551d87da199141039dad29c1c73f1b6b1))
+* 因為不生效故取消跳過 PR 的配置以便於生成 Release 和標籤 ([165794b](https://github.com/vancetang/demo/commit/165794b85677ddd097e6d50e19859449bda86c35))
+
 ## [1.1.1](https://github.com/vancetang/demo/compare/v1.1.0...v1.1.1) (2025-04-04)
 
 
