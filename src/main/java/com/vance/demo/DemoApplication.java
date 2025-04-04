@@ -18,7 +18,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-		log.info("啟動-測試完成!!");
+		log.info("啟動-測試完成 !!");
 	}
 
 }
