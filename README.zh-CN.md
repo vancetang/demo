@@ -36,6 +36,7 @@
 -   **`lint-pr`**：检查 Pull Request 的标题是否符合 Conventional Commits v1.0.0 规范。
 -   **`shiftleft-reports`**：利用 ShiftLeft Scan 工具，对应用程式及其依赖项进行静态安全分析，找出潜在漏洞并生成报告。
 -   **`translate-readme`**：将 README.md 翻译成其他语言版本（有时翻译可能不完整，存在一些小问题）。
+-   **`release-please`**: 基于 Conventional Commits 自动生成版本更新和发布 PR 的 GitHub Action 工具。
 
 * * *
 
