@@ -19,5 +19,5 @@ jobs:
       - name: Release
         uses: googleapis/release-please-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
           release-type: simple
