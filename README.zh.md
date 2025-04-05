@@ -2,9 +2,8 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/vancetang/demo/badge)](https://www.codefactor.io/repository/github/vancetang/demo)![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen)![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white)![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue)[![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
-這是一個用來測試 Spring Boot 與 GitHub Actions 功能的專案，涵蓋網路上常見的相關功能與實作。
+此项目旨在测试与展示 Spring Boot 结合 GitHub Actions 的功能，整合并实现了网络上常见的相关技术与应用，作为一个实用的学习与参考范例。
 
-* * *
 
 ## 🌐 可用语言
 
@@ -12,7 +11,6 @@
 -   **[英语](README.en.md)**
 -   **[简体中文](README.zh-CN.md)**
 
-* * *
 
 ## 🚀 专案功能概览
 
@@ -38,7 +36,6 @@
 -   **`translate-readme`**：将 README.md 翻译成其他语言版本（有时翻译可能不完整，存在一些小问题）。
 -   ~~**`release-please`**: 依據 Conventional Commits 分析提交，生成 CHANGELOG.md 并创建 PR，合并后自动产生 Release 和标签。~~
 
-* * *
 
 ### Spring Boot 相关测试
 
@@ -51,4 +48,3 @@
 -   Issues 回报支援英文版本。
 -   ~~PR Template 多国语言版本（无法实现）~~。
 
-* * *
