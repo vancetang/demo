@@ -2,17 +2,15 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/vancetang/demo/badge)](https://www.codefactor.io/repository/github/vancetang/demo)![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen)![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white)![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue)[![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
-This is a special project to test Spring Boot and GitHub Actions functions, covering common related functions and implementations on the Internet.
+This project is designed to test and demonstrate the capabilities of Spring Boot integrated with GitHub Actions, incorporating and implementing common features and techniques found online, serving as a practical learning and reference example.
 
-* * *
 
 ## 🌐 Available Languages
 
--   **[Traditional Chinese (preset)](README.md)**
--   **[English](README.en.md)**
--   **[Simplified Chinese](README.zh-CN.md)**
+[![English](https://img.shields.io/badge/English-Click-yellow)](README.en.md)
+[![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README-zh.md)
 
-* * *
 
 ## 🚀 Overview of project functions
 
@@ -38,7 +36,6 @@ This is a special project to test Spring Boot and GitHub Actions functions, cove
 -   **`translate-readme`**: Translate README.md into other language versions (occasionally, the translation may be incomplete and contain minor issues).
 -   ~~**`release-please`**: Analyzes commits based on Conventional Commits, generates CHANGELOG.md and creates a PR, then automatically produces a Release and tag after merging.~~
 
-* * *
 
 ### Spring Boot related tests
 
@@ -51,4 +48,3 @@ This is a special project to test Spring Boot and GitHub Actions functions, cove
 -   Issues returns support English version.
 -   ~~PR Template Multi-language version (unable to implement)~~。
 
-* * *

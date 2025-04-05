@@ -2,16 +2,14 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/vancetang/demo/badge)](https://www.codefactor.io/repository/github/vancetang/demo) ![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen) ![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue) [![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
-這是一個用來測試 Spring Boot 與 GitHub Actions 功能的專案，涵蓋網路上常見的相關功能與實作。
+此專案旨在測試與展示 Spring Boot 結合 GitHub Actions 的功能，整合並實作了網路上常見的相關技術與應用，作為一個實用的學習與參考範例。
 
----
 
 ## 🌐 可用語言
-- **[繁體中文 (預設)](README.md)**  
-- **[English](README.en.md)**  
-- **[简体中文](README.zh-CN.md)**  
+[![English](https://img.shields.io/badge/English-Click-yellow)](README.en.md)
+[![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README-zh.md)
 
----
 
 ## 🚀 專案功能概覽
 
@@ -36,16 +34,12 @@
 - ~~**`release-please`**: 依據 Conventional Commits 分析提交，生成 CHANGELOG.md 並創建 PR，合併後自動產生 Release 和標籤。~~
 
 
----
-
-
 ### Spring Boot 相關測試
 - 使用 **Spring Boot v3** 版本進行開發與測試。
 - 測試分支保護：`master` 分支需通過 PR 才能合併。
 - 本地端保護：新增 `pre-push` Hook，防止直接推送至 `master` 並檢查更新。
 
+
 ### 其他功能
 - Issues 回報支援英文版本。
 - ~~PR Template 多國語言版本（無法實現）~~。
-
----
