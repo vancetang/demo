@@ -9,14 +9,14 @@ This project is designed to test and demonstrate the capabilities of Spring Boot
 
 [![English](https://img.shields.io/badge/English-Click-yellow)](README.en.md)
 [![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
-[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README-zh.md)
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README.zh.md)
 
 
 ## 🚀 Overview of project functions
 
 ### GitHub Actions Workflow
 
-以下是本專案中實作的 GitHub Actions 功能：
+The following are the GitHub Actions features implemented in this project:
 
 -   **`add-labels`**: Automatically add or modify tags.
 -   **`cleanup-cache`**: Clear Action cache (there are currently issues with date conversion to be fixed).

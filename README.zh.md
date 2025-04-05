@@ -7,9 +7,9 @@
 
 ## 🌐 可用语言
 
--   **[繁体中文 (预设)](README.md)**
--   **[英语](README.en.md)**
--   **[简体中文](README.zh-CN.md)**
+[![English](https://img.shields.io/badge/English-Click-yellow)](README.en.md)
+[![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README.zh.md)
 
 
 ## 🚀 专案功能概览
