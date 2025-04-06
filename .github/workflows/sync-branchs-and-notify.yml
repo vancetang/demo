@@ -31,7 +31,7 @@ jobs:
           for branch in $BRANCHES; do
             echo "Merging master into $branch"
             git checkout $branch
-            if git merge origin/master --no-edit; then
+            if git merge origin/master --ff-only; then
               echo "✅ $branch is up-to-date with master"
               git push origin $branch
             else
