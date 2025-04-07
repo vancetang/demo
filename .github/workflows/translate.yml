@@ -1,0 +1,51 @@
+name: Translate (googletrans)
+
+on:
+  workflow_dispatch: # 可以手動執行此 action
+    inputs:
+      lang_list:
+        description: "Comma-separated list of target languages (e.g., zh-cn, en, jp)"
+        required: true
+        default: "zh-cn, en, jp"
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install googletrans
+        run: pip install googletrans
+
+      - name: Translate document
+        env:
+          LANG_LIST: ${{ github.event.inputs.lang_list }}
+        run: |
+          python -c "
+          from googletrans import Translator
+          import os
+          translator = Translator(service_urls=['translate.google.com'])
+          with open('README.md', 'r', encoding='utf-8') as f:
+              text = f.read()
+          lang_list = os.getenv('LANG_LIST').replace(' ', '').split(',')
+          for lang in lang_list:
+              translated = translator.translate(text, dest=lang)
+              output_file = f'output_{lang}.md'
+              with open(output_file, 'w', encoding='utf-8') as f:
+                  f.write(translated.text)
+              print(f'Translated to {lang} and saved as {output_file}')
+          "
+      - name: Commit translated files
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add output_*.md
+          git commit -m "Translate README.md to multiple languages: ${{ github.event.inputs.lang_list }}"
+          git push
+        continue-on-error: true
