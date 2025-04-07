@@ -1,8 +1,5 @@
 name: Translate (googletrans)
 
-env:
-  DEFAULT_LANG_LIST: "zh-cn, en"
-
 on:
   push:
     branches:
@@ -16,10 +13,19 @@ on:
         required: true
         default: "zh-cn, en"
 
+env:
+  DEFAULT_LANG_LIST: "zh-cn, en"
+
 jobs:
   translate:
     runs-on: ubuntu-latest
     steps:
+      - name: Check branch
+        if: github.ref != 'refs/heads/develop'
+        run: |
+          echo "This workflow is only allowed on the develop branch."
+          exit 1
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -31,15 +37,13 @@ jobs:
       - name: Install googletrans
         run: pip install googletrans==4.0.0-rc1
 
-      - name: Check branch
-        if: github.ref != 'refs/heads/develop'
-        run: |
-          echo "This workflow is only allowed on the develop branch."
-          exit 1
+      - name: Determine language list
+        id: lang_list
+        run: echo "LANG_LIST=${{ github.event.inputs.lang_list || env.DEFAULT_LANG_LIST }}" >> $GITHUB_OUTPUT
 
       - name: Translate document
         env:
-          LANG_LIST: ${{ github.event.inputs.lang_list || env.DEFAULT_LANG_LIST }}
+          LANG_LIST: ${{ steps.lang_list.outputs.LANG_LIST }}
         run: |
           python -c "
           from googletrans import Translator
@@ -60,6 +64,6 @@ jobs:
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add README_*.md
-          git commit -m "Translate README.md to multiple languages: ${{ github.event.inputs.lang_list }}"
+          git commit -m "Translate README.md to multiple languages: ${{ steps.lang_list.outputs.LANG_LIST }}"
           git push
         continue-on-error: true

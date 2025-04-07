@@ -8,7 +8,7 @@
 ## 🌐 可用语言
 
 [![English](https://img.shields.io/badge/English-Click-yellow)](README_en.md)
-[![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
+[![繁体中文](https://img.shields.io/badge/繁体中文-点击查看-orange)](README.md)
 [![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README_zh-cn.md)
 
 
@@ -32,7 +32,7 @@
 - **`lint-pr`**：检查 Pull Request 的标题是否符合 Conventional Commits v1.0.0 规范。
 - **`shiftleft-reports`**：利用 ShiftLeft Scan 工具，对应用程式及其依赖项进行静态安全分析，找出潜在漏洞并生成报告。
 - **`translate-readme`**：将 README.md 翻译成其他语言版本（偶尔翻译可能不完整，存在一些小问题）。
-- ~~**`release-please`**: 依据 Conventional Commits 分析提交，生成 CHANGELOG.md 并创建 PR，合并后自动产生 Release 和标签。~~
+- **`release-please`**: 依据 Conventional Commits 分析提交，生成 CHANGELOG.md 并创建 PR，合并后自动产生 Release 和标签（不采用，因为专案中的PR是使用Merge Pull Request的方式都会多一笔纪录）。
 - **`translate`**：将指定档案翻译成其他语言版本（透过python googletrans API完成）。
 
 
@@ -44,4 +44,4 @@
 
 ### 其他功能
 - Issues 回报支援英文版本。
-- ~~PR Template 多国语言版本（无法实现）。~~
+- PR Template 多国语言版本（不采用，无法实现）。
