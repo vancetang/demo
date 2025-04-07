@@ -7,9 +7,9 @@ This project aims to test and demonstrate the functions of Spring Boot combined 
 
 ## 🌐 Available Languages
 
-[![English](https://img.shields.io/badge/English-Click-yellow)](README.en.md)
+[![English](https://img.shields.io/badge/English-Click-yellow)](README_en.md)
 [![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
-[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README.zh.md)
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README_zh-cn.md)
 
 
 ## 🚀 Overview of project functions
@@ -33,6 +33,7 @@ The following are the GitHub Actions functions implemented in this project:
 - **`shiftleft-reports`**: Use the ShiftLeft Scan tool to perform static security analysis of applications and their dependencies, identify potential vulnerabilities and generate reports.
 - **`translate-readme`**: Translate README.md to another language version (the translation may be incomplete occasionally, with some minor problems).
 - ~~**`release-please`**: Analyze the submission based on Conventional Commits, generate CHANGELOG.md and create PRs. Release and tags are automatically generated after merge.~~
+- **`translate`**: Translate the specified archive to another language version (completed through the python googletrans API).
 
 
 ### Spring Boot related tests
@@ -43,4 +44,4 @@ The following are the GitHub Actions functions implemented in this project:
 
 ### Other features
 - Issues returns support English version.
-- ~~PR Template Multi-language version (unable to implement).~~
+- ~~PR Template Multilingual Version (unable to implement).~~

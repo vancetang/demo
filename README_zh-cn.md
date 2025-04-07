@@ -7,9 +7,9 @@
 
 ## 🌐 可用语言
 
-[![English](https://img.shields.io/badge/English-Click-yellow)](README.en.md)
+[![English](https://img.shields.io/badge/English-Click-yellow)](README_en.md)
 [![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
-[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README.zh.md)
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README_zh-cn.md)
 
 
 ## 🚀 专案功能概览
@@ -33,6 +33,7 @@
 - **`shiftleft-reports`**：利用 ShiftLeft Scan 工具，对应用程式及其依赖项进行静态安全分析，找出潜在漏洞并生成报告。
 - **`translate-readme`**：将 README.md 翻译成其他语言版本（偶尔翻译可能不完整，存在一些小问题）。
 - ~~**`release-please`**: 依据 Conventional Commits 分析提交，生成 CHANGELOG.md 并创建 PR，合并后自动产生 Release 和标签。~~
+- **`translate`**：将指定档案翻译成其他语言版本（透过python googletrans API完成）。
 
 
 ### Spring Boot 相关测试
