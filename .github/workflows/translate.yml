@@ -1,6 +1,14 @@
 name: Translate (googletrans)
 
+env:
+  DEFAULT_LANG_LIST: "zh-cn, en"
+
 on:
+  push:
+    branches:
+      - develop
+    paths:
+      - "README.md"
   workflow_dispatch: # 可以手動執行此 action
     inputs:
       lang_list:
@@ -23,9 +31,15 @@ jobs:
       - name: Install googletrans
         run: pip install googletrans==4.0.0-rc1
 
+      - name: Check branch
+        if: github.ref != 'refs/heads/develop'
+        run: |
+          echo "This workflow is only allowed on the develop branch."
+          exit 1
+
       - name: Translate document
         env:
-          LANG_LIST: ${{ github.event.inputs.lang_list }}
+          LANG_LIST: ${{ github.event.inputs.lang_list || env.DEFAULT_LANG_LIST }}
         run: |
           python -c "
           from googletrans import Translator
