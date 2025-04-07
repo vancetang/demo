@@ -4,17 +4,17 @@ env:
   DEFAULT_LANG_LIST: "zh-cn, en"
 
 on:
+  push:
+    branches:
+      - develop
+    paths:
+      - "README.md"
   workflow_dispatch: # 可以手動執行此 action
     inputs:
       lang_list:
         description: "Comma-separated list of target languages (e.g., zh-cn, en)"
         required: true
         default: "zh-cn, en"
-  push:
-    branches:
-      - develop
-    paths:
-      - "README.md"
 
 jobs:
   translate:
