@@ -9,7 +9,7 @@
 
 [![English](https://img.shields.io/badge/English-Click-yellow)](README.en.md)
 [![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
-[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README.zh.md)
+[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README.zh-cn.md)
 
 
 ## 🚀 專案功能概覽
@@ -33,6 +33,7 @@
 - **`shiftleft-reports`**：利用 ShiftLeft Scan 工具，對應用程式及其依賴項進行靜態安全分析，找出潛在漏洞並生成報告。
 - **`translate-readme`**：將 README.md 翻譯成其他語言版本（偶爾翻譯可能不完整，存在一些小問題）。
 - ~~**`release-please`**: 依據 Conventional Commits 分析提交，生成 CHANGELOG.md 並創建 PR，合併後自動產生 Release 和標籤。~~
+- **`translate`**：將指定檔案翻譯成其他語言版本（透過python googletrans API完成）。
 
 
 ### Spring Boot 相關測試
@@ -43,4 +44,4 @@
 
 ### 其他功能
 - Issues 回報支援英文版本。
-- ~~PR Template 多國語言版本（無法實現）~~。
+- ~~PR Template 多國語言版本（無法實現）。~~
