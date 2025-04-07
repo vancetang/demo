@@ -8,8 +8,8 @@ This project aims to test and demonstrate the functions of Spring Boot combined 
 ## 🌐 Available Languages
 
 [![English](https://img.shields.io/badge/English-Click-yellow)](README_en.md)
-[![繁體中文](https://img.shields.io/badge/繁體中文-點擊查看-orange)](README.md)
-[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README_zh-cn.md)
+[![Traditional Chinese](https://img.shields.io/badge/Traditional Chinese-click to view-orange)](README.md)
+[![Simplified Chinese](https://img.shields.io/badge/Simplified Chinese-click to view-green)](README_zh-cn.md)
 
 
 ## 🚀 Overview of project functions
@@ -32,7 +32,7 @@ The following are the GitHub Actions functions implemented in this project:
 - **`lint-pr`**: Checks whether the title of the Pull Request complies with the Conventional Commits v1.0.0 specification.
 - **`shiftleft-reports`**: Use the ShiftLeft Scan tool to perform static security analysis of applications and their dependencies, identify potential vulnerabilities and generate reports.
 - **`translate-readme`**: Translate README.md to another language version (the translation may be incomplete occasionally, with some minor problems).
-- ~~**`release-please`**: Analyze the submission based on Conventional Commits, generate CHANGELOG.md and create PRs. Release and tags are automatically generated after merge.~~
+- **`release-please`**: Based on the Conventional Commits analysis and submission, generate CHANGELOG.md and create PRs. After the merge, release and tags will be automatically generated (not used, because the PR in the project will use Merge Pull Request to make an extra record).
 - **`translate`**: Translate the specified archive to another language version (completed through the python googletrans API).
 
 
@@ -44,4 +44,4 @@ The following are the GitHub Actions functions implemented in this project:
 
 ### Other features
 - Issues returns support English version.
-- ~~PR Template Multilingual Version (unable to implement).~~
+- PR Template Multi-language version (not adopted, cannot be implemented).
