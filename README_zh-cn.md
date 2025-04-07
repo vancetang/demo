@@ -8,8 +8,8 @@
 ## 🌐 可用语言
 
 [![English](https://img.shields.io/badge/English-Click-yellow)](README_en.md)
-[![繁体中文](https://img.shields.io/badge/繁体中文-点击查看-orange)](README.md)
-[![简体中文](https://img.shields.io/badge/简体中文-点击查看-green)](README_zh-cn.md)
+[![繁体中文](https://img.shields.io/badge/zh_TW-Click-orange)](README.md)
+[![简体中文](https://img.shields.io/badge/zh_CN-Click-green)](README_zh-cn.md)
 
 
 ## 🚀 专案功能概览
