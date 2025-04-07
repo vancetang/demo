@@ -1,5 +1,8 @@
 name: Translate (googletrans)
 
+env:
+  DEFAULT_LANG_LIST: "zh-cn, en"
+
 on:
   workflow_dispatch: # 可以手動執行此 action
     inputs:
@@ -7,6 +10,11 @@ on:
         description: "Comma-separated list of target languages (e.g., zh-cn, en)"
         required: true
         default: "zh-cn, en"
+  push:
+    branches:
+      - develop
+    paths:
+      - "README.md"
 
 jobs:
   translate:
@@ -25,7 +33,7 @@ jobs:
 
       - name: Translate document
         env:
-          LANG_LIST: ${{ github.event.inputs.lang_list }}
+          LANG_LIST: ${{ github.event.inputs.lang_list || env.DEFAULT_LANG_LIST }}
         run: |
           python -c "
           from googletrans import Translator
