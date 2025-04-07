@@ -8,8 +8,8 @@ This project aims to test and demonstrate the functions of Spring Boot combined 
 ## 🌐 Available Languages
 
 [![English](https://img.shields.io/badge/English-Click-yellow)](README_en.md)
-[![Traditional Chinese](https://img.shields.io/badge/Traditional Chinese-click to view-orange)](README.md)
-[![Simplified Chinese](https://img.shields.io/badge/Simplified Chinese-click to view-green)](README_zh-cn.md)
+[![Traditional Chinese](https://img.shields.io/badge/Traditional_Chinese-Click-orange)](README.md)
+[![Simplified Chinese](https://img.shields.io/badge/Simplified_Chinese-Click-green)](README_zh-cn.md)
 
 
 ## 🚀 Overview of project functions
