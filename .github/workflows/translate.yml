@@ -21,7 +21,7 @@ jobs:
           python-version: "3.13"
 
       - name: Install googletrans
-        run: pip install googletrans
+        run: pip install googletrans==4.0.0-rc1
 
       - name: Translate document
         env:
