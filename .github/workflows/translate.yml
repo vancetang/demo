@@ -4,9 +4,9 @@ on:
   workflow_dispatch: # 可以手動執行此 action
     inputs:
       lang_list:
-        description: "Comma-separated list of target languages (e.g., zh-cn, en, jp)"
+        description: "Comma-separated list of target languages (e.g., zh-cn, en)"
         required: true
-        default: "zh-cn, en, jp"
+        default: "zh-cn, en"
 
 jobs:
   translate:
@@ -36,7 +36,7 @@ jobs:
           lang_list = os.getenv('LANG_LIST').replace(' ', '').split(',')
           for lang in lang_list:
               translated = translator.translate(text, dest=lang)
-              output_file = f'output_{lang}.md'
+              output_file = f'README_{lang}.md'
               with open(output_file, 'w', encoding='utf-8') as f:
                   f.write(translated.text)
               print(f'Translated to {lang} and saved as {output_file}')
@@ -45,7 +45,7 @@ jobs:
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git add output_*.md
+          git add README_*.md
           git commit -m "Translate README.md to multiple languages: ${{ github.event.inputs.lang_list }}"
           git push
         continue-on-error: true

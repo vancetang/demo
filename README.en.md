@@ -2,7 +2,7 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/vancetang/demo/badge)](https://www.codefactor.io/repository/github/vancetang/demo) ![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen) ![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue) [![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
-This project is designed to test and demonstrate the capabilities of Spring Boot integrated with GitHub Actions, incorporating and implementing common features and techniques found online, serving as a practical learning and reference example.
+This project aims to test and demonstrate the functions of Spring Boot combined with GitHub Actions, integrate and implement common related technologies and applications on the Internet, as a practical learning and reference example.
 
 
 ## 🌐 Available Languages
@@ -15,36 +15,32 @@ This project is designed to test and demonstrate the capabilities of Spring Boot
 ## 🚀 Overview of project functions
 
 ### GitHub Actions Workflow
-
-The following are the GitHub Actions features implemented in this project:
-
--   **`add-labels`**: Automatically add or modify tags.
--   **`cleanup-cache`**: Clear Action cache (there are currently issues with date conversion to be fixed).
--   **`close-stale-issues-prs`**: Close expired Issues and PRs.
--   **`create-release`**: Automatically generate Release according to Tag.
--   **`gmail`**: Send Gmail notifications.
--   **`notify-collaborators`**: Send GitHub notifications to repository collaborators.
--   **`sync-branches-and-notify`**:Will`main`Branch sync to`develop`, send a notification when it fails.
--   **`telegram`**: Send Telegram message.
--   **`codeql`**: Perform static program weakness scan.
--   **`test`**: Test function (reserves direct execution of Java and`mvn clean package`）。
--   **`translate`**:README translation (cannot be tested due to the lack of OpenAI Token).
--   **`label-pr`**: Automatically add tags to PR (using`actions/labeler@v5`, note that the format has been updated).
--   **`dependency-check`**：Run the OWASP Dependency-Check tool to scan project dependencies for known vulnerabilities and generate a detailed report.
--   **`lint-pr`**：Check if the Pull Request title complies with the Conventional Commits v1.0.0 specification.
--   **`shiftleft-reports`**: Use the ShiftLeft Scan tool to perform static security analysis of applications and their dependencies, identify potential vulnerabilities and generate reports.
--   **`translate-readme`**: Translate README.md into other language versions (occasionally, the translation may be incomplete and contain minor issues).
--   ~~**`release-please`**: Analyzes commits based on Conventional Commits, generates CHANGELOG.md and creates a PR, then automatically produces a Release and tag after merging.~~
+The following are the GitHub Actions functions implemented in this project:
+- **`add-labels`**: Automatically add or modify labels.
+- **`cleanup-cache`**: Clear Action cache (there are currently issues with date conversion to be fixed).
+- **`close-stale-issues-prs`**: Close expired Issues and PRs.
+- **`create-release`**: Automatically generate Release based on the Tag.
+- **`gmail`**: Send Gmail notifications.
+- **`notify-collaborators`**: Send GitHub notifications to repository collaborators.
+- **`sync-branches-and-notify`**: Synchronize the `main` branch to `develop`, send a notification if it fails.
+- **`telegram`**: Send Telegram messages.
+- **`codeql`**: Perform static program weakness scan.
+- **`test`**: Test function (reserves direct execution of Java and `mvn clean package`).
+- **`translate`**: README translation (cannot be tested due to the lack of OpenAI Token).
+- **`label-pr`**: Automatically add labels to PR (use `actions/labeler@v5`, note that the format has been updated).
+- **`dependent-check`**: Execute the OWASP Dependency-Check tool, scan the project dependencies for known vulnerabilities, and generate detailed reports.
+- **`lint-pr`**: Checks whether the title of the Pull Request complies with the Conventional Commits v1.0.0 specification.
+- **`shiftleft-reports`**: Use the ShiftLeft Scan tool to perform static security analysis of applications and their dependencies, identify potential vulnerabilities and generate reports.
+- **`translate-readme`**: Translate README.md to another language version (the translation may be incomplete occasionally, with some minor problems).
+- ~~**`release-please`**: Analyze the submission based on Conventional Commits, generate CHANGELOG.md and create PRs. Release and tags are automatically generated after merge.~~
 
 
 ### Spring Boot related tests
+- Develop and test using the **Spring Boot v3** version.
+- Test branch protection: The `master` branch must be PR before it can be merged.
+- Local protection: Added `pre-push` Hook to prevent direct push to `master` and check for updates.
 
--   use**Spring Boot v3**Version development and testing.
--   Test branch protection:`master`Branches need to be merged through PR.
--   Local protection: added`pre-push`Hook, prevent direct push to`master`And check for updates.
 
 ### Other features
-
--   Issues returns support English version.
--   ~~PR Template Multi-language version (unable to implement)~~。
-
+- Issues returns support English version.
+- ~~PR Template Multi-language version (unable to implement).~~
