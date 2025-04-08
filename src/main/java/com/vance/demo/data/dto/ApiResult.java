@@ -1,5 +1,6 @@
 package com.vance.demo.data.dto;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +48,17 @@ public class ApiResult {
     private Map<String, Object> data = new HashMap<>();
 
     /**
+     * 取得回應資料的不可修改檢視。
+     * 嘗試修改傳回的 Map 將會導致 UnsupportedOperationException。
+     *
+     * @return 資料 Map 的不可修改檢視
+     */
+    public Map<String, Object> getData() {
+        // 傳回內部 data Map 的不可修改檢視
+        return Collections.unmodifiableMap(this.data);
+    }
+
+    /**
      * 創建成功的回應
      * 
      * @return 新建的成功狀態 ApiResult 實例
@@ -79,13 +91,13 @@ public class ApiResult {
     }
 
     /**
-     * 設定回應資料（使用整個 Map）
+     * 設定回應資料（Map）
      * 
-     * @param map 要設置的資料 Map
+     * @param map 回應資料的 Map
      * @return 當前實例，用於鏈式調用
      */
     public ApiResult data(Map<String, Object> map) {
-        this.data = new HashMap<>(map);
+        this.data.putAll(map);
         return this;
     }
 
@@ -108,7 +120,6 @@ public class ApiResult {
      * @return 當前實例，用於鏈式調用
      */
     public ApiResult message(String message) {
-        this.setMessage(message);
-        return this;
+        return this.setMessage(message);
     }
 }
