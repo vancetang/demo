@@ -30,9 +30,8 @@ public class ApiResultBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType mediaType,
             Class<? extends HttpMessageConverter<?>> converterType, ServerHttpRequest request,
             ServerHttpResponse response) {
-        if (body instanceof ApiResult) {
-            ApiResult result = (ApiResult) body;
-            return result.setPath(request.getURI().getPath());
+        if (body instanceof ApiResult apiResult) {
+            return apiResult.setPath(request.getURI().getPath());
         }
         return body;
     }
