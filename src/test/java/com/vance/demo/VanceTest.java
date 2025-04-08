@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import com.vance.demo.data.dto.ApiResult;
 import com.vance.demo.util.common.JsonUtil;
 import com.vance.demo.util.common.Util;
 
@@ -32,9 +33,17 @@ public class VanceTest {
             log.info("{}", Util.safeGet(data, "me", String.class));
             log.info("{}", Util.safeGet(data, "test2", List.class));
 
+            // 使用 ApiResult 類別測試 =========================
+            ApiResult result = ApiResult.success().data(data);
+            log.info("{}", result);
+            Map<String, Object> map = new HashMap<>();
+            map.put("vvv", "vance");
+            result.setData(map).data(data).data("newone", "vance-newone");
+            log.info("{}", result);
+            // ===============================================
             data.put("a", "vance-a");
             data.put("b", "vance-b");
-            Map<String, Object> map = new HashMap<>();
+            map = new HashMap<>();
             map.put("data", data);
             log.info("data==>{}", map);
             Optional.ofNullable(map)
