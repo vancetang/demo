@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0](https://github.com/vancetang/demo/compare/v1.3.0...v1.4.0) (2025-04-08)
+
+
+### Features
+
+* **GlobalExceptionHandler:** 更新全域例外狀況處理以支援 @RestController 註解 ([ab330fb](https://github.com/vancetang/demo/commit/ab330fb03320981ddb4d01686a2f18a729904536))
+* **JsonUtil:** 新增 JSON 處理工具類別以支援物件轉換為 JSON 字串 ([98e8a9f](https://github.com/vancetang/demo/commit/98e8a9fa65cacb5da5b525036a3e631c909734af))
+* **Order:** 新增訂單建立 API 以支援訂單請求物件 ([8933316](https://github.com/vancetang/demo/commit/893331698b088255221597e9ab91c64de17169c2))
+* **VanceTest:** 更新測試類別以新增資料映射及 JSON 轉換功能 ([1f95987](https://github.com/vancetang/demo/commit/1f9598710df720038fb7721becc717b3408b6236))
+
+
+### Bug Fixes
+
+* **OrderRequest:** 增加Excpeiton文字描述 ([cf91571](https://github.com/vancetang/demo/commit/cf9157134dc2f2bb315da2291609fa345225017f))
+
 ## [1.3.0](https://github.com/vancetang/demo/compare/v1.2.0...v1.3.0) (2025-04-07)
 
 
