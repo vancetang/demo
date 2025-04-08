@@ -8,10 +8,10 @@ public record OrderRequest(String customerName, List<Item> items) {
         // 自定義構造函數，驗證輸入
         public Item {
             if (quantity <= 0) {
-                throw new IllegalArgumentException("Quantity must be positive");
+                throw new IllegalArgumentException("Quantity must be positive for product ID: " + productId);
             }
             if (unitPrice < 0) {
-                throw new IllegalArgumentException("Unit price cannot be negative");
+                throw new IllegalArgumentException("Unit price cannot be negative for product ID: " + productId);
             }
         }
     }
