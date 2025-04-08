@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/vancetang/demo/compare/v1.4.0...v1.5.0) (2025-04-08)
+
+
+### Features
+
+* **ApiResult:** 新增不可修改檢視的資料回應方法，簡化資料設定邏輯 ([bd5fc61](https://github.com/vancetang/demo/commit/bd5fc61782f6daabd52afbf65aa6f9a5d9f4e885))
+
 ## [1.4.0](https://github.com/vancetang/demo/compare/v1.3.0...v1.4.0) (2025-04-08)
 
 
