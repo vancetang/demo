@@ -1,5 +1,7 @@
-
 # Gemini 程式碼審查風格指南（適用於 Java + Spring Boot 專案）
+
+## General Response Language
+- **IMPORTANT:** Please provide all responses, comments, and suggestions exclusively in **Traditional Chinese (繁體中文)**.
 
 ## 語言規定
 - 所有程式碼審查意見請以 **繁體中文** 撰寫。
