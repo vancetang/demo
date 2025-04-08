@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import com.vance.demo.util.common.JsonUtil;
 import com.vance.demo.util.common.Util;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class VanceTest {
             data.put("a", "vance-a");
             data.put("b", "vance-b");
             Map<String, Object> map = new HashMap<>();
-            // map.put("data", data);
+            map.put("data", data);
             log.info("data==>{}", map);
             Optional.ofNullable(map)
                     .map(m -> Util.safeGetMap(m, "data"))
@@ -43,9 +44,13 @@ public class VanceTest {
                         dtl.computeIfPresent("b", (k, v) -> StringUtils.EMPTY);
                     });
             log.info("{}", map);
+            log.info("{}", JsonUtil.toJsonString(new InnerVanceTest("vance....")));
         } catch (Exception e) {
             log.error("{}", ExceptionUtils.getStackTrace(e));
         }
         log.info("========== {} 結束 ==========", VanceTest.class.getSimpleName());
+    }
+
+    record InnerVanceTest(String vance) {
     }
 }
