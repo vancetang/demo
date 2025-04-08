@@ -5,102 +5,70 @@ import java.util.Map;
 
 import com.vance.demo.enums.ResultCodeEnum;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 /**
  * API共用回應物件
  * 
  * @author Vance
  */
+@Data
+@Accessors(chain = true)
 public class ApiResult {
-    /** URL path */
+    /**
+     * URL路徑
+     */
     private String path;
-    /** 是否成功 */
-    private Boolean success;
-    /** 代碼 */
-    private Integer code;
-    /** 訊息 */
-    private String message;
-    /** timestamp */
-    private Long timestamp;
-    /** 回傳資料 */
-    private Map<String, Object> data = new HashMap<>();
-
-    public String getPath() {
-        return path;
-    }
-
-    public ApiResult setPath(String path) {
-        this.path = path;
-        return this;
-    }
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public ApiResult setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public ApiResult setCode(Integer code) {
-        this.code = code;
-        return this;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public ApiResult setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public ApiResult setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
-        return this;
-    }
-
-    public Map<String, Object> getData() {
-        return data;
-    }
-
-    public ApiResult setData(Map<String, Object> data) {
-        this.data = data;
-        return this;
-    }
 
     /**
-     * 成功
+     * 是否成功
+     */
+    private Boolean success;
+
+    /**
+     * 代碼
+     */
+    private Integer code;
+
+    /**
+     * 訊息
+     */
+    private String message;
+
+    /**
+     * timestamp（時間戳，單位為毫秒）
+     */
+    private Long timestamp;
+
+    /**
+     * 回傳資料
+     */
+    private Map<String, Object> data = new HashMap<>();
+
+    /**
+     * 創建成功的回應
      * 
-     * @return
+     * @return 新建的成功狀態 ApiResult 實例
      */
     public static ApiResult success() {
         return result(ResultCodeEnum.SUCCESS);
     }
 
     /**
-     * 失敗
+     * 創建失敗的回應
      * 
-     * @return
+     * @return 新建的失敗狀態 ApiResult 實例
      */
     public static ApiResult fail() {
         return result(ResultCodeEnum.FAIL);
     }
 
     /**
-     * 結果
+     * 根據 ResultCodeEnum 創建回應結果
      * 
-     * @param result
-     * @return
+     * @param result 用於設置回應的結果枚舉
+     * @return 新建的 ApiResult 實例，包含預設值
      */
     public static ApiResult result(ResultCodeEnum result) {
         return new ApiResult()
@@ -111,21 +79,22 @@ public class ApiResult {
     }
 
     /**
-     * 設定回應資料
+     * 設定回應資料（使用整個 Map）
      * 
-     * @param map
-     * @return
+     * @param map 要設置的資料 Map
+     * @return 當前實例，用於鏈式調用
      */
     public ApiResult data(Map<String, Object> map) {
-        return this.setData(map);
+        this.data = new HashMap<>(map);
+        return this;
     }
 
     /**
-     * 設定回應資料
+     * 設定回應資料（單個鍵值對）
      * 
-     * @param key
-     * @param value
-     * @return
+     * @param key   資料的鍵
+     * @param value 資料的值
+     * @return 當前實例，用於鏈式調用
      */
     public ApiResult data(String key, Object value) {
         this.data.put(key, value);
@@ -135,10 +104,11 @@ public class ApiResult {
     /**
      * 自定義回應訊息
      * 
-     * @param message 訊息
-     * @return
+     * @param message 自定義的訊息內容
+     * @return 當前實例，用於鏈式調用
      */
     public ApiResult message(String message) {
-        return this.setMessage(message);
+        this.setMessage(message);
+        return this;
     }
 }
