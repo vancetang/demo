@@ -12,6 +12,7 @@ import java.util.function.Function;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Vance
  */
 @Slf4j
+@UtilityClass
 public class DateUtil {
 
     // 定義日期格式與預處理邏輯的靜態列表
@@ -214,5 +216,14 @@ public class DateUtil {
             this.regex = regex;
             this.preprocessor = preprocessor;
         }
+    }
+
+    /**
+     * 取得今天日期的，預設格式為 "yyyy-MM-dd"。
+     * 
+     * @return 今天日期的 "yyyy-MM-dd" 格式西元 (AD) 字串。
+     */
+    public static String getTodayDateString() {
+        return getCurrentDate("yyyy-MM-dd");
     }
 }

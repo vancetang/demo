@@ -11,6 +11,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Vance
  */
 @Slf4j
+@UtilityClass
 public class TimeUtil {
 
 	/**

@@ -6,22 +6,17 @@ import java.util.Objects;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * JSON 處理工具類別
  */
 @Slf4j
+@UtilityClass
 public class JsonUtil {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
-
-    /**
-     * 防止被實例化。
-     */
-    private JsonUtil() {
-        throw new UnsupportedOperationException("Utility class");
-    }
 
     /**
      * 將任意 Java 物件轉換為 JSON 字串。

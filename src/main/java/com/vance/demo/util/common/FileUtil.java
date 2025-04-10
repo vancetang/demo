@@ -8,6 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Vance
  */
 @Slf4j
+@UtilityClass
 public class FileUtil {
     /**
      * 使用 Guava 來計算檔案的 SHA-256 Hash

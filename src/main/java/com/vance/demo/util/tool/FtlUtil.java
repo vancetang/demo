@@ -16,6 +16,7 @@ import com.vance.demo.freemarker.method.VanceMethod;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
+import lombok.experimental.UtilityClass;
 
 /**
  * FreeMarker 模板工具類，提供與 FreeMarker 模板相關的操作。
@@ -27,6 +28,7 @@ import freemarker.template.Version;
  *
  * @author Vance
  */
+@UtilityClass
 public class FtlUtil {
 
     /** FreeMarker version */
@@ -63,16 +65,6 @@ public class FtlUtil {
         CFG.setSharedVariable("t_escapeXml", new EscapeXmlMethod());
         // Custom methods
         CFG.setSharedVariable("t_vance", new VanceMethod());
-    }
-
-    /**
-     * 私有構造函數，防止實例化。
-     * <p>
-     * 此類設計為靜態工具類，所有功能通過靜態方法提供，因此禁止外部實例化。
-     * </p>
-     */
-    private FtlUtil() {
-        // Prevent instantiation
     }
 
     /**

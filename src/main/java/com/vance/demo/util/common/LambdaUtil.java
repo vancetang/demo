@@ -11,11 +11,14 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Lambda 轉換工具
  * 
  * @author Vance
  */
+@UtilityClass
 public class LambdaUtil {
 
 	/**

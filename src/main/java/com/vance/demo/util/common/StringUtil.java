@@ -7,20 +7,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.vance.demo.constant.Constant;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * 字串處理工具
  * 
  * @author Vance
  */
+@UtilityClass
 public class StringUtil {
-
-    /**
-     * 防止被實例化。
-     */
-    private StringUtil() {
-        throw new UnsupportedOperationException("Utility class");
-    }
-
     /**
      * 去除前後的空白字元。
      *
