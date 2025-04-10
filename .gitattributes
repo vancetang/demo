@@ -1,1 +1,10 @@
 * -text
+
+# 程式碼檔案 - Unix 格式 (LF)
+*.sh text eol=lf
+
+# 程式碼檔案 - Windows 格式 (CRLF)
+*.bat text eol=crlf
+
+# 文件檔案(不管什麼換行都不引響者)
+*.md text diff=markdown
