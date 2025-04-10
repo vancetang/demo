@@ -25,19 +25,15 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * 工具類別
  * 
  * @author Vance
  */
+@UtilityClass
 public class Util {
-
-    /**
-     * 防止被實例化。
-     */
-    private Util() {
-        throw new UnsupportedOperationException("Utility class");
-    }
 
     /**
      * 當傳入值為null時，回傳一個不可異動的空物件

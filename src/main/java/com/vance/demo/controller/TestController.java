@@ -14,6 +14,7 @@ import com.google.common.collect.Maps;
 import com.vance.demo.data.dto.ApiResult;
 import com.vance.demo.data.model.User;
 import com.vance.demo.exception.UserNotFoundException;
+import com.vance.demo.util.common.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -56,8 +57,8 @@ public class TestController {
     }
 
     @PostMapping("/test4")
-    public String test4() {
-        return "hello world";
+    public ApiResult test4() {
+        return ApiResult.success().data("today", DateUtil.getTodayDateString()).data("env", env);
     }
 
     @PostMapping("/test5")

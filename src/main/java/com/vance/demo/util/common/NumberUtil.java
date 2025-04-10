@@ -6,11 +6,14 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * 數字處理工具
  * 
  * @author Vance
  */
+@UtilityClass
 public class NumberUtil {
 
     private static final String[] UNITS_STRINGS = new String[] { "", "萬", "億", "萬億" };
