@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/vancetang/demo/compare/v1.5.0...v1.6.0) (2025-04-10)
+
+
+### Features
+
+* 將 util 靜態工具類程式，標記為UtilityClass(lombok annotation) ([b13aa35](https://github.com/vancetang/demo/commit/b13aa358cb43174054f4949f4a4731be876297ff))
+
 ## [1.5.0](https://github.com/vancetang/demo/compare/v1.4.0...v1.5.0) (2025-04-08)
 
 
