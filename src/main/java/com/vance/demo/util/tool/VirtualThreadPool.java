@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * 適合高並發、I/O 密集型場景，無需手動管理線程生命週期。
  */
 @Slf4j
+@UtilityClass
 public class VirtualThreadPool {
     /**
      * 虛擬線程執行器，為每個任務創建一個新的虛擬線程，由 JVM 自動管理。
