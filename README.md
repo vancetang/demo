@@ -8,8 +8,8 @@
 ## 🌐 可用語言
 
 [![English](https://img.shields.io/badge/English-Click-yellow)](README_en.md)
-[![繁體中文](https://img.shields.io/badge/Traditional_Chinese-Click-orange)](README.md)
-[![简体中文](https://img.shields.io/badge/Simplified_Chinese-Click-green)](README_zh-cn.md)
+[![繁體中文](https://img.shields.io/badge/繁體中文-Click-orange)](README.md)
+[![简体中文](https://img.shields.io/badge/简体中文-Click-green)](README_zh-CN.md)
 
 
 ## 🚀 專案功能概覽

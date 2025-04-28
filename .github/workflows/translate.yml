@@ -1,11 +1,11 @@
 name: Translate (googletrans)
 
 on:
-  push:
-    branches:
-      - develop
-    paths:
-      - "README.md"
+  # push:
+  #   branches:
+  #     - develop
+  #   paths:
+  #     - "README.md"
   workflow_dispatch: # 可以手動執行此 action
     inputs:
       lang_list:
