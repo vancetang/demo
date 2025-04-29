@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/vancetang/demo/compare/v1.6.0...v1.7.0) (2025-04-29)
+
+
+### Features
+
+* 新增翻譯 README 的腳本 ([0dd8ead](https://github.com/vancetang/demo/commit/0dd8ead6d48e4cc1f0fdd1e0624fa70582db5452))
+
 ## [1.6.0](https://github.com/vancetang/demo/compare/v1.5.0...v1.6.0) (2025-04-10)
 
 
