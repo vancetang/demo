@@ -2,7 +2,7 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/vancetang/demo/badge)](https://www.codefactor.io/repository/github/vancetang/demo) ![Spring Boot](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='parent']/*[local-name()='version']&label=Spring%20Boot&color=brightgreen) ![Java Version](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/vancetang/demo/master/pom.xml&query=//*[local-name()='properties']/*[local-name()='java.version']&label=Java&color=ED8B00&logo=openjdk&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Enabled-blue) [![Star History](https://img.shields.io/badge/Star%20History-Chart-orange)](https://star-history.com/#vancetang/demo&Date)
 
-本项目旨在测试与展示 Spring Boot 结合 GitHub Actions 的功能，整合并实践了网络上常见的相关技术与应用，作为一个实用的学习与参考示例。
+本项目旨在测试与展示 Spring Boot 结合 GitHub Actions 的功能，整合并实现了网络上常见的相关技术与应用，作为一个实用的学习与参考示例。
 
 ## 🌐 可用语言
 
@@ -13,7 +13,7 @@
 ## 🚀 项目功能概览
 
 ### GitHub Actions 工作流程
-以下是本项目中实践的 GitHub Actions 功能：
+以下是本项目中实现的 GitHub Actions 功能：
 - **`add-labels`**：自动新增或修改标签。
 - **`cleanup-cache`**：清除 Action 缓存（目前有日期转换问题待修复）。
 - **`close-stale-issues-prs`**：关闭过期的 Issues 和 PRs。
@@ -39,5 +39,5 @@
 - 本地端保护：新增 `pre-push` Hook，防止直接推送至 `master` 并检查更新。
 
 ### 其他功能
-- Issues 回报支援英文版本。
+- Issues 回报支持英文版本。
 - PR Template 多国语言版本（不采用，无法实现）。
