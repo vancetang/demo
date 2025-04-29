@@ -1,14 +1,17 @@
 package com.vance.demo.util.common;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,22 +30,25 @@ public class DateUtil {
 
     // 定義日期格式與預處理邏輯的靜態列表
     private static final List<DateFormatEntry> DATE_FORMATS = Arrays.asList(
-            new DateFormatEntry(new SimpleDateFormat("yyyyMMdd"), "^\\d{8}$", null),
-            new DateFormatEntry(new SimpleDateFormat("yyyyMMdd HHmmss"), "^\\d{8} \\d{6}$", null),
-            new DateFormatEntry(new SimpleDateFormat("yyyyMMdd HH:mm:ss"), "^\\d{8} \\d{2}:\\d{2}:\\d{2}\\.?\\d*$",
-                    null),
-            new DateFormatEntry(new SimpleDateFormat("yyyyMMdd'T'HH:mm:ss"), "^\\d{8}T\\d{2}:\\d{2}:\\d{2}\\.?\\d*$",
-                    null),
-            new DateFormatEntry(new SimpleDateFormat("yyyyMMddHHmmss"), "^\\d{14}$", null),
+            new DateFormatEntry(DateTimeFormatter.ofPattern("yyyyMMdd"), "^\\d{8}$", null, false),
+            new DateFormatEntry(DateTimeFormatter.ofPattern("yyyyMMdd HHmmss"), "^\\d{8} \\d{6}$", null, true),
+            new DateFormatEntry(DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss"),
+                    "^\\d{8} \\d{2}:\\d{2}:\\d{2}\\.?\\d*$", null, true),
+            new DateFormatEntry(DateTimeFormatter.ofPattern("yyyyMMdd'T'HH:mm:ss"),
+                    "^\\d{8}T\\d{2}:\\d{2}:\\d{2}\\.?\\d*$", null, true),
+            new DateFormatEntry(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"), "^\\d{14}$", null, true),
             // 民國年格式
-            new DateFormatEntry(new SimpleDateFormat("yyyyMMdd"), "^\\d{7}$", DateUtil::convertTwnToAd),
-            new DateFormatEntry(new SimpleDateFormat("yyyyMMdd HH:mm:ss"), "^\\d{7} \\d{2}:\\d{2}:\\d{2}\\.?\\d*$",
-                    DateUtil::convertTwnToAd));
+            new DateFormatEntry(DateTimeFormatter.ofPattern("yyyyMMdd"), "^\\d{7}$", DateUtil::convertTwnToAd, false),
+            new DateFormatEntry(DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss"),
+                    "^\\d{7} \\d{2}:\\d{2}:\\d{2}\\.?\\d*$", DateUtil::convertTwnToAd, true));
 
-    private static final SimpleDateFormat DEFAULT_FORMAT = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.US);
+    // 使用 DateTimeFormatter，保持 static
+    private static final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss z yyyy",
+            Locale.US);
 
     /**
-     * 將日期字串解析為 {@link Date} 物件，支援多種格式，包括台灣民國年與西元年。
+     * 將日期字串解析為 {@link LocalDate} 或 {@link LocalDateTime}，並轉為
+     * {@link Date}，支援多種格式，包括台灣民國年與西元年。
      * <p>
      * 支援的格式範例：
      * <ul>
@@ -62,7 +68,8 @@ public class DateUtil {
             return null;
         }
         try {
-            value = StringUtil.trim(value).replaceAll("(/|-)", "");
+            // 使用字元類 [/-] 替換 (/|-)
+            value = StringUtil.trim(value).replaceAll("[/-]", "");
             if (StringUtils.length(value) < 5) {
                 return null;
             }
@@ -75,17 +82,10 @@ public class DateUtil {
             if (value.matches("^\\d{6}$")) {
                 return parseDate(StringUtil.addZeroWithValue(value, 7));
             }
-
             // 遍歷格式列表進行解析
             for (DateFormatEntry entry : DATE_FORMATS) {
                 if (value.matches(entry.regex)) {
-                    String adjustedValue = Objects.nonNull(entry.preprocessor) ? entry.preprocessor.apply(value)
-                            : value;
-                    try {
-                        return entry.format.parse(adjustedValue);
-                    } catch (ParseException e) {
-                        log.warn("解析日期 [{}] 失敗，使用格式 [{}]", value, entry.format.toPattern(), e);
-                    }
+                    return parseDateWithFormat(entry, value);
                 }
             }
             // 處理純數字時間戳
@@ -93,9 +93,34 @@ public class DateUtil {
                 return new Date(NumberUtil.parseLong(value));
             }
             // 處理 Date.toString() 格式
-            return DEFAULT_FORMAT.parse(value);
-        } catch (ParseException e) {
+            LocalDateTime dateTime = LocalDateTime.parse(value, DEFAULT_FORMAT);
+            return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        } catch (DateTimeParseException e) {
             log.warn("解析日期錯誤：[{}] {}", value, e);
+        }
+        return null;
+    }
+
+    /**
+     * 使用指定的日期格式解析日期字串。
+     * 此方法會先執行預處理邏輯（如果有的話），然後再進行日期解析。
+     *
+     * @param entry 日期格式項目，包含格式化物件和預處理邏輯
+     * @param value 要解析的日期字串
+     * @return 解析後的 Date 物件，若解析失敗則返回 null
+     */
+    private static Date parseDateWithFormat(final DateFormatEntry entry, final String value) {
+        try {
+            String adjustedValue = Objects.nonNull(entry.preprocessor) ? entry.preprocessor.apply(value) : value;
+            if (entry.isDateTime) {
+                LocalDateTime dateTime = LocalDateTime.parse(adjustedValue, entry.formatter);
+                return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+            } else {
+                LocalDate date = LocalDate.parse(adjustedValue, entry.formatter);
+                return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            }
+        } catch (DateTimeParseException e) {
+            log.warn("解析日期 [{}] 失敗，使用格式 [{}]", value, entry.formatter.toString(), e);
         }
         return null;
     }
@@ -139,9 +164,10 @@ public class DateUtil {
      * @throws NullPointerException 若 date 或 format 為 null。
      */
     public static String formatDate(final Date date, final String format) {
-        Objects.requireNonNull(date, "日期不得為 null");
-        Objects.requireNonNull(format, "格式不得為 null");
-        return new SimpleDateFormat(format).format(date);
+        Objects.requireNonNull(date);
+        Objects.requireNonNull(format);
+        LocalDateTime dateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return DateTimeFormatter.ofPattern(format).format(dateTime);
     }
 
     /**
@@ -174,9 +200,9 @@ public class DateUtil {
      * @throws NullPointerException 若 date 為 null。
      */
     public static boolean isWeekoff(Date date) {
-        Objects.requireNonNull(date, "日期不得為 null");
+        Objects.requireNonNull(date);
         int day = getDayOfWeek(date);
-        return day == Calendar.SATURDAY || day == Calendar.SUNDAY;
+        return day == Calendar.SUNDAY || day == Calendar.SATURDAY;
     }
 
     /**
@@ -194,7 +220,7 @@ public class DateUtil {
      * @throws NullPointerException 若 date 為 null。
      */
     public static String toWeek(Date date) {
-        Objects.requireNonNull(date, "日期不得為 null");
+        Objects.requireNonNull(date);
         int day = getDayOfWeek(date);
         StringBuilder sb = new StringBuilder("星期");
         if (day == Calendar.SUNDAY) {
@@ -207,14 +233,17 @@ public class DateUtil {
 
     // 內部類別：封裝日期格式與預處理邏輯
     private static class DateFormatEntry {
-        final SimpleDateFormat format;
+        final DateTimeFormatter formatter;
         final String regex;
-        final Function<String, String> preprocessor;
+        final UnaryOperator<String> preprocessor;
+        final boolean isDateTime; // 表示是否解析為 LocalDateTime（否則為 LocalDate）
 
-        DateFormatEntry(SimpleDateFormat format, String regex, Function<String, String> preprocessor) {
-            this.format = format;
+        DateFormatEntry(DateTimeFormatter formatter, String regex, UnaryOperator<String> preprocessor,
+                boolean isDateTime) {
+            this.formatter = formatter;
             this.regex = regex;
             this.preprocessor = preprocessor;
+            this.isDateTime = isDateTime;
         }
     }
 
