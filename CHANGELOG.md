@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/vancetang/demo/compare/v1.7.0...v1.8.0) (2025-04-30)
+
+
+### Features
+
+* 配合SonarLint檢測，更新 DateUtil 類別以支援 Java 8 日期時間 API，並改善日期解析邏輯 ([de85578](https://github.com/vancetang/demo/commit/de85578258481d99653c0bcd4088b74a0b0b289c))
+
+
+### Bug Fixes
+
+* **DateUtil:** 增加 null 檢查的錯誤訊息以改善可讀性 ([81b2dce](https://github.com/vancetang/demo/commit/81b2dce7be1ae9ea0cb917754fe547fbd9805d2e))
+
 ## [1.7.0](https://github.com/vancetang/demo/compare/v1.6.0...v1.7.0) (2025-04-29)
 
 
