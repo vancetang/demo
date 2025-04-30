@@ -164,8 +164,8 @@ public class DateUtil {
      * @throws NullPointerException 若 date 或 format 為 null。
      */
     public static String formatDate(final Date date, final String format) {
-        Objects.requireNonNull(date);
-        Objects.requireNonNull(format);
+        Objects.requireNonNull(date, "日期不得為 null");
+        Objects.requireNonNull(format, "格式不得為 null");
         LocalDateTime dateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         return DateTimeFormatter.ofPattern(format).format(dateTime);
     }
@@ -200,7 +200,7 @@ public class DateUtil {
      * @throws NullPointerException 若 date 為 null。
      */
     public static boolean isWeekoff(Date date) {
-        Objects.requireNonNull(date);
+        Objects.requireNonNull(date, "日期不得為 null");
         int day = getDayOfWeek(date);
         return day == Calendar.SUNDAY || day == Calendar.SATURDAY;
     }
@@ -220,7 +220,7 @@ public class DateUtil {
      * @throws NullPointerException 若 date 為 null。
      */
     public static String toWeek(Date date) {
-        Objects.requireNonNull(date);
+        Objects.requireNonNull(date, "日期不得為 null");
         int day = getDayOfWeek(date);
         StringBuilder sb = new StringBuilder("星期");
         if (day == Calendar.SUNDAY) {
