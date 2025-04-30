@@ -231,13 +231,28 @@ public class DateUtil {
         return sb.toString();
     }
 
-    // 內部類別：封裝日期格式與預處理邏輯
+    /**
+     * 日期格式項目內部類別，用於封裝日期格式化邏輯。
+     * 包含格式化物件、正規表達式匹配規則、前處理邏輯與日期時間類型標記。
+     */
     private static class DateFormatEntry {
+        /** 日期時間格式化物件 */
         final DateTimeFormatter formatter;
+        /** 用於匹配日期字串的正規表達式 */
         final String regex;
+        /** 日期字串前處理邏輯，如民國年轉西元年 */
         final UnaryOperator<String> preprocessor;
-        final boolean isDateTime; // 表示是否解析為 LocalDateTime（否則為 LocalDate）
+        /** 是否包含時間資訊的標記（true 表示包含時間） */
+        final boolean isDateTime;
 
+        /**
+         * 建立日期格式項目。
+         *
+         * @param formatter    日期時間格式化物件
+         * @param regex        用於匹配日期字串的正規表達式
+         * @param preprocessor 日期字串前處理邏輯（可為 null）
+         * @param isDateTime   是否包含時間資訊
+         */
         DateFormatEntry(DateTimeFormatter formatter, String regex, UnaryOperator<String> preprocessor,
                 boolean isDateTime) {
             this.formatter = formatter;
