@@ -57,8 +57,9 @@ public class CompletableFutureThreadPoolTest {
             log.info("run4");
         };
 
-        // 執行多個任務並等待完成
-        CompletableFutureThreadPool.executeTasks(run1, run2, run3, run4);
+        // 使用帶前綴的 executeTasks 方法
+        CompletableFutureThreadPool.executeTasks("VANCE", run1, run2, run3, run4);
+
         log.info("test02 執行完畢");
     }
 
@@ -99,7 +100,7 @@ public class CompletableFutureThreadPoolTest {
 
     /**
      * 模擬獲取資料的方法，返回 "data1"，模擬 5 秒耗時。
-     * 
+     *
      * @return "data1"
      */
     public static String getData1() {
@@ -114,7 +115,7 @@ public class CompletableFutureThreadPoolTest {
 
     /**
      * 模擬獲取資料的方法，返回 "data2"，模擬 5 秒耗時。
-     * 
+     *
      * @return "data2"
      */
     public static String getData2() {
@@ -129,7 +130,7 @@ public class CompletableFutureThreadPoolTest {
 
     /**
      * 模擬獲取資料的方法，返回 "data3"，模擬 6 秒耗時。
-     * 
+     *
      * @return "data3"
      */
     public static String getData3() {
