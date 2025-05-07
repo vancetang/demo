@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.9.0](https://github.com/vancetang/demo/compare/v1.8.0...v1.9.0) (2025-05-07)
+
+
+### Features
+
+* **CompletableFutureThreadPool:** 新增基於 CompletableFuture 的線程池任務執行工具備份 ([732db7b](https://github.com/vancetang/demo/commit/732db7b5d781954a2f4b3cbe8682b77ebff3f2d1))
+* **CompletableFutureThreadPool:** 新增帶前綴名稱的任務執行方法 ([e0fb8a7](https://github.com/vancetang/demo/commit/e0fb8a7637e7794552c385734dc171da957c91d2))
+
 ## [1.8.0](https://github.com/vancetang/demo/compare/v1.7.0...v1.8.0) (2025-04-30)
 
 
