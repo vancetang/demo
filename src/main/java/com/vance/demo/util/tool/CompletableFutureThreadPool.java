@@ -27,6 +27,30 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 使用 CompletableFuture 和傳統平台線程池實現的並行任務處理工具。
  * 採用單例模式（enum）管理一個固定大小的 ThreadPoolExecutor，適合需要控制並發數量的場景（如 CPU 密集型任務）。
+ * <p>
+ * 此工具類提供了三種類型的任務執行方法：
+ * <ul>
+ * <li>{@link #executeTasks(Runnable...)} - 執行無返回值的 Runnable 任務</li>
+ * <li>{@link #executeCompletableFutures(CompletableFuture...)} - 執行帶返回值的
+ * CompletableFuture 任務</li>
+ * <li>{@link #executeSuppliers(Supplier...)} - 執行帶返回值的 Supplier 任務</li>
+ * </ul>
+ * <p>
+ * 所有方法都支持為任務指定前綴名稱，以便在日誌中更容易識別和追蹤任務執行情況。
+ * 線程命名格式為：基本名稱(Task-序號) + "-" + 前綴 + "-" + 任務索引，例如 "Task-0-VANCE-1"。
+ * <p>
+ * 使用示例：
+ *
+ * <pre>{@code
+ * // 執行無返回值的任務
+ * CompletableFutureThreadPool.executeTasks("VANCE", runnable1, runnable2);
+ *
+ * // 執行帶返回值的 Supplier 任務
+ * List<String> results = CompletableFutureThreadPool.executeSuppliers("VANCE", supplier1, supplier2);
+ * }</pre>
+ *
+ * @author Vance
+ * @version 1.0
  */
 @Slf4j
 public enum CompletableFutureThreadPool {
@@ -45,13 +69,22 @@ public enum CompletableFutureThreadPool {
 	 */
 	private final ThreadPoolExecutor singleThreadPool;
 
+	/**
+	 * 線程計數器，用於為每個新創建的線程分配唯一的序號。
+	 * 從 0 開始遞增，確保每個線程都有唯一的標識符。
+	 */
 	private final AtomicInteger threadCounter = new AtomicInteger(0);
 
+	/**
+	 * 使用 ThreadLocal 存儲線程的基本名稱，確保在線程重用時能夠正確識別原始線程名稱。
+	 * 在線程池創建線程時設置，格式為 "Task-序號"，例如 "Task-0"。
+	 */
 	private static final ThreadLocal<String> BASE_NAME = new ThreadLocal<>();
 
 	/**
 	 * 私有構造函數，初始化線程池。
-	 * 核心線程數 15，最大線程數 20，空閒超時 30 秒，任務隊列容量 1000。
+	 * 核心線程數 2，最大線程數 2，空閒超時 30 秒，任務隊列容量 1000。
+	 * 使用自定義的線程工廠，為每個線程分配唯一的名稱（"Task-序號"）並存儲到 ThreadLocal 中。
 	 */
 	CompletableFutureThreadPool() {
 		singleThreadPool = new ThreadPoolExecutor(2, 2, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000),
@@ -214,7 +247,15 @@ public enum CompletableFutureThreadPool {
 	}
 
 	/**
-	 * 記錄線程池當前狀態，包括池大小、活躍線程數等。
+	 * 記錄線程池當前狀態，包括池大小、活躍線程數、排隊任務數、總任務數和完成任務數。
+	 * 同時記錄所有以 "Task-" 開頭的線程的狀態，包括線程 ID、主執行緒名稱、子任務名稱和線程狀態。
+	 * <p>
+	 * 線程名稱會被解析為三個部分：
+	 * <ul>
+	 * <li>主執行緒名稱（例如 "Task-0"）</li>
+	 * <li>子任務名稱（例如 "VANCE-1"）</li>
+	 * <li>如果沒有子任務，則顯示為 "Idle"</li>
+	 * </ul>
 	 */
 	private static void logThreadPoolStatus() {
 		log.info("[線程池狀態] 池大小: {}, 活躍線程數: {}, 排隊任務數: {}, 總任務數: {}, 完成任務數: {}",
@@ -317,6 +358,15 @@ public enum CompletableFutureThreadPool {
 
 	/**
 	 * 關閉線程池，釋放資源，通常由 JVM 關閉鉤子調用。
+	 * <p>
+	 * 關閉過程：
+	 * <ol>
+	 * <li>嘗試優雅關閉線程池，等待所有任務完成</li>
+	 * <li>如果在指定的超時時間（{@link #SHUTDOWN_TIMEOUT_SECONDS}）內未能關閉，則強制關閉</li>
+	 * <li>如果關閉過程被中斷，則強制關閉並恢復中斷狀態</li>
+	 * </ol>
+	 * <p>
+	 * 注意：此方法通常不需要手動調用，因為在 JVM 關閉時會自動調用。
 	 */
 	public void shutdown() {
 		log.info("[線程池] 正在關閉線程池...");
