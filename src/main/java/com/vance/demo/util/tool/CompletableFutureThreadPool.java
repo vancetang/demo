@@ -1,16 +1,24 @@
 package com.vance.demo.util.tool;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.StringUtils;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -37,13 +45,22 @@ public enum CompletableFutureThreadPool {
 	 */
 	private final ThreadPoolExecutor singleThreadPool;
 
+	private final AtomicInteger threadCounter = new AtomicInteger(0);
+
+	private static final ThreadLocal<String> BASE_NAME = new ThreadLocal<>();
+
 	/**
 	 * 私有構造函數，初始化線程池。
 	 * 核心線程數 15，最大線程數 20，空閒超時 30 秒，任務隊列容量 1000。
 	 */
 	CompletableFutureThreadPool() {
-		singleThreadPool = new ThreadPoolExecutor(15, 20, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000),
-				r -> new Thread(r, "CompletableFutureThreadPool - " + r.hashCode()));
+		singleThreadPool = new ThreadPoolExecutor(2, 2, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000),
+				r -> {
+					String baseName = "Task-" + threadCounter.getAndIncrement();
+					Thread t = new Thread(r, baseName);
+					BASE_NAME.set(baseName);
+					return t;
+				});
 	}
 
 	// JVM 關閉時自動清理線程池資源
@@ -56,11 +73,23 @@ public enum CompletableFutureThreadPool {
 
 	/**
 	 * 執行多個無返回值的任務，使用線程池控制並發。
+	 * 使用默認前綴 "DEFAULT"。
 	 *
 	 * @param tasks 要執行的任務數組，不能為空
 	 * @throws IllegalArgumentException 如果任務數組為空
 	 */
 	public static void executeTasks(@Nonnull Runnable... tasks) {
+		executeTasks("DEFAULT", tasks);
+	}
+
+	/**
+	 * 執行多個無返回值的任務，使用線程池控制並發，並為每個任務指定前綴名稱。
+	 *
+	 * @param namePrefix 任務名稱前綴，不能為 null
+	 * @param tasks      要執行的任務數組，不能為空
+	 * @throws IllegalArgumentException 如果任務數組為空或前綴為 null
+	 */
+	public static void executeTasks(@Nonnull String namePrefix, @Nonnull Runnable... tasks) {
 		if (ObjectUtil.isEmpty(tasks)) {
 			logCheckTaskIsEmpty();
 			throw new IllegalArgumentException("任務數組不能為空");
@@ -68,10 +97,12 @@ public enum CompletableFutureThreadPool {
 		long start = logTaskStart();
 
 		// 將任務轉為 CompletableFuture，使用線程池執行
-		CompletableFuture<?>[] futures = Arrays.stream(tasks)
-				.map(task -> CompletableFuture.runAsync(() -> {
+		CompletableFuture<?>[] futures = IntStream.range(0, tasks.length)
+				.mapToObj(i -> CompletableFuture.runAsync(() -> {
 					try {
-						task.run();
+						// 使用通用方法設置線程名稱
+						setThreadName(namePrefix, i, null);
+						tasks[i].run();
 					} catch (Exception e) {
 						log.error("[線程池] 任務執行失敗", e);
 					}
@@ -85,6 +116,7 @@ public enum CompletableFutureThreadPool {
 
 	/**
 	 * 執行多個帶返回值的 CompletableFuture 任務，確保使用線程池執行。
+	 * 使用默認前綴 "DEFAULT"。
 	 *
 	 * @param <T>   返回值類型
 	 * @param tasks 要執行的 CompletableFuture 任務數組，不能為空
@@ -93,6 +125,21 @@ public enum CompletableFutureThreadPool {
 	 */
 	@SafeVarargs
 	public static <T> List<T> executeCompletableFutures(@Nonnull CompletableFuture<T>... tasks) {
+		return executeCompletableFutures("DEFAULT", tasks);
+	}
+
+	/**
+	 * 執行多個帶返回值的 CompletableFuture 任務，確保使用線程池執行，並為每個任務指定前綴名稱。
+	 *
+	 * @param <T>        返回值類型
+	 * @param namePrefix 任務名稱前綴，不能為 null
+	 * @param tasks      要執行的 CompletableFuture 任務數組，不能為空
+	 * @return 任務執行結果的列表
+	 * @throws IllegalArgumentException 如果任務數組為空或前綴為 null
+	 */
+	@SafeVarargs
+	public static <T> List<T> executeCompletableFutures(@Nonnull String namePrefix,
+			@Nonnull CompletableFuture<T>... tasks) {
 		if (ObjectUtil.isEmpty(tasks)) {
 			logCheckTaskIsEmpty();
 			return Collections.emptyList();
@@ -100,10 +147,15 @@ public enum CompletableFutureThreadPool {
 		long start = logTaskStart();
 
 		// 統一使用線程池執行傳入的 CompletableFuture
-		CompletableFuture<?>[] normalizedFutures = Arrays.stream(tasks)
-				.map(task -> task.thenApplyAsync(result -> result, INSTANCE.singleThreadPool))
+		CompletableFuture<?>[] normalizedFutures = IntStream.range(0, tasks.length)
+				.mapToObj(i -> tasks[i].thenApplyAsync(result -> {
+					// 使用通用方法設置線程名稱
+					setThreadName(namePrefix, i, "CompletableFuture");
+					return result;
+				}, INSTANCE.singleThreadPool))
 				.toArray(CompletableFuture[]::new);
 
+		logThreadPoolStatus(); // 記錄當前線程池狀態
 		CompletableFuture.allOf(normalizedFutures).join(); // 等待所有任務完成
 		List<T> results = Arrays.stream(tasks).map(CompletableFuture::join).collect(Collectors.toList());
 		logTaskEnd(start);
@@ -112,6 +164,7 @@ public enum CompletableFutureThreadPool {
 
 	/**
 	 * 執行多個帶返回值的 Supplier 任務，使用線程池控制並發。
+	 * 使用默認前綴 "DEFAULT"。
 	 *
 	 * @param <T>   返回值類型
 	 * @param tasks 要執行的 Supplier 任務數組，不能為空
@@ -120,6 +173,20 @@ public enum CompletableFutureThreadPool {
 	 */
 	@SafeVarargs
 	public static <T> List<T> executeSuppliers(@Nonnull Supplier<T>... tasks) {
+		return executeSuppliers("DEFAULT", tasks);
+	}
+
+	/**
+	 * 執行多個帶返回值的 Supplier 任務，使用線程池控制並發，並為每個任務指定前綴名稱。
+	 *
+	 * @param <T>        返回值類型
+	 * @param namePrefix 任務名稱前綴，不能為 null
+	 * @param tasks      要執行的 Supplier 任務數組，不能為空
+	 * @return 任務執行結果的列表
+	 * @throws IllegalArgumentException 如果任務數組為空或前綴為 null
+	 */
+	@SafeVarargs
+	public static <T> List<T> executeSuppliers(@Nonnull String namePrefix, @Nonnull Supplier<T>... tasks) {
 		if (ObjectUtil.isEmpty(tasks)) {
 			logCheckTaskIsEmpty();
 			return Collections.emptyList();
@@ -127,10 +194,12 @@ public enum CompletableFutureThreadPool {
 		long start = logTaskStart();
 
 		// 將 Supplier 轉為 CompletableFuture，使用線程池執行
-		List<CompletableFuture<T>> futures = Arrays.stream(tasks)
-				.map(task -> CompletableFuture.supplyAsync(() -> {
+		List<CompletableFuture<T>> futures = IntStream.range(0, tasks.length)
+				.mapToObj(i -> CompletableFuture.supplyAsync(() -> {
 					try {
-						return task.get();
+						// 使用通用方法設置線程名稱
+						setThreadName(namePrefix, i, "Supplier");
+						return tasks[i].get();
 					} catch (Exception e) {
 						log.error("[線程池] Supplier 任務執行失敗", e);
 						return null; // 返回 null 以供外部處理
@@ -154,6 +223,68 @@ public enum CompletableFutureThreadPool {
 				INSTANCE.singleThreadPool.getQueue().size(),
 				INSTANCE.singleThreadPool.getTaskCount(),
 				INSTANCE.singleThreadPool.getCompletedTaskCount());
+		// 記錄當前執行緒名稱
+		ThreadMXBean threadBean = ManagementFactory.getThreadMXBean();
+		long[] allThreadIds = threadBean.getAllThreadIds();
+		for (long tid : allThreadIds) {
+			ThreadInfo tinfo = threadBean.getThreadInfo(tid);
+			if (Objects.nonNull(tinfo)) {
+				String threadName = tinfo.getThreadName();
+				// 顯示所有任務線程，包括具名任務
+				if (StringUtils.startsWith(threadName, "Task-")) {
+					String[] parts = threadName.split("-", 3);
+					String mainThreadName = parts.length >= 2 ? parts[0] + "-" + parts[1] : threadName;
+					String subName = parts.length == 3 ? parts[2] : "Idle";
+					log.info("[執行緒狀態] ID: {}, 主執行緒: {}, 子任務: {}, 狀態: {}",
+							tid, mainThreadName, subName, tinfo.getThreadState());
+				}
+			}
+		}
+	}
+
+	/**
+	 * 設置當前線程的名稱，格式為：基本名稱 + "-" + 前綴 + "-" + 任務索引。
+	 * 使用 ThreadLocal 存儲的原始線程名稱作為基本名稱，確保不會重複添加前綴。
+	 *
+	 * @param namePrefix 任務名稱前綴
+	 * @param taskIndex  任務索引
+	 * @param taskType   任務類型（用於日誌輸出）
+	 * @return 設置後的線程名稱
+	 */
+	private static String setThreadName(String namePrefix, int taskIndex, String taskType) {
+		// 獲取原始的線程名稱（由線程池創建時設置的，例如 "Task-0"）
+		String baseName = BASE_NAME.get();
+
+		// 如果 BASE_NAME 為 null，則從當前線程名稱中提取基本名稱
+		if (baseName == null) {
+			String currentName = Thread.currentThread().getName();
+			// 如果當前名稱包含連字符，則提取第一部分和第二部分（例如 "Task-0"）
+			if (currentName.contains("-")) {
+				String[] parts = currentName.split("-", 3);
+				if (parts.length >= 2) {
+					baseName = parts[0] + "-" + parts[1];
+				} else {
+					baseName = currentName;
+				}
+			} else {
+				baseName = currentName;
+			}
+			// 更新 ThreadLocal 中的值
+			BASE_NAME.set(baseName);
+		}
+
+		// 設置線程名稱為：基本名稱 + "-" + 前綴 + "-" + 任務索引
+		String taskName = baseName + "-" + namePrefix + "-" + taskIndex;
+		Thread.currentThread().setName(taskName);
+
+		// 根據任務類型輸出不同的日誌
+		if (StringUtils.isBlank(taskType)) {
+			log.info("[線程池] 執行任務: {}", taskName);
+		} else {
+			log.debug("[線程池] 執行 {} 任務: {}", taskType, taskName);
+		}
+
+		return taskName;
 	}
 
 	/**
