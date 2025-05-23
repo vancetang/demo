@@ -19,7 +19,6 @@ import org.apache.hc.client5.http.ssl.DefaultClientTlsStrategy;
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
 import org.apache.hc.core5.ssl.SSLContexts;
 import org.apache.hc.core5.ssl.TrustStrategy;
-import org.springframework.data.util.CastUtils;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -150,7 +149,7 @@ public class Util {
      *         否則使用 CastUtils 進行強制轉型（通常會返回 null 或拋出異常）
      */
     public static Map<String, Object> safeGetMap(Map<String, Object> map, String key) {
-        return CastUtils.cast(safeGet(map, key, Map.class));
+        return cast(safeGet(map, key, Map.class));
     }
 
     /**
@@ -162,7 +161,7 @@ public class Util {
      *         否則使用 CastUtils 進行強制轉型（通常會返回 null 或拋出異常）
      */
     public static List<Map<String, Object>> safeGetList(Map<String, Object> map, String key) {
-        return CastUtils.cast(safeGet(map, key, List.class));
+        return cast(safeGet(map, key, List.class));
     }
 
     /**
@@ -176,5 +175,17 @@ public class Util {
      */
     public static <T> T safeGet(Map<String, Object> map, String key, Class<T> type) {
         return Optional.ofNullable(map.get(key)).filter(type::isInstance).map(type::cast).orElse(null);
+    }
+
+    /**
+     * 強制轉型，通常用於忽略編譯器類型檢查。
+     * 
+     * @param <T>    期望返回的值的類型
+     * @param object 要轉型的物件
+     * @return 轉型後的物件
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T cast(Object object) {
+        return (T) object;
     }
 }
