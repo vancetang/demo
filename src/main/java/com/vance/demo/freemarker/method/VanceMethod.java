@@ -3,7 +3,6 @@ package com.vance.demo.freemarker.method;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.util.CastUtils;
 
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
@@ -45,8 +44,7 @@ public class VanceMethod implements TemplateMethodModelEx {
 		}
 		try {
 			Object obj = args.get(0);
-			if (args.get(0) instanceof TemplateSequenceModel) {
-				TemplateSequenceModel seq = CastUtils.cast(args.get(0));
+			if (args.get(0) instanceof TemplateSequenceModel seq) {
 				log.debug("{}", seq.size());
 				if (seq.size() == 0) {
 					log.debug("空的");
