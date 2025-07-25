@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0](https://github.com/vancetang/demo/compare/v1.9.0...v2.0.0) (2025-07-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** 更新 Spring Boot 版本至 3.5.4
+* **deps:** 更新 Spring Boot 版本至 3.5.3
+* **parent:** 更新 Spring Boot 版本至 3.5.2
+* **deps:** 更新 Spring Boot 版本至 3.5.0
+
+### Build System
+
+* **deps:** 更新 Spring Boot 版本至 3.5.0 ([f0c0b45](https://github.com/vancetang/demo/commit/f0c0b4577fbb4d76b07589ae10550bd85d022f77))
+* **deps:** 更新 Spring Boot 版本至 3.5.3 ([b53198d](https://github.com/vancetang/demo/commit/b53198d33f8cca4b4e387c2cc11be307767642d4))
+* **deps:** 更新 Spring Boot 版本至 3.5.4 ([224c2cf](https://github.com/vancetang/demo/commit/224c2cfd1a1ac88e0d3b7666f1d265af3db0fb0b))
+* **parent:** 更新 Spring Boot 版本至 3.5.2 ([2a576c6](https://github.com/vancetang/demo/commit/2a576c6d8e928d8e7f694accf4484724ed5a1f10))
+
 ## [1.9.0](https://github.com/vancetang/demo/compare/v1.8.0...v1.9.0) (2025-05-07)
 
 
