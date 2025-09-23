@@ -1,5 +1,23 @@
 # Changelog
 
+## [3.0.0](https://github.com/vancetang/demo/compare/v2.0.0...v3.0.0) (2025-09-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** 更新 Spring Boot 版本至 3.5.6
+* **deps:** 更新 Spring Boot 版本至 3.5.4
+
+### Features
+
+* 增加檔案轉換base64字串相關功能 ([1e82698](https://github.com/vancetang/demo/commit/1e826980b466bf960db30368efc2fcf1b62a534c))
+
+
+### Build System
+
+* **deps:** 更新 Spring Boot 版本至 3.5.4 ([c158255](https://github.com/vancetang/demo/commit/c158255c554988d1bd30597016969c5c413b4ef5))
+* **deps:** 更新 Spring Boot 版本至 3.5.6 ([89a4482](https://github.com/vancetang/demo/commit/89a44829fcf444f04c82e14c8aa98199e0fb9a11))
+
 ## [2.0.0](https://github.com/vancetang/demo/compare/v1.9.0...v2.0.0) (2025-07-25)
 
 
