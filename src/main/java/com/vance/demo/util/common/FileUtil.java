@@ -34,8 +34,8 @@ public class FileUtil {
     /**
      * 使用 Guava 來計算檔案的 SHA-256 Hash
      * 
-     * @param file
-     * @return
+     * @param file 來源檔案
+     * @return 檔案雜湊值
      */
     public static String getFileHashByGuava(File file) {
         log.info("File Path: {}", file.getAbsolutePath());
@@ -49,8 +49,8 @@ public class FileUtil {
     /**
      * 使用 Apache Commons Codec 來計算檔案的 SHA-256 Hash
      * 
-     * @param file
-     * @return
+     * @param file 來源檔案
+     * @return 檔案雜湊值
      */
     public static String getFileHashByCodec(File file) {
         log.info("File Path: {}", file.getAbsolutePath());
@@ -64,8 +64,8 @@ public class FileUtil {
     /**
      * 檔案轉為base64文字
      * 
-     * @param file
-     * @return
+     * @param file 欲轉換的檔案
+     * @return Base64 編碼後的字串
      */
     public static String fileToBase64(File file) {
         try {
@@ -79,8 +79,8 @@ public class FileUtil {
     /**
      * base64文字轉為檔案
      * 
-     * @param base64
-     * @param file
+     * @param base64 Base64 編碼的字串
+     * @param file   儲存內容的目標檔案
      */
     public static void base64ToFile(String base64, File file) {
         byte[] bytes = base64ToBytes(base64);
@@ -90,8 +90,8 @@ public class FileUtil {
     /**
      * bytes轉為檔案
      * 
-     * @param base64
-     * @param file
+     * @param bytes 檔案的 byte 陣列
+     * @param file  儲存內容的目標檔案
      */
     public static void bytesToFile(byte[] bytes, File file) {
         try {
@@ -108,7 +108,8 @@ public class FileUtil {
     /**
      * base64文字轉為byte Array
      * 
-     * @param base64
+     * @param base64 Base64 編碼的字串
+     * @return 解碼後的 byte 陣列
      */
     public static byte[] base64ToBytes(String base64) {
         return Base64.getDecoder().decode(base64);
@@ -117,8 +118,8 @@ public class FileUtil {
     /**
      * byte轉為base64文字
      * 
-     * @param fileData
-     * @return
+     * @param fileData 檔案內容的 byte 陣列
+     * @return Base64 編碼後的字串
      */
     public static String byteToBase64(byte[] fileData) {
         return Base64.getEncoder().encodeToString(fileData);
