@@ -78,21 +78,20 @@ public enum CompletableFutureThreadPool {
 	/**
 	 * 使用 ThreadLocal 存儲線程的基本名稱，確保在線程重用時能夠正確識別原始線程名稱。
 	 * 在線程池創建線程時設置，格式為 "Task-序號"，例如 "Task-0"。
+	 * 改為實例變量，避免在構造函數中引用靜態字段的問題。
 	 */
-	private static final ThreadLocal<String> BASE_NAME = new ThreadLocal<>();
+	private final ThreadLocal<String> rootThreadName = new ThreadLocal<>();
 
 	/**
 	 * 私有構造函數，初始化線程池。
 	 * 核心線程數 2，最大線程數 2，空閒超時 30 秒，任務隊列容量 1000。
-	 * 使用自定義的線程工廠，為每個線程分配唯一的名稱（"Task-序號"）並存儲到 ThreadLocal 中。
+	 * 使用自定義的線程工廠，為每個線程分配唯一的名稱（"Task-序號"）。
 	 */
 	CompletableFutureThreadPool() {
 		singleThreadPool = new ThreadPoolExecutor(2, 2, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000),
 				r -> {
-					String baseName = "Task-" + threadCounter.getAndIncrement();
-					Thread t = new Thread(r, baseName);
-					BASE_NAME.set(baseName);
-					return t;
+					String threadName = "Task-" + threadCounter.getAndIncrement();
+					return new Thread(r, threadName);
 				});
 	}
 
@@ -284,8 +283,8 @@ public enum CompletableFutureThreadPool {
 	}
 
 	/**
-	 * 設置當前線程的名稱，格式為：基本名稱 + "-" + 前綴 + "-" + 任務索引。
-	 * 使用 ThreadLocal 存儲的原始線程名稱作為基本名稱，確保不會重複添加前綴。
+	 * 設置當前線程的名稱，格式為：根線程名稱 + "-" + 前綴 + "-" + 任務索引。
+	 * 使用 ThreadLocal 存儲的根線程名稱作為基礎，確保不會重複添加前綴。
 	 *
 	 * @param namePrefix 任務名稱前綴
 	 * @param taskIndex  任務索引
@@ -294,28 +293,28 @@ public enum CompletableFutureThreadPool {
 	 */
 	private static String setThreadName(String namePrefix, int taskIndex, String taskType) {
 		// 獲取原始的線程名稱（由線程池創建時設置的，例如 "Task-0"）
-		String baseName = BASE_NAME.get();
+		String rootThreadName = INSTANCE.rootThreadName.get();
 
-		// 如果 BASE_NAME 為 null，則從當前線程名稱中提取基本名稱
-		if (baseName == null) {
+		// 如果 baseName 為 null，則從當前線程名稱中提取基本名稱並存儲
+		if (Objects.isNull(rootThreadName)) {
 			String currentName = Thread.currentThread().getName();
 			// 如果當前名稱包含連字符，則提取第一部分和第二部分（例如 "Task-0"）
 			if (currentName.contains("-")) {
 				String[] parts = currentName.split("-", 3);
 				if (parts.length >= 2) {
-					baseName = parts[0] + "-" + parts[1];
+					rootThreadName = parts[0] + "-" + parts[1];
 				} else {
-					baseName = currentName;
+					rootThreadName = currentName;
 				}
 			} else {
-				baseName = currentName;
+				rootThreadName = currentName;
 			}
-			// 更新 ThreadLocal 中的值
-			BASE_NAME.set(baseName);
+			// 存儲到實例的 ThreadLocal 中
+			INSTANCE.rootThreadName.set(rootThreadName);
 		}
 
 		// 設置線程名稱為：基本名稱 + "-" + 前綴 + "-" + 任務索引
-		String taskName = baseName + "-" + namePrefix + "-" + taskIndex;
+		String taskName = rootThreadName + "-" + namePrefix + "-" + taskIndex;
 		Thread.currentThread().setName(taskName);
 
 		// 根據任務類型輸出不同的日誌
