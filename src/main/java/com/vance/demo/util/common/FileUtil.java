@@ -7,7 +7,6 @@ import java.util.Base64;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.SystemUtils;
 
 import com.google.common.hash.Hashing;
 
@@ -23,14 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 @UtilityClass
 public class FileUtil {
 
-    public static void main(String[] args) {
-        log.info("======= {} 開始 =======", FileUtil.class.getSimpleName());
-        File file = FileUtils.getFile(SystemUtils.getUserHome(), "Desktop", "test.txt");
-        log.info("{}", fileToBase64(file));
-        log.info("{}", getFileHashByCodec(file));
-        log.info("======= {} 結束 =======");
-    }
-
     /**
      * 使用 Guava 來計算檔案的 SHA-256 Hash
      * 
@@ -38,7 +29,6 @@ public class FileUtil {
      * @return 檔案雜湊值
      */
     public static String getFileHashByGuava(File file) {
-        log.info("File Path: {}", file.getAbsolutePath());
         try {
             return com.google.common.io.Files.asByteSource(file).hash(Hashing.sha256()).toString();
         } catch (Exception e) {
@@ -53,7 +43,6 @@ public class FileUtil {
      * @return 檔案雜湊值
      */
     public static String getFileHashByCodec(File file) {
-        log.info("File Path: {}", file.getAbsolutePath());
         try (FileInputStream fis = new FileInputStream(file)) {
             return DigestUtils.sha256Hex(fis);
         } catch (Exception e) {
