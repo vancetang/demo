@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 專案自定義 ###
+/test-data/
+/test-data-advanced/
