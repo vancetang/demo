@@ -31,14 +31,22 @@ jobs:
           for branch in $BRANCHES; do
             echo "Merging master into $branch"
             git checkout $branch
-            # 改用 --ff-only 以避免 merge commit
+            
+            # 1. 優先嘗試 Fast-forward 同步
             if git merge origin/master --ff-only; then
-              echo "✅ $branch is up-to-date with master"
+              echo "✅ $branch is up-to-date with master (Fast-forward)"
               git push origin $branch
             else
-              echo "❌ Merge conflict detected in $branch"
-              echo "- Branch $branch has conflicts with master." >> conflicts.txt
-              git merge --abort
+              echo "🔄 Fast-forward failed, attempting merge with -X theirs strategy"
+              # 2. 自動衝突處理 (-X theirs)：解決因 Squash Merge 導致的線圖斷裂
+              if git merge origin/master -m "chore(sync): sync master back to $branch [skip ci]" -X theirs; then
+                echo "✅ $branch synced with master using -X theirs strategy"
+                git push origin $branch
+              else
+                echo "❌ Merge conflict detected in $branch"
+                echo "- Branch $branch has conflicts with master that couldn't be automatically resolved." >> conflicts.txt
+                git merge --abort
+              fi
             fi
           done
 
