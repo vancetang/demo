@@ -97,7 +97,7 @@ public class XmlUtil {
 		}
 		try {
 			XPath xpath = XPATH_FACTORY.newXPath();
-			return CastUtil.cast(xpath.evaluate(buildXPath(tagName, true), source, XPathConstants.STRING));
+            return (String) xpath.evaluate(buildXPath(tagName, true), source, XPathConstants.STRING);
 		} catch (Exception e) {
 			log.error("提取標籤 [{}] 失敗", tagName);
 			return StringUtils.EMPTY;
