@@ -1,4 +1,4 @@
-package com.util;
+package com.vance.demo.util.common;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
