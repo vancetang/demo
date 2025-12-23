@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/vancetang/demo/compare/v3.0.0...v3.1.0) (2025-12-23)
+
+
+### Features
+
+* 強化工具類別、新增多執行緒測試及清理程式碼 ([#243](https://github.com/vancetang/demo/issues/243)) ([a39ff00](https://github.com/vancetang/demo/commit/a39ff00f2a5fe2ab89a46cacbf1997a48cfba18e))
+
 ## [3.0.0](https://github.com/vancetang/demo/compare/v2.0.0...v3.0.0) (2025-09-23)
 
 

@@ -209,7 +209,7 @@ public class CompletableFutureThreadPoolTest {
             for (int i = 0; i < testFiles.length; i++) {
                 Path filePath = folder.resolve(testFiles[i]);
                 if (!Files.exists(filePath)) {
-                    Files.write(filePath, testContents[i].getBytes("UTF-8"));
+                    Files.write(filePath, testContents[i].getBytes(java.nio.charset.StandardCharsets.UTF_8));
                     log.debug("建立測試檔案: {}", filePath.toAbsolutePath());
                 }
             }

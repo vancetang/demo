@@ -1,4 +1,4 @@
-package com.util;
+package com.vance.demo.util.common;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
@@ -97,7 +97,7 @@ public class XmlUtil {
 		}
 		try {
 			XPath xpath = XPATH_FACTORY.newXPath();
-			return CastUtil.cast(xpath.evaluate(buildXPath(tagName, true), source, XPathConstants.STRING));
+            return (String) xpath.evaluate(buildXPath(tagName, true), source, XPathConstants.STRING);
 		} catch (Exception e) {
 			log.error("提取標籤 [{}] 失敗", tagName);
 			return StringUtils.EMPTY;
@@ -130,7 +130,7 @@ public class XmlUtil {
 				for (String tag : tags) {
 					// 2. 在父節點下執行相對搜尋 (isDeepSearch = false)
 					String childExpr = buildXPath(tag, false);
-					String value = CastUtil.cast(xpath.evaluate(childExpr, parentNode, XPathConstants.STRING));
+                    String value = (String) xpath.evaluate(childExpr, parentNode, XPathConstants.STRING);
 					result.put(tag, value);
 				}
 			} else {
