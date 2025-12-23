@@ -130,7 +130,7 @@ public class XmlUtil {
 				for (String tag : tags) {
 					// 2. 在父節點下執行相對搜尋 (isDeepSearch = false)
 					String childExpr = buildXPath(tag, false);
-					String value = CastUtil.cast(xpath.evaluate(childExpr, parentNode, XPathConstants.STRING));
+                    String value = (String) xpath.evaluate(childExpr, parentNode, XPathConstants.STRING);
 					result.put(tag, value);
 				}
 			} else {
