@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.1](https://github.com/vancetang/demo/compare/v3.1.0...v3.1.1) (2025-12-23)
+
+
+### Bug Fixes
+
+* **workflow:** 修正 master 同步回 develop 的策略以支援 Squash Merge ([d521e95](https://github.com/vancetang/demo/commit/d521e9539ac914632dd3d1d95bb4ad348e46fcd6))
+* **workflow:** 修正自動反向同步策略並優化線圖斷裂處理 ([#249](https://github.com/vancetang/demo/issues/249)) ([0054b3f](https://github.com/vancetang/demo/commit/0054b3f45c9f8418487b2ecc4b82fd245a8b604e))
+
 ## [3.1.0](https://github.com/vancetang/demo/compare/v3.0.0...v3.1.0) (2025-12-23)
 
 
