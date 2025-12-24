@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.2.0](https://github.com/vancetang/demo/compare/v3.1.1...v3.2.0) (2025-12-24)
+
+
+### Features
+
+* **core:** 新增 RetryUtil 並移除 Java Preview 設定 ([4f52ab0](https://github.com/vancetang/demo/commit/4f52ab00a3cecea2051ad611e25c8906283431fe))
+* **core:** 新增 RetryUtil 並移除 Java Preview 設定 ([b315c20](https://github.com/vancetang/demo/commit/b315c204d428de6f0000ac98d1057d8f4b473ac8))
+
+
+### Bug Fixes
+
+* 強化 RetryUtil 的參數檢核與功能穩定性 ([983862a](https://github.com/vancetang/demo/commit/983862ad992dc9d1065f1dbe67859a18fdd3a4f2))
+
 ## [3.1.1](https://github.com/vancetang/demo/compare/v3.1.0...v3.1.1) (2025-12-23)
 
 
