@@ -1,6 +1,7 @@
 
 package com.vance.demo.util.common;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -13,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RetryUtil {
 
     public static void main(String[] args) {
-        String a = executeWithRetry("測試一下", 5, 3, () -> {
+        String a = executeWithRetry("測試一下", 3, 1, () -> {
             log.info("開始執行");
             throw new RuntimeException("故意失敗");
         });
@@ -32,6 +33,14 @@ public class RetryUtil {
      * @throws RuntimeException 全部失敗時拋出
      */
     public static <T> T executeWithRetry(String taskName, int maxAttempts, long intervalSeconds, Supplier<T> action) {
+        // 基本參數檢核
+        if (maxAttempts <= 0) {
+            throw new IllegalArgumentException("maxAttempts 必須為正數");
+        }
+        if (intervalSeconds < 0) {
+            throw new IllegalArgumentException("intervalSeconds 不可為負數");
+        }
+        Objects.requireNonNull(action, "action 不可為 null");
         Exception lastException = null;
         for (int i = 1; i <= maxAttempts; i++) {
             try {
