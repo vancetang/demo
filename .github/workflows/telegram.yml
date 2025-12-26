@@ -15,12 +15,36 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Print Telegram Chat ID (Masked)
+        env:
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          echo "Telegram Chat ID 長度: ${#TELEGRAM_CHAT_ID}"
+          if [ -n "$TELEGRAM_CHAT_ID" ]; then
+            echo "Chat ID 已設定 ✓: ${TELEGRAM_CHAT_ID}"
+          else
+            echo "⚠️ 警告: TELEGRAM_CHAT_ID 未設定或為空"
+          fi
+
       - name: Run Telegram bot test
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           MESSAGE="${{ github.event.inputs.message }}"
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+          echo "準備發送訊息到 Telegram..."
+
+          RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d "chat_id=${TELEGRAM_CHAT_ID}" \
-            -d "text=${MESSAGE}"
+            -d "text=${MESSAGE}")
+
+          echo "Telegram API 回應:"
+          echo "$RESPONSE" | jq '.' || echo "$RESPONSE"
+
+          # 檢查是否發送成功
+          if echo "$RESPONSE" | grep -q '"ok":true'; then
+            echo "✓ 訊息發送成功！"
+          else
+            echo "✗ 訊息發送失敗"
+            exit 1
+          fi
