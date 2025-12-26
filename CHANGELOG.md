@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.3.0](https://github.com/vancetang/demo/compare/v3.2.0...v3.3.0) (2025-12-26)
+
+
+### Features
+
+* **.github/workflows/telegram.yml:** 增強 Telegram Bot 發送訊息功能 ([946c258](https://github.com/vancetang/demo/commit/946c2581091f85f288a52d7ed43fb3e946f68d20))
+* **Telegram_Workflow:** 新增 Telegram Workflow 更新摘要與說明文件 ([17b1592](https://github.com/vancetang/demo/commit/17b159286de52273788526432efc4a96853ee9af))
+* **telegram:** 優化 Telegram 工作流程 ([4b2b758](https://github.com/vancetang/demo/commit/4b2b75877323a019c03f11a4c3f1b80fa6d60bcd))
+* **telegram:** 優化與增強 Telegram 工作流程並新增說明文件 ([a9fb768](https://github.com/vancetang/demo/commit/a9fb768a8546eebb35eb50c61d0d98a7d715b844))
+
 ## [3.2.0](https://github.com/vancetang/demo/compare/v3.1.1...v3.2.0) (2025-12-24)
 
 
