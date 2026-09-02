@@ -26,4 +26,4 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_JCIC_WEBHOOK }}
         with:
-          args: "專案 {{ EVENT_PAYLOAD.repository.full_name }} 有新的提交：{{ EVENT_PAYLOAD.head_commit.message }}"
+          args: "專案 {{ github.repository }} 有新的提交：{{ github.event.inputs.message }}"
