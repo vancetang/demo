@@ -1,0 +1,22 @@
+name: Discord Notification
+
+on:
+  workflow_dispatch: # 可以手動執行此 action
+    inputs:
+      message:
+        description: "欲發送的訊息" # 輸入欄位的描述
+        required: true # 是否為必要欄位
+        default: "這是從 GitHub Actions 發送的測試訊息！" # 預設值（可選）
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_JCIC_WEBHOOK }}
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "{\"content\": \"🚀 **部署通知**: Repository \`${{ github.repository }}\` 已成功推送到 \`${{ github.ref_name }}\` 分支！\n\n訊息內容: ${{ github.event.inputs.message }}\"}" \
+               $DISCORD_WEBHOOK
