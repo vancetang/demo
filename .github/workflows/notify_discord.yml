@@ -20,10 +20,3 @@ jobs:
                -X POST \
                -d "{\"content\": \"🚀 **部署通知**: Repository \`${{ github.repository }}\` 已成功推送到 \`${{ github.ref_name }}\` 分支！\n\n訊息內容: ${{ github.event.inputs.message }}\"}" \
                $DISCORD_WEBHOOK
-
-      - name: Send Discord Action
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_JCIC_WEBHOOK }}
-        with:
-          args: "專案 {{ github.repository }} 有新的提交：{{ github.event.inputs.message }}"
